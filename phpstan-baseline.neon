@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: "#^Variable method call on PHECovid\\\\Api\\\\AbstractApi\\.$#"
+			count: 1
+			path: src/ResultPager.php
+
