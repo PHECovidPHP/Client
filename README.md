@@ -6,7 +6,7 @@ We present a [PHE Covid API](https://coronavirus.data.gov.uk/details/developers-
 <a href="https://github.com/PHECovidPHP/Client/actions?query=workflow%3ATests"><img src="https://img.shields.io/github/workflow/status/PHECovidPHP/Client/Tests?label=Tests&style=flat-square" alt="Build Status"></img></a>
 <a href="https://github.styleci.io/repos/327372053"><img src="https://github.styleci.io/repos/327372053/shield" alt="StyleCI Status"></img></a>
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-brightgreen?style=flat-square" alt="Software License"></img></a>
-<a href="https://packagist.org/packages/covid-19/client"><img src="https://img.shields.io/packagist/dt/covid-19/client?style=flat-square" alt="Packagist Downloads"></img></a>
+<a href="https://packagist.org/packages/phe-covid/client"><img src="https://img.shields.io/packagist/dt/phe-covid/client?style=flat-square" alt="Packagist Downloads"></img></a>
 <a href="https://github.com/PHECovidPHP/Client/releases"><img src="https://img.shields.io/github/release/PHECovidPHP/Client?style=flat-square" alt="Latest Version"></img></a>
 </p>
 
