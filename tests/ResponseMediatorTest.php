@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace PHECovid\Tests;
 
-use PHECovid\Exception\RuntimeException;
-use PHECovid\HttpClient\Message\ResponseMediator;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Utils;
+use PHECovid\Exception\RuntimeException;
+use PHECovid\HttpClient\Message\ResponseMediator;
 use PHPUnit\Framework\TestCase;
 
 /**

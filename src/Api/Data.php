@@ -169,9 +169,9 @@ class Data extends AbstractApi
     protected function getData(array $filters): ?array
     {
         return $this->get('data', \array_filter([
-            'filters'   => $this->buildFilters($filters),
+            'filters' => $this->buildFilters($filters),
             'structure' => JsonArray::encode($this->structure),
-            'latestBy'  => $this->latestBy,
+            'latestBy' => $this->latestBy,
         ]));
     }
 
@@ -184,7 +184,7 @@ class Data extends AbstractApi
     {
         $output = '';
 
-        if ($this->date !== null) {
+        if (null !== $this->date) {
             $filters['date'] = $this->date->getTimestamp();
         }
 

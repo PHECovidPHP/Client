@@ -13,18 +13,18 @@ declare(strict_types=1);
 
 namespace PHECovid;
 
-use PHECovid\Api\Data;
-use PHECovid\HttpClient\Builder;
-use PHECovid\HttpClient\Message\ResponseMediator;
-use PHECovid\HttpClient\Plugin\ExceptionThrower;
-use PHECovid\HttpClient\Plugin\History;
-use PHECovid\Model\Date;
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\AddHostPlugin;
 use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Discovery\Psr17FactoryDiscovery;
+use PHECovid\Api\Data;
+use PHECovid\HttpClient\Builder;
+use PHECovid\HttpClient\Message\ResponseMediator;
+use PHECovid\HttpClient\Plugin\ExceptionThrower;
+use PHECovid\HttpClient\Plugin\History;
+use PHECovid\Model\Date;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 

@@ -13,11 +13,6 @@ declare(strict_types=1);
 
 namespace PHECovid\Gen;
 
-use AltThree\Config\Langs\PhpConfig;
-use Exception;
-use PhpCsFixer\Fixer\DefinedFixerInterface;
-use PhpCsFixer\FixerFactory;
-
 /**
  * This is the generator class.
  *
@@ -98,7 +93,7 @@ final class %s
 
     private static function generateMethod(string $class, string $name): string
     {
-        $method = \lcfirst(str_replace([' ', ',', '.'], ['', '', ''], \ucwords(str_replace(['\'', '-'], ['', ' '], $name))));
+        $method = \lcfirst(\str_replace([' ', ',', '.'], ['', '', ''], \ucwords(\str_replace(['\'', '-'], ['', ' '], $name))));
 
         return \sprintf(self::METHOD_TEMPLATE, $class, $method, \str_replace('\'', '\\\'', $name));
     }

@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace PHECovid;
 
-use PHECovid\Api\AbstractApi;
 use Generator;
+use PHECovid\Api\AbstractApi;
 
 /**
  * This is the result pager interface.
@@ -27,8 +27,8 @@ interface ResultPagerInterface
      * Fetch a single result from an api call.
      *
      * @param \PHECovid\Api\AbstractApi $api
-     * @param string                     $method
-     * @param array                      $parameters
+     * @param string                    $method
+     * @param array                     $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -40,8 +40,8 @@ interface ResultPagerInterface
      * Fetch all results from an api call.
      *
      * @param \PHECovid\Api\AbstractApi $api
-     * @param string                     $method
-     * @param array                      $parameters
+     * @param string                    $method
+     * @param array                     $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -53,8 +53,8 @@ interface ResultPagerInterface
      * Lazily fetch all results from an api call.
      *
      * @param \PHECovid\Api\AbstractApi $api
-     * @param string                     $method
-     * @param array                      $parameters
+     * @param string                    $method
+     * @param array                     $parameters
      *
      * @throws \Http\Client\Exception
      *
