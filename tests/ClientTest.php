@@ -13,8 +13,8 @@ declare(strict_types=1);
 
 namespace PHECovid\Tests;
 
-use PHECovid\Client;
 use Http\Client\Common\HttpMethodsClientInterface;
+use PHECovid\Client;
 use PHPUnit\Framework\TestCase;
 
 /**

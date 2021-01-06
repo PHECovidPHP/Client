@@ -13,13 +13,13 @@ declare(strict_types=1);
 
 namespace PHECovid\HttpClient\Plugin;
 
+use Http\Client\Common\Plugin;
+use Http\Promise\Promise;
 use PHECovid\Exception\ApiLimitExceededException;
 use PHECovid\Exception\ExceptionInterface;
 use PHECovid\Exception\RuntimeException;
 use PHECovid\Exception\ValidationFailedException;
 use PHECovid\HttpClient\Message\ResponseMediator;
-use Http\Client\Common\Plugin;
-use Http\Promise\Promise;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 

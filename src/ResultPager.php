@@ -13,10 +13,10 @@ declare(strict_types=1);
 
 namespace PHECovid;
 
+use Generator;
 use PHECovid\Api\AbstractApi;
 use PHECovid\Exception\RuntimeException;
 use PHECovid\HttpClient\Message\ResponseMediator;
-use Generator;
 
 /**
  * This is the result pager class.
@@ -56,8 +56,8 @@ final class ResultPager implements ResultPagerInterface
      * Fetch a single result from an api call.
      *
      * @param \PHECovid\Api\AbstractApi $api
-     * @param string                     $method
-     * @param array                      $parameters
+     * @param string                    $method
+     * @param array                     $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -81,8 +81,8 @@ final class ResultPager implements ResultPagerInterface
      * Fetch all results from an api call.
      *
      * @param \PHECovid\Api\AbstractApi $api
-     * @param string                     $method
-     * @param array                      $parameters
+     * @param string                    $method
+     * @param array                     $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -97,8 +97,8 @@ final class ResultPager implements ResultPagerInterface
      * Lazily fetch all results from an api call.
      *
      * @param \PHECovid\Api\AbstractApi $api
-     * @param string                     $method
-     * @param array                      $parameters
+     * @param string                    $method
+     * @param array                     $parameters
      *
      * @throws \Http\Client\Exception
      *

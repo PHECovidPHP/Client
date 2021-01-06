@@ -15,7 +15,6 @@ namespace PHECovid\Api;
 
 use PHECovid\Client;
 use PHECovid\HttpClient\Message\ResponseMediator;
-use PHECovid\HttpClient\Util\JsonArray;
 use PHECovid\HttpClient\Util\QueryStringBuilder;
 use Psr\Http\Message\ResponseInterface;
 

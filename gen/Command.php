@@ -14,8 +14,8 @@ declare(strict_types=1);
 namespace PHECovid\Gen;
 
 use PHECovid\Client;
-use PHECovid\ResultPager;
 use PHECovid\Model\Date;
+use PHECovid\ResultPager;
 
 /**
  * This is the generator class.
@@ -44,13 +44,13 @@ final class Command
         return 0;
     }
 
-    private function generate(string $type)
+    private function generate(string $type): void
     {
         $filename = \sprintf('%s/../src/Model/%s.php', __DIR__, \ucfirst($type));
         $content = Generator::generate($type, $this->fetchData(\sprintf('by%s', \ucfirst($type))));
 
         \file_put_contents($filename, $content);
-        echo \sprintf("Written %s\n", basename($filename));
+        echo \sprintf("Written %s\n", \basename($filename));
     }
 
     private function fetchData(string $method): array
