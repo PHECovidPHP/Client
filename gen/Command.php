@@ -78,10 +78,10 @@ final class Command
         foreach ($regions as $region) {
             foreach ($region['la'] as $la) {
                 foreach ($la['msoa'] as $code => $msoa) {
-                    if ($code === 'E02006049') {
+                    if ('E02006049' === $code) {
                         $msoa['name'] .= ' 1';
                     }
-                    if ($code === 'E02006050') {
+                    if ('E02006050' === $code) {
                         $msoa['name'] .= ' 2';
                     }
                     $map[$code] = ['la' => $la['name'], 'name' => $msoa['name']];

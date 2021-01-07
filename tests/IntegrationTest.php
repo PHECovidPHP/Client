@@ -17,10 +17,7 @@ use DateInterval;
 use DateTimeImmutable;
 use PHECovid\Client;
 use PHECovid\Model\Date;
-use PHECovid\Model\Ltla;
 use PHECovid\Model\Msoa;
-use PHECovid\Model\Region;
-use PHECovid\Model\Utla;
 use PHPUnit\Framework\TestCase;
 
 /**

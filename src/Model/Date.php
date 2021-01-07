@@ -72,7 +72,7 @@ final class Date
      */
     public static function createFromTimestamp(string $timestamp): self
     {
-        if (@\preg_match('#^\d\d\d\d-\d\d-\d\d$#', $timestamp) !== 1) {
+        if (1 !== @\preg_match('#^\d\d\d\d-\d\d-\d\d$#', $timestamp)) {
             throw new \ValueError(self::class.'::createFromTimestamp(): Argument #1 ($timestamp) must be of the form YYYY-MM-DD');
         }
 

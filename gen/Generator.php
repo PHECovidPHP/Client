@@ -115,9 +115,9 @@ final class %s
         return \sprintf(
             self::METHOD_TEMPLATE,
             $class,
-            \lcfirst(\str_replace([' ', ',', '.'], ['', '', ''], \ucwords(\str_replace(['\'', '!', '-', '(', ')', '&'], ['', '', ' ', ' ', ' ', 'and'], $la === null ? $name : \sprintf('%s %s', $la, $name))))),
+            \lcfirst(\str_replace([' ', ',', '.'], ['', '', ''], \ucwords(\str_replace(['\'', '!', '-', '(', ')', '&'], ['', '', ' ', ' ', ' ', 'and'], null === $la ? $name : \sprintf('%s %s', $la, $name))))),
             \sprintf('\'%s\'', \str_replace('\'', '\\\'', $name)),
-            $code === 'null' ? 'null' : \sprintf('\'%s\'', $code)
+            'null' === $code ? 'null' : \sprintf('\'%s\'', $code)
         );
     }
 }

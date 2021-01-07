@@ -15,7 +15,6 @@ namespace PHECovid\Api;
 
 use PHECovid\Client;
 use PHECovid\Exception\RuntimeException;
-use PHECovid\HttpClient\Util\JsonArray;
 use PHECovid\Model\Cases;
 use PHECovid\Model\Date;
 use PHECovid\Model\Ltla;
@@ -125,7 +124,6 @@ class DataV2 extends AbstractApi
             }
 
             /** @var array{date:string, newCasesBySpecimenDateRollingSum:int, newCasesBySpecimenDateRollingRate:int|float, newCasesBySpecimenDateChange:int, newCasesBySpecimenDateChangePercentage:int|float} $entry */
-
             $cases = Cases::create(
                 $entry['date'],
                 $entry['newCasesBySpecimenDateRollingSum'],
