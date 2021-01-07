@@ -22,11 +22,11 @@ use PHECovid\Model\Region;
 use PHECovid\Model\Utla;
 
 /**
- * The data API class.
+ * The data V1 API class.
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
-class Data extends AbstractApi
+class DataV1 extends AbstractApi
 {
     /**
      * @var array
@@ -34,7 +34,7 @@ class Data extends AbstractApi
     protected $structure;
 
     /**
-     * @var Date|null
+     * @var \PHECovid\Model\Date|null
      */
     protected $date;
 
@@ -168,7 +168,7 @@ class Data extends AbstractApi
      */
     protected function getData(array $filters): ?array
     {
-        return $this->get('data', \array_filter([
+        return $this->get('v1/data', \array_filter([
             'filters' => $this->buildFilters($filters),
             'structure' => JsonArray::encode($this->structure),
             'latestBy' => $this->latestBy,

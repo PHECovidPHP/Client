@@ -24,13 +24,20 @@ final class Region
     private $name;
 
     /**
-     * @param string $name
+     * @var string|null
+     */
+    private $code;
+
+    /**
+     * @param string      $name
+     * @param string|null $code
      *
      * @return void
      */
-    private function __construct(string $name)
+    private function __construct(string $name, ?string $code)
     {
         $this->name = $name;
+        $this->code = $code;
     }
 
     /**
@@ -38,7 +45,7 @@ final class Region
      */
     public static function eastMidlands(): self
     {
-        return new self('East Midlands');
+        return new self('East Midlands', 'E12000004');
     }
 
     /**
@@ -46,7 +53,7 @@ final class Region
      */
     public static function eastOfEngland(): self
     {
-        return new self('East of England');
+        return new self('East of England', 'E12000006');
     }
 
     /**
@@ -54,7 +61,7 @@ final class Region
      */
     public static function london(): self
     {
-        return new self('London');
+        return new self('London', 'E12000007');
     }
 
     /**
@@ -62,7 +69,7 @@ final class Region
      */
     public static function northEast(): self
     {
-        return new self('North East');
+        return new self('North East', 'E12000001');
     }
 
     /**
@@ -70,7 +77,7 @@ final class Region
      */
     public static function northWest(): self
     {
-        return new self('North West');
+        return new self('North West', 'E12000002');
     }
 
     /**
@@ -78,7 +85,7 @@ final class Region
      */
     public static function southEast(): self
     {
-        return new self('South East');
+        return new self('South East', 'E12000008');
     }
 
     /**
@@ -86,7 +93,7 @@ final class Region
      */
     public static function southWest(): self
     {
-        return new self('South West');
+        return new self('South West', 'E12000009');
     }
 
     /**
@@ -94,7 +101,7 @@ final class Region
      */
     public static function westMidlands(): self
     {
-        return new self('West Midlands');
+        return new self('West Midlands', 'E12000005');
     }
 
     /**
@@ -102,7 +109,7 @@ final class Region
      */
     public static function yorkshireAndTheHumber(): self
     {
-        return new self('Yorkshire and The Humber');
+        return new self('Yorkshire and The Humber', 'E12000003');
     }
 
     /**
@@ -111,5 +118,17 @@ final class Region
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        if (null === $this->code) {
+            throw new \BadMethodCallException('Area code not available.');
+        }
+
+        return $this->code;
     }
 }

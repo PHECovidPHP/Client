@@ -36,6 +36,3 @@ error_reporting(E_ALL);
 })();
 
 exit(PHECovid\Gen\Command::create()->run());
-
-// file_put_contents(__DIR__.'/../resources/fixers.json', sprintf("%s\n", json_encode(AltThree\Gen\Config\Generator::fixers(), JSON_PRETTY_PRINT)));
-// echo "Written fixers.json\n";

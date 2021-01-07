@@ -25,18 +25,11 @@ use Psr\Http\Message\ResponseInterface;
 final class ResponseMediator
 {
     /**
-     * The content type header.
-     *
-     * @var string
-     */
-    public const CONTENT_TYPE_HEADER = 'Content-Type';
-
-    /**
      * The JSON content type identifier.
      *
      * @var string
      */
-    public const JSON_CONTENT_TYPE = 'application/vnd.PHE-COVID19.v1+json';
+    public const JSON_CONTENT_TYPE = 'application/json';
 
     /**
      * Get the decoded response content.
@@ -59,10 +52,6 @@ final class ResponseMediator
 
         if ('' === $body) {
             throw new RuntimeException('The response body was unexpectedly empty.');
-        }
-
-        if (0 !== \strpos($response->getHeaderLine(self::CONTENT_TYPE_HEADER), self::JSON_CONTENT_TYPE)) {
-            throw new RuntimeException(\sprintf('The content type was not %s.', self::JSON_CONTENT_TYPE));
         }
 
         return JsonArray::decode($body);

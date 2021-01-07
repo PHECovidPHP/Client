@@ -18,7 +18,7 @@ Check out the [change log](CHANGELOG.md), [releases](https://github.com/PHECovid
 This version supports [PHP](https://php.net) 7.2-8.0. To get started, simply require the project using [Composer](https://getcomposer.org). You will also need to install packages that "provide" [`psr/http-client-implementation`](https://packagist.org/providers/psr/http-client-implementation) and [`psr/http-factory-implementation`](https://packagist.org/providers/psr/http-factory-implementation).
 
 ```bash
-$ composer require phe-covid/client:^1.0 guzzlehttp/guzzle:^7.2 http-interop/http-factory-guzzle:^1.0
+$ composer require phe-covid/client:^2.0 guzzlehttp/guzzle:^7.2 http-interop/http-factory-guzzle:^1.0
 ```
 
 We are decoupled from any HTTP messaging client by using [PSR-7](https://www.php-fig.org/psr/psr-7/), [PSR-17](https://www.php-fig.org/psr/psr-17/), [PSR-18](https://www.php-fig.org/psr/psr-18/), and [HTTPlug](https://httplug.io/). You can visit [HTTPlug for library users](https://docs.php-http.org/en/latest/httplug/users.html) to get more information about installing HTTPlug related packages.

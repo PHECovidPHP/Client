@@ -46,13 +46,20 @@ final class %s
     private $name;
 
     /**
-     * @param string $name
+     * @var string|null
+     */
+    private $code;
+
+    /**
+     * @param string      $name
+     * @param string|null $code
      *
      * @return void
      */
-    private function __construct(string $name)
+    private function __construct(string $name, ?string $code)
     {
         $this->name = $name;
+        $this->code = $code;
     }
 %s
     /**
@@ -61,6 +68,18 @@ final class %s
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        if (null === $this->code) {
+            throw new \BadMethodCallException(\'Area code not available.\');
+        }
+
+        return $this->code;
     }
 }
 ';
@@ -71,30 +90,34 @@ final class %s
      */
     public static function %s(): self
     {
-        return new self(\'%s\');
+        return new self(%s, %s);
     }
 ';
 
-    public static function generate(string $type, array $list): string
+    public static function generate(string $class, array $map): string
     {
-        return \sprintf(self::FILE_TEMPLATE, \ucfirst($type), self::generateMethods(\ucfirst($type), $list));
+        return \sprintf(self::FILE_TEMPLATE, $class, self::generateMethods($class, $map));
     }
 
-    private static function generateMethods(string $class, array $list): string
+    private static function generateMethods(string $class, array $map): string
     {
         $output = '';
 
-        foreach ($list as $name) {
-            $output .= self::generateMethod($class, $name);
+        foreach ($map as $code => $data) {
+            $output .= self::generateMethod($class, $code, $data['name'], $data['la'] ?? null);
         }
 
         return $output;
     }
 
-    private static function generateMethod(string $class, string $name): string
+    private static function generateMethod(string $class, string $code, string $name, ?string $la): string
     {
-        $method = \lcfirst(\str_replace([' ', ',', '.'], ['', '', ''], \ucwords(\str_replace(['\'', '-'], ['', ' '], $name))));
-
-        return \sprintf(self::METHOD_TEMPLATE, $class, $method, \str_replace('\'', '\\\'', $name));
+        return \sprintf(
+            self::METHOD_TEMPLATE,
+            $class,
+            \lcfirst(\str_replace([' ', ',', '.'], ['', '', ''], \ucwords(\str_replace(['\'', '!', '-', '(', ')', '&'], ['', '', ' ', ' ', ' ', 'and'], $la === null ? $name : \sprintf('%s %s', $la, $name))))),
+            \sprintf('\'%s\'', \str_replace('\'', '\\\'', $name)),
+            $code === 'null' ? 'null' : \sprintf('\'%s\'', $code)
+        );
     }
 }

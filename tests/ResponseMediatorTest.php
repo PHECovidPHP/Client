@@ -35,21 +35,6 @@ class ResponseMediatorTest extends TestCase
         $this->assertSame(['foo' => 'bar'], ResponseMediator::getContent($response));
     }
 
-    public function testGetContentNotJson(): void
-    {
-        $body = 'foobar';
-        $response = new Response(
-            200,
-            [],
-            Utils::streamFor($body)
-        );
-
-        $this->expectException(RuntimeException::class);
-        $this->expectExceptionMessage('The content type was not application/vnd.PHE-COVID19.v1+json.');
-
-        ResponseMediator::getContent($response);
-    }
-
     public function testGetContentInvalidJson(): void
     {
         $body = 'foobar';

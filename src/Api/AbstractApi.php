@@ -24,13 +24,6 @@ use Psr\Http\Message\ResponseInterface;
 abstract class AbstractApi
 {
     /**
-     * The URI prefix.
-     *
-     * @var string
-     */
-    private const URI_PREFIX = '/v1/';
-
-    /**
      * The client instance.
      *
      * @var Client
@@ -103,6 +96,6 @@ abstract class AbstractApi
      */
     private static function prepareUri(string $uri, array $query = []): string
     {
-        return \sprintf('%s%s%s', self::URI_PREFIX, $uri, QueryStringBuilder::build($query));
+        return \sprintf('%s%s', $uri, QueryStringBuilder::build($query));
     }
 }

@@ -15,8 +15,10 @@ rules:
 parameters:
     level: max
     paths:
+        - gen
         - src
     checkMissingIterableValueType: false
+    treatPhpDocTypesAsCertain: false
     stubFiles:
         - .stubs/Psr/Http/Message/StreamInterface.phpstub
         - .stubs/Psr/Http/Message/UriInterface.phpstub

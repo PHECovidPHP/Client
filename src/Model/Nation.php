@@ -24,13 +24,20 @@ final class Nation
     private $name;
 
     /**
-     * @param string $name
+     * @var string|null
+     */
+    private $code;
+
+    /**
+     * @param string      $name
+     * @param string|null $code
      *
      * @return void
      */
-    private function __construct(string $name)
+    private function __construct(string $name, ?string $code)
     {
         $this->name = $name;
+        $this->code = $code;
     }
 
     /**
@@ -38,7 +45,7 @@ final class Nation
      */
     public static function england(): self
     {
-        return new self('England');
+        return new self('England', 'E92000001');
     }
 
     /**
@@ -46,7 +53,7 @@ final class Nation
      */
     public static function northernIreland(): self
     {
-        return new self('Northern Ireland');
+        return new self('Northern Ireland', 'N92000002');
     }
 
     /**
@@ -54,7 +61,7 @@ final class Nation
      */
     public static function scotland(): self
     {
-        return new self('Scotland');
+        return new self('Scotland', 'S92000003');
     }
 
     /**
@@ -62,7 +69,7 @@ final class Nation
      */
     public static function wales(): self
     {
-        return new self('Wales');
+        return new self('Wales', 'W92000004');
     }
 
     /**
@@ -71,5 +78,17 @@ final class Nation
     public function getName(): string
     {
         return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        if (null === $this->code) {
+            throw new \BadMethodCallException('Area code not available.');
+        }
+
+        return $this->code;
     }
 }

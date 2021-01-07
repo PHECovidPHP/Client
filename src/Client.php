@@ -19,7 +19,8 @@ use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Discovery\Psr17FactoryDiscovery;
-use PHECovid\Api\Data;
+use PHECovid\Api\DataV1;
+use PHECovid\Api\DataV2;
 use PHECovid\HttpClient\Builder;
 use PHECovid\HttpClient\Message\ResponseMediator;
 use PHECovid\HttpClient\Plugin\ExceptionThrower;
@@ -47,7 +48,7 @@ class Client
      *
      * @var string
      */
-    private const USER_AGENT = 'covid-php-api-client/1.0';
+    private const USER_AGENT = 'covid-php-api-client/2.0';
 
     /**
      * The HTTP client builder.
@@ -106,11 +107,21 @@ class Client
      * @param \PHECovid\Model\Date $date
      * @param string|null          $latestBy
      *
-     * @return \PHECovid\Api\Data
+     * @return \PHECovid\Api\DataV1
      */
-    public function data(array $structure, Date $date = null, string $latestBy = null): Data
+    public function dataV1(array $structure, Date $date = null, string $latestBy = null): DataV1
     {
-        return new Data($this, $structure, $date, $latestBy);
+        return new DataV1($this, $structure, $date, $latestBy);
+    }
+
+    /**
+     * @param \PHECovid\Model\Date|null $since
+     *
+     * @return \PHECovid\Api\DataV2
+     */
+    public function dataV2(Date $since = null): DataV2
+    {
+        return new DataV2($this, $since);
     }
 
     /**
