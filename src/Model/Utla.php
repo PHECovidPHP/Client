@@ -2032,6 +2032,6 @@ final class Utla
             throw new \BadMethodCallException('Region code not available.');
         }
 
-        return Region::fromCode($this->utlaCode);
+        return Region::fromCode($this->regionCode);
     }
 }

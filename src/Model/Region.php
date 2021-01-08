@@ -158,4 +158,12 @@ final class Region
     {
         return $this->code;
     }
+
+    /**
+     * @return \PHECovid\Client\Model\Nation
+     */
+    public function getNation(): Nation
+    {
+        return Nation::england();
+    }
 }

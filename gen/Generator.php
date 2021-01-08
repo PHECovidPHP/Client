@@ -20,7 +20,7 @@ namespace PHECovid\Gen\Client;
  */
 final class Generator
 {
-    private const FILE_TEMPLATE = '<?php
+    private const NATION_TEMPLATE = '<?php
 
 declare(strict_types=1);
 
@@ -38,7 +38,7 @@ namespace PHECovid\\Client\\Model;
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-final class %s
+final class Nation
 {
     /**
      * @var array<string,string>
@@ -72,7 +72,7 @@ final class %s
     /**
      * @param string $code
      *
-     * @return \\PHECovid\\Client\\Model\\%s
+     * @return \\PHECovid\\Client\\Model\\Nation
      */
     public static function fromCode(string $code): self
     {
@@ -99,6 +99,97 @@ final class %s
     public function getCode(): string
     {
         return $this->code;
+    }
+}
+';
+
+    private const REGION_TEMPLATE = '<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the PHE Covid API Client.
+ *
+ * (c) Graham Campbell <graham@alt-three.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace PHECovid\\Client\\Model;
+
+/**
+ * @author Graham Campbell <graham@alt-three.com>
+ */
+final class Region
+{
+    /**
+     * @var array<string,string>
+     */
+    private const CODE_TO_METHOD = [
+%s
+    ];
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $code;
+
+    /**
+     * @param string $name
+     * @param string $code
+     *
+     * @return void
+     */
+    private function __construct(string $name, string $code)
+    {
+        $this->name = $name;
+        $this->code = $code;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return \\PHECovid\\Client\\Model\\Region
+     */
+    public static function fromCode(string $code): self
+    {
+        $method = self::CODE_TO_METHOD[$code] ?? null;
+
+        if (null === $method) {
+            throw new \\InvalidArgumentException(\'Unknown area code.\');
+        }
+
+        return self::$method();
+    }
+%s
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return \\PHECovid\\Client\\Model\\Nation
+     */
+    public function getNation(): Nation
+    {
+        return Nation::england();
     }
 }
 ';
@@ -204,7 +295,7 @@ final class Utla
             throw new \\BadMethodCallException(\'Region code not available.\');
         }
 
-        return Region::fromCode($this->utlaCode);
+        return Region::fromCode($this->regionCode);
     }
 }
 ';
@@ -433,14 +524,21 @@ final class Msoa
     }
 ';
 
-    public static function generateClass(string $class, array $map): string
+    public static function generateNation(array $map): string
     {
         return \sprintf(
-            self::FILE_TEMPLATE,
-            $class,
+            self::NATION_TEMPLATE,
             self::generateMap($map),
-            $class,
-            self::generateClassMethods($class, $map)
+            self::generateClassMethods('Nation', $map)
+        );
+    }
+
+    public static function generateRegion(array $map): string
+    {
+        return \sprintf(
+            self::REGION_TEMPLATE,
+            self::generateMap($map),
+            self::generateClassMethods('Region', $map)
         );
     }
 

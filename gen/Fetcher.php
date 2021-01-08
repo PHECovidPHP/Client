@@ -51,7 +51,17 @@ final class Fetcher
         return new self(new Client());
     }
 
-    public function fetchAreaData(string $method): array
+    public function fetchNationData(): array
+    {
+        return $this->fetchAreaData('byNation');
+    }
+
+    public function fetchRegionData(): array
+    {
+        return $this->fetchAreaData('byRegion');
+    }
+
+    private function fetchAreaData(string $method): array
     {
         $pager = new ResultPager($this->client);
 

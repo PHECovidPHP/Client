@@ -37,8 +37,8 @@ final class Command
 
     public function run(): int
     {
-        $this->generateClass('Nation', $this->fetcher->fetchAreaData('byNation'));
-        $this->generateClass('Region', $this->fetcher->fetchAreaData('byRegion'));
+        $this->generateNation($this->fetcher->fetchNationData());
+        $this->generateRegion($this->fetcher->fetchRegionData());
         $this->generateUtla($this->fetcher->fetchUtlaData());
         $this->generateLtla($this->fetcher->fetchLtlaData());
         $this->generateMsoa($this->fetcher->fetchMsoaData());
@@ -46,10 +46,19 @@ final class Command
         return 0;
     }
 
-    private function generateClass(string $class, array $map): void
+    private function generateNation(array $map): void
     {
-        $filename = \sprintf('%s/../src/Model/%s.php', __DIR__, $class);
-        $content = Generator::generateClass($class, $map);
+        $filename = \sprintf('%s/../src/Model/Nation.php', __DIR__);
+        $content = Generator::generateNation($map);
+
+        \file_put_contents($filename, $content);
+        echo \sprintf("Written %s\n", \basename($filename));
+    }
+
+    private function generateRegion(array $map): void
+    {
+        $filename = \sprintf('%s/../src/Model/Region.php', __DIR__);
+        $content = Generator::generateRegion($map);
 
         \file_put_contents($filename, $content);
         echo \sprintf("Written %s\n", \basename($filename));
