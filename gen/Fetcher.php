@@ -13,6 +13,7 @@ declare(strict_types=1);
 
 namespace PHECovid\Gen\Client;
 
+use GuzzleHttp\Psr7\Utils;
 use PHECovid\Client\Client;
 use PHECovid\Client\HttpClient\Util\JsonArray;
 use PHECovid\Client\Model\Date;
@@ -25,6 +26,16 @@ use PHECovid\Client\ResultPager;
  */
 final class Fetcher
 {
+    /**
+     * @var array<string,string>
+     */
+    private const LEGACY_LTLA_TO_UTLA_MAP = [
+        'E07000004' => 'E10000002',
+        'E07000005' => 'E10000002',
+        'E07000006' => 'E10000002',
+        'E07000007' => 'E10000002',
+    ];
+
     /**
      * @var \PHECovid\Client\Client
      */
@@ -49,13 +60,83 @@ final class Fetcher
             Date::create(2020, 12, 30)
         );
 
-        $entries = [];
+        $map = [];
 
         foreach ($pager->fetchAll($data, $method) as $raw) {
-            $entries[$raw['areaCode']] = ['name' => $raw['areaName']];
+            $map[$raw['areaCode']] = ['name' => $raw['areaName']];
         }
 
-        return $entries;
+        return $map;
+    }
+
+    public function fetchUtlaData(): array
+    {
+        $parents = $this->fetchDistrictToRegionData();
+
+        $map = [];
+
+        foreach ($this->fetchAreaData('byUtla') as $code => $data) {
+            if (isset($parents[$code])) {
+                $data['parent'] = ['code' => $parents[$code]];
+            }
+
+            $map[$code] = $data;
+        }
+
+        return $map;
+    }
+
+    private function fetchDistrictToRegionData(): array
+    {
+        // https://geoportal.statistics.gov.uk/datasets/local-authority-district-to-region-december-2020-lookup-in-england/data?page=16
+        $body = $this->client->getHttpClient()->get('https://opendata.arcgis.com/datasets/054349b09c094df2a97f8ddbd169c7a7_0.csv')->getBody();
+        $body->rewind();
+
+        $map = [];
+
+        while ('' !== ($line = Utils::readLine($body))) {
+            $parsed = \str_getcsv($line);
+            if (isset($parsed[3]) && 'RGN20CD' !== $parsed[3]) {
+                $map[$parsed[1]] = $parsed[3];
+            }
+        }
+
+        return $map;
+    }
+
+    public function fetchLtlaData(): array
+    {
+        $parents = $this->fetchLtlaToUtlaData();
+
+        $map = [];
+
+        foreach ($this->fetchAreaData('byLtla') as $code => $data) {
+            if (isset($parents[$code])) {
+                $data['parent'] = ['code' => $parents[$code]];
+            }
+
+            $map[$code] = $data;
+        }
+
+        return $map;
+    }
+
+    private function fetchLtlaToUtlaData(): array
+    {
+        // https://geoportal.statistics.gov.uk/datasets/lower-tier-local-authority-to-upper-tier-local-authority-december-2020-lookup-in-england-and-wales/data
+        $body = $this->client->getHttpClient()->get('https://opendata.arcgis.com/datasets/e82d9a4153b6459b9a6603b79189fdb8_0.csv')->getBody();
+        $body->rewind();
+
+        $map = [];
+
+        while ('' !== ($line = Utils::readLine($body))) {
+            $parsed = \str_getcsv($line);
+            if (isset($parsed[3]) && 'UTLA17CD' !== $parsed[3]) {
+                $map[$parsed[1]] = $parsed[3];
+            }
+        }
+
+        return array_merge(self::LEGACY_LTLA_TO_UTLA_MAP, $map);
     }
 
     public function fetchMsoaData(): array
@@ -73,7 +154,7 @@ final class Fetcher
                     if ('E02006050' === $code) {
                         $msoa['name'] .= ' 2';
                     }
-                    $map[$code] = ['name' => $msoa['name'], 'la' => ['code' => $laCode, 'name' => $la['name']]];
+                    $map[$code] = ['name' => $msoa['name'], 'parent' => ['code' => $laCode, 'name' => $la['name']]];
                 }
             }
         }

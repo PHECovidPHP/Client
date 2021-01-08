@@ -39,8 +39,8 @@ final class Command
     {
         $this->generateClass('Nation', $this->fetcher->fetchAreaData('byNation'));
         $this->generateClass('Region', $this->fetcher->fetchAreaData('byRegion'));
-        $this->generateUtla($this->fetcher->fetchAreaData('byUtla'));
-        $this->generateLtla($this->fetcher->fetchAreaData('byLtla'));
+        $this->generateUtla($this->fetcher->fetchUtlaData());
+        $this->generateLtla($this->fetcher->fetchLtlaData());
         $this->generateMsoa($this->fetcher->fetchMsoaData());
 
         return 0;

@@ -141,15 +141,22 @@ final class Utla
     private $code;
 
     /**
+     * @var string|null
+     */
+    private $regionCode;
+
+    /**
      * @param string      $name
      * @param string|null $code
+     * @param string|null $regionCode
      *
      * @return void
      */
-    private function __construct(string $name, ?string $code)
+    private function __construct(string $name, ?string $code, ?string $regionCode)
     {
         $this->name = $name;
         $this->code = $code;
+        $this->regionCode = $regionCode;
     }
 
     /**
@@ -186,6 +193,18 @@ final class Utla
         }
 
         return $this->code;
+    }
+
+    /**
+     * @return \\PHECovid\\Client\\Model\\Region
+     */
+    public function getRegion(): Region
+    {
+        if (null === $this->regionCode) {
+            throw new \\BadMethodCallException(\'Region code not available.\');
+        }
+
+        return Region::fromCode($this->utlaCode);
     }
 }
 ';
@@ -228,15 +247,22 @@ final class Ltla
     private $code;
 
     /**
+     * @var string|null
+     */
+    private $utlaCode;
+
+    /**
      * @param string      $name
      * @param string|null $code
+     * @param string|null $utlaCode
      *
      * @return void
      */
-    private function __construct(string $name, ?string $code)
+    private function __construct(string $name, ?string $code, ?string $utlaCode)
     {
         $this->name = $name;
         $this->code = $code;
+        $this->utlaCode = $utlaCode;
     }
 
     /**
@@ -273,6 +299,18 @@ final class Ltla
         }
 
         return $this->code;
+    }
+
+    /**
+     * @return \\PHECovid\\Client\\Model\\Utla
+     */
+    public function getUtla(): Utla
+    {
+        if (null === $this->utlaCode) {
+            throw new \\BadMethodCallException(\'UTLA code not available.\');
+        }
+
+        return Utla::fromCode($this->utlaCode);
     }
 }
 ';
@@ -411,7 +449,7 @@ final class Msoa
         return \sprintf(
             self::UTLA_TEMPLATE,
             self::generateMap($map),
-            self::generateClassMethods('Utla', $map)
+            self::generateUtlaMethods($map)
         );
     }
 
@@ -420,7 +458,7 @@ final class Msoa
         return \sprintf(
             self::LTLA_TEMPLATE,
             self::generateMap($map),
-            self::generateClassMethods('Ltla', $map)
+            self::generateLtlaMethods($map)
         );
     }
 
@@ -439,7 +477,7 @@ final class Msoa
 
         foreach ($map as $code => $data) {
             if ('null' !== $code) {
-                $output .= \sprintf("        '%s' => '%s',\n", $code, self::methodName($data['name'], $data['la']['name'] ?? null));
+                $output .= \sprintf("        '%s' => '%s',\n", $code, self::methodName($data['name'], $data['parent']['name'] ?? null));
             }
         }
 
@@ -457,12 +495,34 @@ final class Msoa
         return $output;
     }
 
+    private static function generateUtlaMethods(array $map): string
+    {
+        $output = '';
+
+        foreach ($map as $code => $data) {
+            $output .= self::generateUtlaMethod($code, $data['name'], $data['parent'] ?? null);
+        }
+
+        return $output;
+    }
+
+    private static function generateLtlaMethods(array $map): string
+    {
+        $output = '';
+
+        foreach ($map as $code => $data) {
+            $output .= self::generateLtlaMethod($code, $data['name'], $data['parent'] ?? null);
+        }
+
+        return $output;
+    }
+
     private static function generateMsoaMethods(array $map): string
     {
         $output = '';
 
         foreach ($map as $code => $data) {
-            $output .= self::generateMsoaMethod($code, $data['name'], $data['la']);
+            $output .= self::generateMsoaMethod($code, $data['name'], $data['parent']);
         }
 
         return $output;
@@ -479,15 +539,39 @@ final class Msoa
         );
     }
 
-    private static function generateMsoaMethod(string $code, string $name, array $la): string
+    private static function generateUtlaMethod(string $code, string $name, array $parent = null): string
+    {
+        return \sprintf(
+            self::METHOD_TEMPLATE_3,
+            'Utla',
+            self::methodName($name),
+            \sprintf('\'%s\'', \str_replace('\'', '\\\'', $name)),
+            'null' === $code ? 'null' : \sprintf('\'%s\'', $code),
+            'null' === $code || !isset($parent['code']) ? 'null' : \sprintf('\'%s\'', $parent['code'])
+        );
+    }
+
+    private static function generateLtlaMethod(string $code, string $name, array $parent = null): string
+    {
+        return \sprintf(
+            self::METHOD_TEMPLATE_3,
+            'Ltla',
+            self::methodName($name),
+            \sprintf('\'%s\'', \str_replace('\'', '\\\'', $name)),
+            'null' === $code ? 'null' : \sprintf('\'%s\'', $code),
+            'null' === $code ? 'null' : \sprintf('\'%s\'', $parent['code'] ?? $code)
+        );
+    }
+
+    private static function generateMsoaMethod(string $code, string $name, array $parent): string
     {
         return \sprintf(
             self::METHOD_TEMPLATE_3,
             'Msoa',
-            self::methodName($name, $la['name']),
+            self::methodName($name, $parent['name']),
             \sprintf('\'%s\'', \str_replace('\'', '\\\'', $name)),
             \sprintf('\'%s\'', $code),
-            \sprintf('\'%s\'', $la['code'])
+            \sprintf('\'%s\'', $parent['code'])
         );
     }
 

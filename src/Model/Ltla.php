@@ -415,15 +415,22 @@ final class Ltla
     private $code;
 
     /**
+     * @var string|null
+     */
+    private $utlaCode;
+
+    /**
      * @param string      $name
      * @param string|null $code
+     * @param string|null $utlaCode
      *
      * @return void
      */
-    private function __construct(string $name, ?string $code)
+    private function __construct(string $name, ?string $code, ?string $utlaCode)
     {
         $this->name = $name;
         $this->code = $code;
+        $this->utlaCode = $utlaCode;
     }
 
     /**
@@ -447,7 +454,7 @@ final class Ltla
      */
     public static function aberdeenCity(): self
     {
-        return new self('Aberdeen City', 'S12000033');
+        return new self('Aberdeen City', 'S12000033', 'S12000033');
     }
 
     /**
@@ -455,7 +462,7 @@ final class Ltla
      */
     public static function aberdeenshire(): self
     {
-        return new self('Aberdeenshire', 'S12000034');
+        return new self('Aberdeenshire', 'S12000034', 'S12000034');
     }
 
     /**
@@ -463,7 +470,7 @@ final class Ltla
      */
     public static function adur(): self
     {
-        return new self('Adur', 'E07000223');
+        return new self('Adur', 'E07000223', 'E10000032');
     }
 
     /**
@@ -471,7 +478,7 @@ final class Ltla
      */
     public static function allerdale(): self
     {
-        return new self('Allerdale', 'E07000026');
+        return new self('Allerdale', 'E07000026', 'E10000006');
     }
 
     /**
@@ -479,7 +486,7 @@ final class Ltla
      */
     public static function amberValley(): self
     {
-        return new self('Amber Valley', 'E07000032');
+        return new self('Amber Valley', 'E07000032', 'E10000007');
     }
 
     /**
@@ -487,7 +494,7 @@ final class Ltla
      */
     public static function angus(): self
     {
-        return new self('Angus', 'S12000041');
+        return new self('Angus', 'S12000041', 'S12000041');
     }
 
     /**
@@ -495,7 +502,7 @@ final class Ltla
      */
     public static function antrimAndNewtownabbey(): self
     {
-        return new self('Antrim and Newtownabbey', 'N09000001');
+        return new self('Antrim and Newtownabbey', 'N09000001', 'N09000001');
     }
 
     /**
@@ -503,7 +510,7 @@ final class Ltla
      */
     public static function ardsAndNorthDown(): self
     {
-        return new self('Ards and North Down', 'N09000011');
+        return new self('Ards and North Down', 'N09000011', 'N09000011');
     }
 
     /**
@@ -511,7 +518,7 @@ final class Ltla
      */
     public static function argyllAndBute(): self
     {
-        return new self('Argyll and Bute', 'S12000035');
+        return new self('Argyll and Bute', 'S12000035', 'S12000035');
     }
 
     /**
@@ -519,7 +526,7 @@ final class Ltla
      */
     public static function armaghCityBanbridgeAndCraigavon(): self
     {
-        return new self('Armagh City, Banbridge and Craigavon', 'N09000002');
+        return new self('Armagh City, Banbridge and Craigavon', 'N09000002', 'N09000002');
     }
 
     /**
@@ -527,7 +534,7 @@ final class Ltla
      */
     public static function arun(): self
     {
-        return new self('Arun', 'E07000224');
+        return new self('Arun', 'E07000224', 'E10000032');
     }
 
     /**
@@ -535,7 +542,7 @@ final class Ltla
      */
     public static function ashfield(): self
     {
-        return new self('Ashfield', 'E07000170');
+        return new self('Ashfield', 'E07000170', 'E10000024');
     }
 
     /**
@@ -543,7 +550,7 @@ final class Ltla
      */
     public static function ashford(): self
     {
-        return new self('Ashford', 'E07000105');
+        return new self('Ashford', 'E07000105', 'E10000016');
     }
 
     /**
@@ -551,7 +558,7 @@ final class Ltla
      */
     public static function aylesburyVale(): self
     {
-        return new self('Aylesbury Vale', 'E07000004');
+        return new self('Aylesbury Vale', 'E07000004', 'E10000002');
     }
 
     /**
@@ -559,7 +566,7 @@ final class Ltla
      */
     public static function babergh(): self
     {
-        return new self('Babergh', 'E07000200');
+        return new self('Babergh', 'E07000200', 'E10000029');
     }
 
     /**
@@ -567,7 +574,7 @@ final class Ltla
      */
     public static function barkingAndDagenham(): self
     {
-        return new self('Barking and Dagenham', 'E09000002');
+        return new self('Barking and Dagenham', 'E09000002', 'E09000002');
     }
 
     /**
@@ -575,7 +582,7 @@ final class Ltla
      */
     public static function barnet(): self
     {
-        return new self('Barnet', 'E09000003');
+        return new self('Barnet', 'E09000003', 'E09000003');
     }
 
     /**
@@ -583,7 +590,7 @@ final class Ltla
      */
     public static function barnsley(): self
     {
-        return new self('Barnsley', 'E08000016');
+        return new self('Barnsley', 'E08000016', 'E08000016');
     }
 
     /**
@@ -591,7 +598,7 @@ final class Ltla
      */
     public static function barrowInFurness(): self
     {
-        return new self('Barrow-in-Furness', 'E07000027');
+        return new self('Barrow-in-Furness', 'E07000027', 'E10000006');
     }
 
     /**
@@ -599,7 +606,7 @@ final class Ltla
      */
     public static function basildon(): self
     {
-        return new self('Basildon', 'E07000066');
+        return new self('Basildon', 'E07000066', 'E10000012');
     }
 
     /**
@@ -607,7 +614,7 @@ final class Ltla
      */
     public static function basingstokeAndDeane(): self
     {
-        return new self('Basingstoke and Deane', 'E07000084');
+        return new self('Basingstoke and Deane', 'E07000084', 'E10000014');
     }
 
     /**
@@ -615,7 +622,7 @@ final class Ltla
      */
     public static function bassetlaw(): self
     {
-        return new self('Bassetlaw', 'E07000171');
+        return new self('Bassetlaw', 'E07000171', 'E10000024');
     }
 
     /**
@@ -623,7 +630,7 @@ final class Ltla
      */
     public static function bathAndNorthEastSomerset(): self
     {
-        return new self('Bath and North East Somerset', 'E06000022');
+        return new self('Bath and North East Somerset', 'E06000022', 'E06000022');
     }
 
     /**
@@ -631,7 +638,7 @@ final class Ltla
      */
     public static function bedford(): self
     {
-        return new self('Bedford', 'E06000055');
+        return new self('Bedford', 'E06000055', 'E06000055');
     }
 
     /**
@@ -639,7 +646,7 @@ final class Ltla
      */
     public static function belfast(): self
     {
-        return new self('Belfast', 'N09000003');
+        return new self('Belfast', 'N09000003', 'N09000003');
     }
 
     /**
@@ -647,7 +654,7 @@ final class Ltla
      */
     public static function bexley(): self
     {
-        return new self('Bexley', 'E09000004');
+        return new self('Bexley', 'E09000004', 'E09000004');
     }
 
     /**
@@ -655,7 +662,7 @@ final class Ltla
      */
     public static function birmingham(): self
     {
-        return new self('Birmingham', 'E08000025');
+        return new self('Birmingham', 'E08000025', 'E08000025');
     }
 
     /**
@@ -663,7 +670,7 @@ final class Ltla
      */
     public static function blaby(): self
     {
-        return new self('Blaby', 'E07000129');
+        return new self('Blaby', 'E07000129', 'E10000018');
     }
 
     /**
@@ -671,7 +678,7 @@ final class Ltla
      */
     public static function blackburnWithDarwen(): self
     {
-        return new self('Blackburn with Darwen', 'E06000008');
+        return new self('Blackburn with Darwen', 'E06000008', 'E06000008');
     }
 
     /**
@@ -679,7 +686,7 @@ final class Ltla
      */
     public static function blackpool(): self
     {
-        return new self('Blackpool', 'E06000009');
+        return new self('Blackpool', 'E06000009', 'E06000009');
     }
 
     /**
@@ -687,7 +694,7 @@ final class Ltla
      */
     public static function blaenauGwent(): self
     {
-        return new self('Blaenau Gwent', 'W06000019');
+        return new self('Blaenau Gwent', 'W06000019', 'W06000019');
     }
 
     /**
@@ -695,7 +702,7 @@ final class Ltla
      */
     public static function bolsover(): self
     {
-        return new self('Bolsover', 'E07000033');
+        return new self('Bolsover', 'E07000033', 'E10000007');
     }
 
     /**
@@ -703,7 +710,7 @@ final class Ltla
      */
     public static function bolton(): self
     {
-        return new self('Bolton', 'E08000001');
+        return new self('Bolton', 'E08000001', 'E08000001');
     }
 
     /**
@@ -711,7 +718,7 @@ final class Ltla
      */
     public static function boston(): self
     {
-        return new self('Boston', 'E07000136');
+        return new self('Boston', 'E07000136', 'E10000019');
     }
 
     /**
@@ -719,7 +726,7 @@ final class Ltla
      */
     public static function bournemouthChristchurchAndPoole(): self
     {
-        return new self('Bournemouth, Christchurch and Poole', 'E06000058');
+        return new self('Bournemouth, Christchurch and Poole', 'E06000058', 'E06000058');
     }
 
     /**
@@ -727,7 +734,7 @@ final class Ltla
      */
     public static function bracknellForest(): self
     {
-        return new self('Bracknell Forest', 'E06000036');
+        return new self('Bracknell Forest', 'E06000036', 'E06000036');
     }
 
     /**
@@ -735,7 +742,7 @@ final class Ltla
      */
     public static function bradford(): self
     {
-        return new self('Bradford', 'E08000032');
+        return new self('Bradford', 'E08000032', 'E08000032');
     }
 
     /**
@@ -743,7 +750,7 @@ final class Ltla
      */
     public static function braintree(): self
     {
-        return new self('Braintree', 'E07000067');
+        return new self('Braintree', 'E07000067', 'E10000012');
     }
 
     /**
@@ -751,7 +758,7 @@ final class Ltla
      */
     public static function breckland(): self
     {
-        return new self('Breckland', 'E07000143');
+        return new self('Breckland', 'E07000143', 'E10000020');
     }
 
     /**
@@ -759,7 +766,7 @@ final class Ltla
      */
     public static function brent(): self
     {
-        return new self('Brent', 'E09000005');
+        return new self('Brent', 'E09000005', 'E09000005');
     }
 
     /**
@@ -767,7 +774,7 @@ final class Ltla
      */
     public static function brentwood(): self
     {
-        return new self('Brentwood', 'E07000068');
+        return new self('Brentwood', 'E07000068', 'E10000012');
     }
 
     /**
@@ -775,7 +782,7 @@ final class Ltla
      */
     public static function bridgend(): self
     {
-        return new self('Bridgend', 'W06000013');
+        return new self('Bridgend', 'W06000013', 'W06000013');
     }
 
     /**
@@ -783,7 +790,7 @@ final class Ltla
      */
     public static function brightonAndHove(): self
     {
-        return new self('Brighton and Hove', 'E06000043');
+        return new self('Brighton and Hove', 'E06000043', 'E06000043');
     }
 
     /**
@@ -791,7 +798,7 @@ final class Ltla
      */
     public static function bristolCityOf(): self
     {
-        return new self('Bristol, City of', 'E06000023');
+        return new self('Bristol, City of', 'E06000023', 'E06000023');
     }
 
     /**
@@ -799,7 +806,7 @@ final class Ltla
      */
     public static function broadland(): self
     {
-        return new self('Broadland', 'E07000144');
+        return new self('Broadland', 'E07000144', 'E10000020');
     }
 
     /**
@@ -807,7 +814,7 @@ final class Ltla
      */
     public static function bromley(): self
     {
-        return new self('Bromley', 'E09000006');
+        return new self('Bromley', 'E09000006', 'E09000006');
     }
 
     /**
@@ -815,7 +822,7 @@ final class Ltla
      */
     public static function bromsgrove(): self
     {
-        return new self('Bromsgrove', 'E07000234');
+        return new self('Bromsgrove', 'E07000234', 'E10000034');
     }
 
     /**
@@ -823,7 +830,7 @@ final class Ltla
      */
     public static function broxbourne(): self
     {
-        return new self('Broxbourne', 'E07000095');
+        return new self('Broxbourne', 'E07000095', 'E10000015');
     }
 
     /**
@@ -831,7 +838,7 @@ final class Ltla
      */
     public static function broxtowe(): self
     {
-        return new self('Broxtowe', 'E07000172');
+        return new self('Broxtowe', 'E07000172', 'E10000024');
     }
 
     /**
@@ -839,7 +846,7 @@ final class Ltla
      */
     public static function burnley(): self
     {
-        return new self('Burnley', 'E07000117');
+        return new self('Burnley', 'E07000117', 'E10000017');
     }
 
     /**
@@ -847,7 +854,7 @@ final class Ltla
      */
     public static function bury(): self
     {
-        return new self('Bury', 'E08000002');
+        return new self('Bury', 'E08000002', 'E08000002');
     }
 
     /**
@@ -855,7 +862,7 @@ final class Ltla
      */
     public static function caerphilly(): self
     {
-        return new self('Caerphilly', 'W06000018');
+        return new self('Caerphilly', 'W06000018', 'W06000018');
     }
 
     /**
@@ -863,7 +870,7 @@ final class Ltla
      */
     public static function calderdale(): self
     {
-        return new self('Calderdale', 'E08000033');
+        return new self('Calderdale', 'E08000033', 'E08000033');
     }
 
     /**
@@ -871,7 +878,7 @@ final class Ltla
      */
     public static function cambridge(): self
     {
-        return new self('Cambridge', 'E07000008');
+        return new self('Cambridge', 'E07000008', 'E10000003');
     }
 
     /**
@@ -879,7 +886,7 @@ final class Ltla
      */
     public static function camden(): self
     {
-        return new self('Camden', 'E09000007');
+        return new self('Camden', 'E09000007', 'E09000007');
     }
 
     /**
@@ -887,7 +894,7 @@ final class Ltla
      */
     public static function cannockChase(): self
     {
-        return new self('Cannock Chase', 'E07000192');
+        return new self('Cannock Chase', 'E07000192', 'E10000028');
     }
 
     /**
@@ -895,7 +902,7 @@ final class Ltla
      */
     public static function canterbury(): self
     {
-        return new self('Canterbury', 'E07000106');
+        return new self('Canterbury', 'E07000106', 'E10000016');
     }
 
     /**
@@ -903,7 +910,7 @@ final class Ltla
      */
     public static function cardiff(): self
     {
-        return new self('Cardiff', 'W06000015');
+        return new self('Cardiff', 'W06000015', 'W06000015');
     }
 
     /**
@@ -911,7 +918,7 @@ final class Ltla
      */
     public static function carlisle(): self
     {
-        return new self('Carlisle', 'E07000028');
+        return new self('Carlisle', 'E07000028', 'E10000006');
     }
 
     /**
@@ -919,7 +926,7 @@ final class Ltla
      */
     public static function carmarthenshire(): self
     {
-        return new self('Carmarthenshire', 'W06000010');
+        return new self('Carmarthenshire', 'W06000010', 'W06000010');
     }
 
     /**
@@ -927,7 +934,7 @@ final class Ltla
      */
     public static function castlePoint(): self
     {
-        return new self('Castle Point', 'E07000069');
+        return new self('Castle Point', 'E07000069', 'E10000012');
     }
 
     /**
@@ -935,7 +942,7 @@ final class Ltla
      */
     public static function causewayCoastAndGlens(): self
     {
-        return new self('Causeway Coast and Glens', 'N09000004');
+        return new self('Causeway Coast and Glens', 'N09000004', 'N09000004');
     }
 
     /**
@@ -943,7 +950,7 @@ final class Ltla
      */
     public static function centralBedfordshire(): self
     {
-        return new self('Central Bedfordshire', 'E06000056');
+        return new self('Central Bedfordshire', 'E06000056', 'E06000056');
     }
 
     /**
@@ -951,7 +958,7 @@ final class Ltla
      */
     public static function ceredigion(): self
     {
-        return new self('Ceredigion', 'W06000008');
+        return new self('Ceredigion', 'W06000008', 'W06000008');
     }
 
     /**
@@ -959,7 +966,7 @@ final class Ltla
      */
     public static function charnwood(): self
     {
-        return new self('Charnwood', 'E07000130');
+        return new self('Charnwood', 'E07000130', 'E10000018');
     }
 
     /**
@@ -967,7 +974,7 @@ final class Ltla
      */
     public static function chelmsford(): self
     {
-        return new self('Chelmsford', 'E07000070');
+        return new self('Chelmsford', 'E07000070', 'E10000012');
     }
 
     /**
@@ -975,7 +982,7 @@ final class Ltla
      */
     public static function cheltenham(): self
     {
-        return new self('Cheltenham', 'E07000078');
+        return new self('Cheltenham', 'E07000078', 'E10000013');
     }
 
     /**
@@ -983,7 +990,7 @@ final class Ltla
      */
     public static function cherwell(): self
     {
-        return new self('Cherwell', 'E07000177');
+        return new self('Cherwell', 'E07000177', 'E10000025');
     }
 
     /**
@@ -991,7 +998,7 @@ final class Ltla
      */
     public static function cheshireEast(): self
     {
-        return new self('Cheshire East', 'E06000049');
+        return new self('Cheshire East', 'E06000049', 'E06000049');
     }
 
     /**
@@ -999,7 +1006,7 @@ final class Ltla
      */
     public static function cheshireWestAndChester(): self
     {
-        return new self('Cheshire West and Chester', 'E06000050');
+        return new self('Cheshire West and Chester', 'E06000050', 'E06000050');
     }
 
     /**
@@ -1007,7 +1014,7 @@ final class Ltla
      */
     public static function chesterfield(): self
     {
-        return new self('Chesterfield', 'E07000034');
+        return new self('Chesterfield', 'E07000034', 'E10000007');
     }
 
     /**
@@ -1015,7 +1022,7 @@ final class Ltla
      */
     public static function chichester(): self
     {
-        return new self('Chichester', 'E07000225');
+        return new self('Chichester', 'E07000225', 'E10000032');
     }
 
     /**
@@ -1023,7 +1030,7 @@ final class Ltla
      */
     public static function chiltern(): self
     {
-        return new self('Chiltern', 'E07000005');
+        return new self('Chiltern', 'E07000005', 'E10000002');
     }
 
     /**
@@ -1031,7 +1038,7 @@ final class Ltla
      */
     public static function chorley(): self
     {
-        return new self('Chorley', 'E07000118');
+        return new self('Chorley', 'E07000118', 'E10000017');
     }
 
     /**
@@ -1039,7 +1046,7 @@ final class Ltla
      */
     public static function cityOfEdinburgh(): self
     {
-        return new self('City of Edinburgh', 'S12000036');
+        return new self('City of Edinburgh', 'S12000036', 'S12000036');
     }
 
     /**
@@ -1047,7 +1054,7 @@ final class Ltla
      */
     public static function clackmannanshire(): self
     {
-        return new self('Clackmannanshire', 'S12000005');
+        return new self('Clackmannanshire', 'S12000005', 'S12000005');
     }
 
     /**
@@ -1055,7 +1062,7 @@ final class Ltla
      */
     public static function colchester(): self
     {
-        return new self('Colchester', 'E07000071');
+        return new self('Colchester', 'E07000071', 'E10000012');
     }
 
     /**
@@ -1063,7 +1070,7 @@ final class Ltla
      */
     public static function comhairleNanEileanSiar(): self
     {
-        return new self('Comhairle nan Eilean Siar', 'S12000013');
+        return new self('Comhairle nan Eilean Siar', 'S12000013', 'S12000013');
     }
 
     /**
@@ -1071,7 +1078,7 @@ final class Ltla
      */
     public static function conwy(): self
     {
-        return new self('Conwy', 'W06000003');
+        return new self('Conwy', 'W06000003', 'W06000003');
     }
 
     /**
@@ -1079,7 +1086,7 @@ final class Ltla
      */
     public static function copeland(): self
     {
-        return new self('Copeland', 'E07000029');
+        return new self('Copeland', 'E07000029', 'E10000006');
     }
 
     /**
@@ -1087,7 +1094,7 @@ final class Ltla
      */
     public static function corby(): self
     {
-        return new self('Corby', 'E07000150');
+        return new self('Corby', 'E07000150', 'E10000021');
     }
 
     /**
@@ -1095,7 +1102,7 @@ final class Ltla
      */
     public static function cornwallAndIslesOfScilly(): self
     {
-        return new self('Cornwall and Isles of Scilly', 'E06000052');
+        return new self('Cornwall and Isles of Scilly', 'E06000052', 'E06000052');
     }
 
     /**
@@ -1103,7 +1110,7 @@ final class Ltla
      */
     public static function cotswold(): self
     {
-        return new self('Cotswold', 'E07000079');
+        return new self('Cotswold', 'E07000079', 'E10000013');
     }
 
     /**
@@ -1111,7 +1118,7 @@ final class Ltla
      */
     public static function countyDurham(): self
     {
-        return new self('County Durham', 'E06000047');
+        return new self('County Durham', 'E06000047', 'E06000047');
     }
 
     /**
@@ -1119,7 +1126,7 @@ final class Ltla
      */
     public static function coventry(): self
     {
-        return new self('Coventry', 'E08000026');
+        return new self('Coventry', 'E08000026', 'E08000026');
     }
 
     /**
@@ -1127,7 +1134,7 @@ final class Ltla
      */
     public static function craven(): self
     {
-        return new self('Craven', 'E07000163');
+        return new self('Craven', 'E07000163', 'E10000023');
     }
 
     /**
@@ -1135,7 +1142,7 @@ final class Ltla
      */
     public static function crawley(): self
     {
-        return new self('Crawley', 'E07000226');
+        return new self('Crawley', 'E07000226', 'E10000032');
     }
 
     /**
@@ -1143,7 +1150,7 @@ final class Ltla
      */
     public static function croydon(): self
     {
-        return new self('Croydon', 'E09000008');
+        return new self('Croydon', 'E09000008', 'E09000008');
     }
 
     /**
@@ -1151,7 +1158,7 @@ final class Ltla
      */
     public static function dacorum(): self
     {
-        return new self('Dacorum', 'E07000096');
+        return new self('Dacorum', 'E07000096', 'E10000015');
     }
 
     /**
@@ -1159,7 +1166,7 @@ final class Ltla
      */
     public static function darlington(): self
     {
-        return new self('Darlington', 'E06000005');
+        return new self('Darlington', 'E06000005', 'E06000005');
     }
 
     /**
@@ -1167,7 +1174,7 @@ final class Ltla
      */
     public static function dartford(): self
     {
-        return new self('Dartford', 'E07000107');
+        return new self('Dartford', 'E07000107', 'E10000016');
     }
 
     /**
@@ -1175,7 +1182,7 @@ final class Ltla
      */
     public static function daventry(): self
     {
-        return new self('Daventry', 'E07000151');
+        return new self('Daventry', 'E07000151', 'E10000021');
     }
 
     /**
@@ -1183,7 +1190,7 @@ final class Ltla
      */
     public static function denbighshire(): self
     {
-        return new self('Denbighshire', 'W06000004');
+        return new self('Denbighshire', 'W06000004', 'W06000004');
     }
 
     /**
@@ -1191,7 +1198,7 @@ final class Ltla
      */
     public static function derby(): self
     {
-        return new self('Derby', 'E06000015');
+        return new self('Derby', 'E06000015', 'E06000015');
     }
 
     /**
@@ -1199,7 +1206,7 @@ final class Ltla
      */
     public static function derbyshireDales(): self
     {
-        return new self('Derbyshire Dales', 'E07000035');
+        return new self('Derbyshire Dales', 'E07000035', 'E10000007');
     }
 
     /**
@@ -1207,7 +1214,7 @@ final class Ltla
      */
     public static function derryCityAndStrabane(): self
     {
-        return new self('Derry City and Strabane', 'N09000005');
+        return new self('Derry City and Strabane', 'N09000005', 'N09000005');
     }
 
     /**
@@ -1215,7 +1222,7 @@ final class Ltla
      */
     public static function doncaster(): self
     {
-        return new self('Doncaster', 'E08000017');
+        return new self('Doncaster', 'E08000017', 'E08000017');
     }
 
     /**
@@ -1223,7 +1230,7 @@ final class Ltla
      */
     public static function dorset(): self
     {
-        return new self('Dorset', 'E06000059');
+        return new self('Dorset', 'E06000059', 'E06000059');
     }
 
     /**
@@ -1231,7 +1238,7 @@ final class Ltla
      */
     public static function dover(): self
     {
-        return new self('Dover', 'E07000108');
+        return new self('Dover', 'E07000108', 'E10000016');
     }
 
     /**
@@ -1239,7 +1246,7 @@ final class Ltla
      */
     public static function dudley(): self
     {
-        return new self('Dudley', 'E08000027');
+        return new self('Dudley', 'E08000027', 'E08000027');
     }
 
     /**
@@ -1247,7 +1254,7 @@ final class Ltla
      */
     public static function dumfriesAndGalloway(): self
     {
-        return new self('Dumfries and Galloway', 'S12000006');
+        return new self('Dumfries and Galloway', 'S12000006', 'S12000006');
     }
 
     /**
@@ -1255,7 +1262,7 @@ final class Ltla
      */
     public static function dundeeCity(): self
     {
-        return new self('Dundee City', 'S12000042');
+        return new self('Dundee City', 'S12000042', 'S12000042');
     }
 
     /**
@@ -1263,7 +1270,7 @@ final class Ltla
      */
     public static function ealing(): self
     {
-        return new self('Ealing', 'E09000009');
+        return new self('Ealing', 'E09000009', 'E09000009');
     }
 
     /**
@@ -1271,7 +1278,7 @@ final class Ltla
      */
     public static function eastAyrshire(): self
     {
-        return new self('East Ayrshire', 'S12000008');
+        return new self('East Ayrshire', 'S12000008', 'S12000008');
     }
 
     /**
@@ -1279,7 +1286,7 @@ final class Ltla
      */
     public static function eastCambridgeshire(): self
     {
-        return new self('East Cambridgeshire', 'E07000009');
+        return new self('East Cambridgeshire', 'E07000009', 'E10000003');
     }
 
     /**
@@ -1287,7 +1294,7 @@ final class Ltla
      */
     public static function eastDevon(): self
     {
-        return new self('East Devon', 'E07000040');
+        return new self('East Devon', 'E07000040', 'E10000008');
     }
 
     /**
@@ -1295,7 +1302,7 @@ final class Ltla
      */
     public static function eastDunbartonshire(): self
     {
-        return new self('East Dunbartonshire', 'S12000045');
+        return new self('East Dunbartonshire', 'S12000045', 'S12000045');
     }
 
     /**
@@ -1303,7 +1310,7 @@ final class Ltla
      */
     public static function eastHampshire(): self
     {
-        return new self('East Hampshire', 'E07000085');
+        return new self('East Hampshire', 'E07000085', 'E10000014');
     }
 
     /**
@@ -1311,7 +1318,7 @@ final class Ltla
      */
     public static function eastHertfordshire(): self
     {
-        return new self('East Hertfordshire', 'E07000242');
+        return new self('East Hertfordshire', 'E07000242', 'E10000015');
     }
 
     /**
@@ -1319,7 +1326,7 @@ final class Ltla
      */
     public static function eastLindsey(): self
     {
-        return new self('East Lindsey', 'E07000137');
+        return new self('East Lindsey', 'E07000137', 'E10000019');
     }
 
     /**
@@ -1327,7 +1334,7 @@ final class Ltla
      */
     public static function eastLothian(): self
     {
-        return new self('East Lothian', 'S12000010');
+        return new self('East Lothian', 'S12000010', 'S12000010');
     }
 
     /**
@@ -1335,7 +1342,7 @@ final class Ltla
      */
     public static function eastNorthamptonshire(): self
     {
-        return new self('East Northamptonshire', 'E07000152');
+        return new self('East Northamptonshire', 'E07000152', 'E10000021');
     }
 
     /**
@@ -1343,7 +1350,7 @@ final class Ltla
      */
     public static function eastRenfrewshire(): self
     {
-        return new self('East Renfrewshire', 'S12000011');
+        return new self('East Renfrewshire', 'S12000011', 'S12000011');
     }
 
     /**
@@ -1351,7 +1358,7 @@ final class Ltla
      */
     public static function eastRidingOfYorkshire(): self
     {
-        return new self('East Riding of Yorkshire', 'E06000011');
+        return new self('East Riding of Yorkshire', 'E06000011', 'E06000011');
     }
 
     /**
@@ -1359,7 +1366,7 @@ final class Ltla
      */
     public static function eastStaffordshire(): self
     {
-        return new self('East Staffordshire', 'E07000193');
+        return new self('East Staffordshire', 'E07000193', 'E10000028');
     }
 
     /**
@@ -1367,7 +1374,7 @@ final class Ltla
      */
     public static function eastSuffolk(): self
     {
-        return new self('East Suffolk', 'E07000244');
+        return new self('East Suffolk', 'E07000244', 'E10000029');
     }
 
     /**
@@ -1375,7 +1382,7 @@ final class Ltla
      */
     public static function eastbourne(): self
     {
-        return new self('Eastbourne', 'E07000061');
+        return new self('Eastbourne', 'E07000061', 'E10000011');
     }
 
     /**
@@ -1383,7 +1390,7 @@ final class Ltla
      */
     public static function eastleigh(): self
     {
-        return new self('Eastleigh', 'E07000086');
+        return new self('Eastleigh', 'E07000086', 'E10000014');
     }
 
     /**
@@ -1391,7 +1398,7 @@ final class Ltla
      */
     public static function eden(): self
     {
-        return new self('Eden', 'E07000030');
+        return new self('Eden', 'E07000030', 'E10000006');
     }
 
     /**
@@ -1399,7 +1406,7 @@ final class Ltla
      */
     public static function elmbridge(): self
     {
-        return new self('Elmbridge', 'E07000207');
+        return new self('Elmbridge', 'E07000207', 'E10000030');
     }
 
     /**
@@ -1407,7 +1414,7 @@ final class Ltla
      */
     public static function enfield(): self
     {
-        return new self('Enfield', 'E09000010');
+        return new self('Enfield', 'E09000010', 'E09000010');
     }
 
     /**
@@ -1415,7 +1422,7 @@ final class Ltla
      */
     public static function eppingForest(): self
     {
-        return new self('Epping Forest', 'E07000072');
+        return new self('Epping Forest', 'E07000072', 'E10000012');
     }
 
     /**
@@ -1423,7 +1430,7 @@ final class Ltla
      */
     public static function epsomAndEwell(): self
     {
-        return new self('Epsom and Ewell', 'E07000208');
+        return new self('Epsom and Ewell', 'E07000208', 'E10000030');
     }
 
     /**
@@ -1431,7 +1438,7 @@ final class Ltla
      */
     public static function erewash(): self
     {
-        return new self('Erewash', 'E07000036');
+        return new self('Erewash', 'E07000036', 'E10000007');
     }
 
     /**
@@ -1439,7 +1446,7 @@ final class Ltla
      */
     public static function exeter(): self
     {
-        return new self('Exeter', 'E07000041');
+        return new self('Exeter', 'E07000041', 'E10000008');
     }
 
     /**
@@ -1447,7 +1454,7 @@ final class Ltla
      */
     public static function falkirk(): self
     {
-        return new self('Falkirk', 'S12000014');
+        return new self('Falkirk', 'S12000014', 'S12000014');
     }
 
     /**
@@ -1455,7 +1462,7 @@ final class Ltla
      */
     public static function fareham(): self
     {
-        return new self('Fareham', 'E07000087');
+        return new self('Fareham', 'E07000087', 'E10000014');
     }
 
     /**
@@ -1463,7 +1470,7 @@ final class Ltla
      */
     public static function fenland(): self
     {
-        return new self('Fenland', 'E07000010');
+        return new self('Fenland', 'E07000010', 'E10000003');
     }
 
     /**
@@ -1471,7 +1478,7 @@ final class Ltla
      */
     public static function fermanaghAndOmagh(): self
     {
-        return new self('Fermanagh and Omagh', 'N09000006');
+        return new self('Fermanagh and Omagh', 'N09000006', 'N09000006');
     }
 
     /**
@@ -1479,7 +1486,7 @@ final class Ltla
      */
     public static function fife(): self
     {
-        return new self('Fife', 'S12000047');
+        return new self('Fife', 'S12000047', 'S12000047');
     }
 
     /**
@@ -1487,7 +1494,7 @@ final class Ltla
      */
     public static function flintshire(): self
     {
-        return new self('Flintshire', 'W06000005');
+        return new self('Flintshire', 'W06000005', 'W06000005');
     }
 
     /**
@@ -1495,7 +1502,7 @@ final class Ltla
      */
     public static function folkestoneAndHythe(): self
     {
-        return new self('Folkestone and Hythe', 'E07000112');
+        return new self('Folkestone and Hythe', 'E07000112', 'E10000016');
     }
 
     /**
@@ -1503,7 +1510,7 @@ final class Ltla
      */
     public static function forestOfDean(): self
     {
-        return new self('Forest of Dean', 'E07000080');
+        return new self('Forest of Dean', 'E07000080', 'E10000013');
     }
 
     /**
@@ -1511,7 +1518,7 @@ final class Ltla
      */
     public static function fylde(): self
     {
-        return new self('Fylde', 'E07000119');
+        return new self('Fylde', 'E07000119', 'E10000017');
     }
 
     /**
@@ -1519,7 +1526,7 @@ final class Ltla
      */
     public static function gateshead(): self
     {
-        return new self('Gateshead', 'E08000037');
+        return new self('Gateshead', 'E08000037', 'E08000037');
     }
 
     /**
@@ -1527,7 +1534,7 @@ final class Ltla
      */
     public static function gedling(): self
     {
-        return new self('Gedling', 'E07000173');
+        return new self('Gedling', 'E07000173', 'E10000024');
     }
 
     /**
@@ -1535,7 +1542,7 @@ final class Ltla
      */
     public static function glasgowCity(): self
     {
-        return new self('Glasgow City', 'S12000049');
+        return new self('Glasgow City', 'S12000049', 'S12000049');
     }
 
     /**
@@ -1543,7 +1550,7 @@ final class Ltla
      */
     public static function gloucester(): self
     {
-        return new self('Gloucester', 'E07000081');
+        return new self('Gloucester', 'E07000081', 'E10000013');
     }
 
     /**
@@ -1551,7 +1558,7 @@ final class Ltla
      */
     public static function gosport(): self
     {
-        return new self('Gosport', 'E07000088');
+        return new self('Gosport', 'E07000088', 'E10000014');
     }
 
     /**
@@ -1559,7 +1566,7 @@ final class Ltla
      */
     public static function gravesham(): self
     {
-        return new self('Gravesham', 'E07000109');
+        return new self('Gravesham', 'E07000109', 'E10000016');
     }
 
     /**
@@ -1567,7 +1574,7 @@ final class Ltla
      */
     public static function greatYarmouth(): self
     {
-        return new self('Great Yarmouth', 'E07000145');
+        return new self('Great Yarmouth', 'E07000145', 'E10000020');
     }
 
     /**
@@ -1575,7 +1582,7 @@ final class Ltla
      */
     public static function greenwich(): self
     {
-        return new self('Greenwich', 'E09000011');
+        return new self('Greenwich', 'E09000011', 'E09000011');
     }
 
     /**
@@ -1583,7 +1590,7 @@ final class Ltla
      */
     public static function guildford(): self
     {
-        return new self('Guildford', 'E07000209');
+        return new self('Guildford', 'E07000209', 'E10000030');
     }
 
     /**
@@ -1591,7 +1598,7 @@ final class Ltla
      */
     public static function gwynedd(): self
     {
-        return new self('Gwynedd', 'W06000002');
+        return new self('Gwynedd', 'W06000002', 'W06000002');
     }
 
     /**
@@ -1599,7 +1606,7 @@ final class Ltla
      */
     public static function hackneyAndCityOfLondon(): self
     {
-        return new self('Hackney and City of London', 'E09000012');
+        return new self('Hackney and City of London', 'E09000012', 'E09000012');
     }
 
     /**
@@ -1607,7 +1614,7 @@ final class Ltla
      */
     public static function halton(): self
     {
-        return new self('Halton', 'E06000006');
+        return new self('Halton', 'E06000006', 'E06000006');
     }
 
     /**
@@ -1615,7 +1622,7 @@ final class Ltla
      */
     public static function hambleton(): self
     {
-        return new self('Hambleton', 'E07000164');
+        return new self('Hambleton', 'E07000164', 'E10000023');
     }
 
     /**
@@ -1623,7 +1630,7 @@ final class Ltla
      */
     public static function hammersmithAndFulham(): self
     {
-        return new self('Hammersmith and Fulham', 'E09000013');
+        return new self('Hammersmith and Fulham', 'E09000013', 'E09000013');
     }
 
     /**
@@ -1631,7 +1638,7 @@ final class Ltla
      */
     public static function harborough(): self
     {
-        return new self('Harborough', 'E07000131');
+        return new self('Harborough', 'E07000131', 'E10000018');
     }
 
     /**
@@ -1639,7 +1646,7 @@ final class Ltla
      */
     public static function haringey(): self
     {
-        return new self('Haringey', 'E09000014');
+        return new self('Haringey', 'E09000014', 'E09000014');
     }
 
     /**
@@ -1647,7 +1654,7 @@ final class Ltla
      */
     public static function harlow(): self
     {
-        return new self('Harlow', 'E07000073');
+        return new self('Harlow', 'E07000073', 'E10000012');
     }
 
     /**
@@ -1655,7 +1662,7 @@ final class Ltla
      */
     public static function harrogate(): self
     {
-        return new self('Harrogate', 'E07000165');
+        return new self('Harrogate', 'E07000165', 'E10000023');
     }
 
     /**
@@ -1663,7 +1670,7 @@ final class Ltla
      */
     public static function harrow(): self
     {
-        return new self('Harrow', 'E09000015');
+        return new self('Harrow', 'E09000015', 'E09000015');
     }
 
     /**
@@ -1671,7 +1678,7 @@ final class Ltla
      */
     public static function hart(): self
     {
-        return new self('Hart', 'E07000089');
+        return new self('Hart', 'E07000089', 'E10000014');
     }
 
     /**
@@ -1679,7 +1686,7 @@ final class Ltla
      */
     public static function hartlepool(): self
     {
-        return new self('Hartlepool', 'E06000001');
+        return new self('Hartlepool', 'E06000001', 'E06000001');
     }
 
     /**
@@ -1687,7 +1694,7 @@ final class Ltla
      */
     public static function hastings(): self
     {
-        return new self('Hastings', 'E07000062');
+        return new self('Hastings', 'E07000062', 'E10000011');
     }
 
     /**
@@ -1695,7 +1702,7 @@ final class Ltla
      */
     public static function havant(): self
     {
-        return new self('Havant', 'E07000090');
+        return new self('Havant', 'E07000090', 'E10000014');
     }
 
     /**
@@ -1703,7 +1710,7 @@ final class Ltla
      */
     public static function havering(): self
     {
-        return new self('Havering', 'E09000016');
+        return new self('Havering', 'E09000016', 'E09000016');
     }
 
     /**
@@ -1711,7 +1718,7 @@ final class Ltla
      */
     public static function herefordshireCountyOf(): self
     {
-        return new self('Herefordshire, County of', 'E06000019');
+        return new self('Herefordshire, County of', 'E06000019', 'E06000019');
     }
 
     /**
@@ -1719,7 +1726,7 @@ final class Ltla
      */
     public static function hertsmere(): self
     {
-        return new self('Hertsmere', 'E07000098');
+        return new self('Hertsmere', 'E07000098', 'E10000015');
     }
 
     /**
@@ -1727,7 +1734,7 @@ final class Ltla
      */
     public static function highPeak(): self
     {
-        return new self('High Peak', 'E07000037');
+        return new self('High Peak', 'E07000037', 'E10000007');
     }
 
     /**
@@ -1735,7 +1742,7 @@ final class Ltla
      */
     public static function highland(): self
     {
-        return new self('Highland', 'S12000017');
+        return new self('Highland', 'S12000017', 'S12000017');
     }
 
     /**
@@ -1743,7 +1750,7 @@ final class Ltla
      */
     public static function hillingdon(): self
     {
-        return new self('Hillingdon', 'E09000017');
+        return new self('Hillingdon', 'E09000017', 'E09000017');
     }
 
     /**
@@ -1751,7 +1758,7 @@ final class Ltla
      */
     public static function hinckleyAndBosworth(): self
     {
-        return new self('Hinckley and Bosworth', 'E07000132');
+        return new self('Hinckley and Bosworth', 'E07000132', 'E10000018');
     }
 
     /**
@@ -1759,7 +1766,7 @@ final class Ltla
      */
     public static function horsham(): self
     {
-        return new self('Horsham', 'E07000227');
+        return new self('Horsham', 'E07000227', 'E10000032');
     }
 
     /**
@@ -1767,7 +1774,7 @@ final class Ltla
      */
     public static function hounslow(): self
     {
-        return new self('Hounslow', 'E09000018');
+        return new self('Hounslow', 'E09000018', 'E09000018');
     }
 
     /**
@@ -1775,7 +1782,7 @@ final class Ltla
      */
     public static function huntingdonshire(): self
     {
-        return new self('Huntingdonshire', 'E07000011');
+        return new self('Huntingdonshire', 'E07000011', 'E10000003');
     }
 
     /**
@@ -1783,7 +1790,7 @@ final class Ltla
      */
     public static function hyndburn(): self
     {
-        return new self('Hyndburn', 'E07000120');
+        return new self('Hyndburn', 'E07000120', 'E10000017');
     }
 
     /**
@@ -1791,7 +1798,7 @@ final class Ltla
      */
     public static function inverclyde(): self
     {
-        return new self('Inverclyde', 'S12000018');
+        return new self('Inverclyde', 'S12000018', 'S12000018');
     }
 
     /**
@@ -1799,7 +1806,7 @@ final class Ltla
      */
     public static function ipswich(): self
     {
-        return new self('Ipswich', 'E07000202');
+        return new self('Ipswich', 'E07000202', 'E10000029');
     }
 
     /**
@@ -1807,7 +1814,7 @@ final class Ltla
      */
     public static function isleOfAnglesey(): self
     {
-        return new self('Isle of Anglesey', 'W06000001');
+        return new self('Isle of Anglesey', 'W06000001', 'W06000001');
     }
 
     /**
@@ -1815,7 +1822,7 @@ final class Ltla
      */
     public static function isleOfWight(): self
     {
-        return new self('Isle of Wight', 'E06000046');
+        return new self('Isle of Wight', 'E06000046', 'E06000046');
     }
 
     /**
@@ -1823,7 +1830,7 @@ final class Ltla
      */
     public static function islington(): self
     {
-        return new self('Islington', 'E09000019');
+        return new self('Islington', 'E09000019', 'E09000019');
     }
 
     /**
@@ -1831,7 +1838,7 @@ final class Ltla
      */
     public static function kensingtonAndChelsea(): self
     {
-        return new self('Kensington and Chelsea', 'E09000020');
+        return new self('Kensington and Chelsea', 'E09000020', 'E09000020');
     }
 
     /**
@@ -1839,7 +1846,7 @@ final class Ltla
      */
     public static function kettering(): self
     {
-        return new self('Kettering', 'E07000153');
+        return new self('Kettering', 'E07000153', 'E10000021');
     }
 
     /**
@@ -1847,7 +1854,7 @@ final class Ltla
      */
     public static function kingsLynnAndWestNorfolk(): self
     {
-        return new self('King\'s Lynn and West Norfolk', 'E07000146');
+        return new self('King\'s Lynn and West Norfolk', 'E07000146', 'E10000020');
     }
 
     /**
@@ -1855,7 +1862,7 @@ final class Ltla
      */
     public static function kingstonUponHullCityOf(): self
     {
-        return new self('Kingston upon Hull, City of', 'E06000010');
+        return new self('Kingston upon Hull, City of', 'E06000010', 'E06000010');
     }
 
     /**
@@ -1863,7 +1870,7 @@ final class Ltla
      */
     public static function kingstonUponThames(): self
     {
-        return new self('Kingston upon Thames', 'E09000021');
+        return new self('Kingston upon Thames', 'E09000021', 'E09000021');
     }
 
     /**
@@ -1871,7 +1878,7 @@ final class Ltla
      */
     public static function kirklees(): self
     {
-        return new self('Kirklees', 'E08000034');
+        return new self('Kirklees', 'E08000034', 'E08000034');
     }
 
     /**
@@ -1879,7 +1886,7 @@ final class Ltla
      */
     public static function knowsley(): self
     {
-        return new self('Knowsley', 'E08000011');
+        return new self('Knowsley', 'E08000011', 'E08000011');
     }
 
     /**
@@ -1887,7 +1894,7 @@ final class Ltla
      */
     public static function lambeth(): self
     {
-        return new self('Lambeth', 'E09000022');
+        return new self('Lambeth', 'E09000022', 'E09000022');
     }
 
     /**
@@ -1895,7 +1902,7 @@ final class Ltla
      */
     public static function lancaster(): self
     {
-        return new self('Lancaster', 'E07000121');
+        return new self('Lancaster', 'E07000121', 'E10000017');
     }
 
     /**
@@ -1903,7 +1910,7 @@ final class Ltla
      */
     public static function leeds(): self
     {
-        return new self('Leeds', 'E08000035');
+        return new self('Leeds', 'E08000035', 'E08000035');
     }
 
     /**
@@ -1911,7 +1918,7 @@ final class Ltla
      */
     public static function leicester(): self
     {
-        return new self('Leicester', 'E06000016');
+        return new self('Leicester', 'E06000016', 'E06000016');
     }
 
     /**
@@ -1919,7 +1926,7 @@ final class Ltla
      */
     public static function lewes(): self
     {
-        return new self('Lewes', 'E07000063');
+        return new self('Lewes', 'E07000063', 'E10000011');
     }
 
     /**
@@ -1927,7 +1934,7 @@ final class Ltla
      */
     public static function lewisham(): self
     {
-        return new self('Lewisham', 'E09000023');
+        return new self('Lewisham', 'E09000023', 'E09000023');
     }
 
     /**
@@ -1935,7 +1942,7 @@ final class Ltla
      */
     public static function lichfield(): self
     {
-        return new self('Lichfield', 'E07000194');
+        return new self('Lichfield', 'E07000194', 'E10000028');
     }
 
     /**
@@ -1943,7 +1950,7 @@ final class Ltla
      */
     public static function lincoln(): self
     {
-        return new self('Lincoln', 'E07000138');
+        return new self('Lincoln', 'E07000138', 'E10000019');
     }
 
     /**
@@ -1951,7 +1958,7 @@ final class Ltla
      */
     public static function lisburnAndCastlereagh(): self
     {
-        return new self('Lisburn and Castlereagh', 'N09000007');
+        return new self('Lisburn and Castlereagh', 'N09000007', 'N09000007');
     }
 
     /**
@@ -1959,7 +1966,7 @@ final class Ltla
      */
     public static function liverpool(): self
     {
-        return new self('Liverpool', 'E08000012');
+        return new self('Liverpool', 'E08000012', 'E08000012');
     }
 
     /**
@@ -1967,7 +1974,7 @@ final class Ltla
      */
     public static function luton(): self
     {
-        return new self('Luton', 'E06000032');
+        return new self('Luton', 'E06000032', 'E06000032');
     }
 
     /**
@@ -1975,7 +1982,7 @@ final class Ltla
      */
     public static function maidstone(): self
     {
-        return new self('Maidstone', 'E07000110');
+        return new self('Maidstone', 'E07000110', 'E10000016');
     }
 
     /**
@@ -1983,7 +1990,7 @@ final class Ltla
      */
     public static function maldon(): self
     {
-        return new self('Maldon', 'E07000074');
+        return new self('Maldon', 'E07000074', 'E10000012');
     }
 
     /**
@@ -1991,7 +1998,7 @@ final class Ltla
      */
     public static function malvernHills(): self
     {
-        return new self('Malvern Hills', 'E07000235');
+        return new self('Malvern Hills', 'E07000235', 'E10000034');
     }
 
     /**
@@ -1999,7 +2006,7 @@ final class Ltla
      */
     public static function manchester(): self
     {
-        return new self('Manchester', 'E08000003');
+        return new self('Manchester', 'E08000003', 'E08000003');
     }
 
     /**
@@ -2007,7 +2014,7 @@ final class Ltla
      */
     public static function mansfield(): self
     {
-        return new self('Mansfield', 'E07000174');
+        return new self('Mansfield', 'E07000174', 'E10000024');
     }
 
     /**
@@ -2015,7 +2022,7 @@ final class Ltla
      */
     public static function medway(): self
     {
-        return new self('Medway', 'E06000035');
+        return new self('Medway', 'E06000035', 'E06000035');
     }
 
     /**
@@ -2023,7 +2030,7 @@ final class Ltla
      */
     public static function melton(): self
     {
-        return new self('Melton', 'E07000133');
+        return new self('Melton', 'E07000133', 'E10000018');
     }
 
     /**
@@ -2031,7 +2038,7 @@ final class Ltla
      */
     public static function mendip(): self
     {
-        return new self('Mendip', 'E07000187');
+        return new self('Mendip', 'E07000187', 'E10000027');
     }
 
     /**
@@ -2039,7 +2046,7 @@ final class Ltla
      */
     public static function merthyrTydfil(): self
     {
-        return new self('Merthyr Tydfil', 'W06000024');
+        return new self('Merthyr Tydfil', 'W06000024', 'W06000024');
     }
 
     /**
@@ -2047,7 +2054,7 @@ final class Ltla
      */
     public static function merton(): self
     {
-        return new self('Merton', 'E09000024');
+        return new self('Merton', 'E09000024', 'E09000024');
     }
 
     /**
@@ -2055,7 +2062,7 @@ final class Ltla
      */
     public static function midAndEastAntrim(): self
     {
-        return new self('Mid and East Antrim', 'N09000008');
+        return new self('Mid and East Antrim', 'N09000008', 'N09000008');
     }
 
     /**
@@ -2063,7 +2070,7 @@ final class Ltla
      */
     public static function midDevon(): self
     {
-        return new self('Mid Devon', 'E07000042');
+        return new self('Mid Devon', 'E07000042', 'E10000008');
     }
 
     /**
@@ -2071,7 +2078,7 @@ final class Ltla
      */
     public static function midSuffolk(): self
     {
-        return new self('Mid Suffolk', 'E07000203');
+        return new self('Mid Suffolk', 'E07000203', 'E10000029');
     }
 
     /**
@@ -2079,7 +2086,7 @@ final class Ltla
      */
     public static function midSussex(): self
     {
-        return new self('Mid Sussex', 'E07000228');
+        return new self('Mid Sussex', 'E07000228', 'E10000032');
     }
 
     /**
@@ -2087,7 +2094,7 @@ final class Ltla
      */
     public static function midUlster(): self
     {
-        return new self('Mid Ulster', 'N09000009');
+        return new self('Mid Ulster', 'N09000009', 'N09000009');
     }
 
     /**
@@ -2095,7 +2102,7 @@ final class Ltla
      */
     public static function middlesbrough(): self
     {
-        return new self('Middlesbrough', 'E06000002');
+        return new self('Middlesbrough', 'E06000002', 'E06000002');
     }
 
     /**
@@ -2103,7 +2110,7 @@ final class Ltla
      */
     public static function midlothian(): self
     {
-        return new self('Midlothian', 'S12000019');
+        return new self('Midlothian', 'S12000019', 'S12000019');
     }
 
     /**
@@ -2111,7 +2118,7 @@ final class Ltla
      */
     public static function miltonKeynes(): self
     {
-        return new self('Milton Keynes', 'E06000042');
+        return new self('Milton Keynes', 'E06000042', 'E06000042');
     }
 
     /**
@@ -2119,7 +2126,7 @@ final class Ltla
      */
     public static function moleValley(): self
     {
-        return new self('Mole Valley', 'E07000210');
+        return new self('Mole Valley', 'E07000210', 'E10000030');
     }
 
     /**
@@ -2127,7 +2134,7 @@ final class Ltla
      */
     public static function monmouthshire(): self
     {
-        return new self('Monmouthshire', 'W06000021');
+        return new self('Monmouthshire', 'W06000021', 'W06000021');
     }
 
     /**
@@ -2135,7 +2142,7 @@ final class Ltla
      */
     public static function moray(): self
     {
-        return new self('Moray', 'S12000020');
+        return new self('Moray', 'S12000020', 'S12000020');
     }
 
     /**
@@ -2143,7 +2150,7 @@ final class Ltla
      */
     public static function neathPortTalbot(): self
     {
-        return new self('Neath Port Talbot', 'W06000012');
+        return new self('Neath Port Talbot', 'W06000012', 'W06000012');
     }
 
     /**
@@ -2151,7 +2158,7 @@ final class Ltla
      */
     public static function newForest(): self
     {
-        return new self('New Forest', 'E07000091');
+        return new self('New Forest', 'E07000091', 'E10000014');
     }
 
     /**
@@ -2159,7 +2166,7 @@ final class Ltla
      */
     public static function newarkAndSherwood(): self
     {
-        return new self('Newark and Sherwood', 'E07000175');
+        return new self('Newark and Sherwood', 'E07000175', 'E10000024');
     }
 
     /**
@@ -2167,7 +2174,7 @@ final class Ltla
      */
     public static function newcastleUponTyne(): self
     {
-        return new self('Newcastle upon Tyne', 'E08000021');
+        return new self('Newcastle upon Tyne', 'E08000021', 'E08000021');
     }
 
     /**
@@ -2175,7 +2182,7 @@ final class Ltla
      */
     public static function newcastleUnderLyme(): self
     {
-        return new self('Newcastle-under-Lyme', 'E07000195');
+        return new self('Newcastle-under-Lyme', 'E07000195', 'E10000028');
     }
 
     /**
@@ -2183,7 +2190,7 @@ final class Ltla
      */
     public static function newham(): self
     {
-        return new self('Newham', 'E09000025');
+        return new self('Newham', 'E09000025', 'E09000025');
     }
 
     /**
@@ -2191,7 +2198,7 @@ final class Ltla
      */
     public static function newport(): self
     {
-        return new self('Newport', 'W06000022');
+        return new self('Newport', 'W06000022', 'W06000022');
     }
 
     /**
@@ -2199,7 +2206,7 @@ final class Ltla
      */
     public static function newryMourneAndDown(): self
     {
-        return new self('Newry, Mourne and Down', 'N09000010');
+        return new self('Newry, Mourne and Down', 'N09000010', 'N09000010');
     }
 
     /**
@@ -2207,7 +2214,7 @@ final class Ltla
      */
     public static function northAyrshire(): self
     {
-        return new self('North Ayrshire', 'S12000021');
+        return new self('North Ayrshire', 'S12000021', 'S12000021');
     }
 
     /**
@@ -2215,7 +2222,7 @@ final class Ltla
      */
     public static function northDevon(): self
     {
-        return new self('North Devon', 'E07000043');
+        return new self('North Devon', 'E07000043', 'E10000008');
     }
 
     /**
@@ -2223,7 +2230,7 @@ final class Ltla
      */
     public static function northEastDerbyshire(): self
     {
-        return new self('North East Derbyshire', 'E07000038');
+        return new self('North East Derbyshire', 'E07000038', 'E10000007');
     }
 
     /**
@@ -2231,7 +2238,7 @@ final class Ltla
      */
     public static function northEastLincolnshire(): self
     {
-        return new self('North East Lincolnshire', 'E06000012');
+        return new self('North East Lincolnshire', 'E06000012', 'E06000012');
     }
 
     /**
@@ -2239,7 +2246,7 @@ final class Ltla
      */
     public static function northHertfordshire(): self
     {
-        return new self('North Hertfordshire', 'E07000099');
+        return new self('North Hertfordshire', 'E07000099', 'E10000015');
     }
 
     /**
@@ -2247,7 +2254,7 @@ final class Ltla
      */
     public static function northKesteven(): self
     {
-        return new self('North Kesteven', 'E07000139');
+        return new self('North Kesteven', 'E07000139', 'E10000019');
     }
 
     /**
@@ -2255,7 +2262,7 @@ final class Ltla
      */
     public static function northLanarkshire(): self
     {
-        return new self('North Lanarkshire', 'S12000050');
+        return new self('North Lanarkshire', 'S12000050', 'S12000050');
     }
 
     /**
@@ -2263,7 +2270,7 @@ final class Ltla
      */
     public static function northLincolnshire(): self
     {
-        return new self('North Lincolnshire', 'E06000013');
+        return new self('North Lincolnshire', 'E06000013', 'E06000013');
     }
 
     /**
@@ -2271,7 +2278,7 @@ final class Ltla
      */
     public static function northNorfolk(): self
     {
-        return new self('North Norfolk', 'E07000147');
+        return new self('North Norfolk', 'E07000147', 'E10000020');
     }
 
     /**
@@ -2279,7 +2286,7 @@ final class Ltla
      */
     public static function northSomerset(): self
     {
-        return new self('North Somerset', 'E06000024');
+        return new self('North Somerset', 'E06000024', 'E06000024');
     }
 
     /**
@@ -2287,7 +2294,7 @@ final class Ltla
      */
     public static function northTyneside(): self
     {
-        return new self('North Tyneside', 'E08000022');
+        return new self('North Tyneside', 'E08000022', 'E08000022');
     }
 
     /**
@@ -2295,7 +2302,7 @@ final class Ltla
      */
     public static function northWarwickshire(): self
     {
-        return new self('North Warwickshire', 'E07000218');
+        return new self('North Warwickshire', 'E07000218', 'E10000031');
     }
 
     /**
@@ -2303,7 +2310,7 @@ final class Ltla
      */
     public static function northWestLeicestershire(): self
     {
-        return new self('North West Leicestershire', 'E07000134');
+        return new self('North West Leicestershire', 'E07000134', 'E10000018');
     }
 
     /**
@@ -2311,7 +2318,7 @@ final class Ltla
      */
     public static function northampton(): self
     {
-        return new self('Northampton', 'E07000154');
+        return new self('Northampton', 'E07000154', 'E10000021');
     }
 
     /**
@@ -2319,7 +2326,7 @@ final class Ltla
      */
     public static function northumberland(): self
     {
-        return new self('Northumberland', 'E06000057');
+        return new self('Northumberland', 'E06000057', 'E06000057');
     }
 
     /**
@@ -2327,7 +2334,7 @@ final class Ltla
      */
     public static function norwich(): self
     {
-        return new self('Norwich', 'E07000148');
+        return new self('Norwich', 'E07000148', 'E10000020');
     }
 
     /**
@@ -2335,7 +2342,7 @@ final class Ltla
      */
     public static function nottingham(): self
     {
-        return new self('Nottingham', 'E06000018');
+        return new self('Nottingham', 'E06000018', 'E06000018');
     }
 
     /**
@@ -2343,7 +2350,7 @@ final class Ltla
      */
     public static function nuneatonAndBedworth(): self
     {
-        return new self('Nuneaton and Bedworth', 'E07000219');
+        return new self('Nuneaton and Bedworth', 'E07000219', 'E10000031');
     }
 
     /**
@@ -2351,7 +2358,7 @@ final class Ltla
      */
     public static function oadbyAndWigston(): self
     {
-        return new self('Oadby and Wigston', 'E07000135');
+        return new self('Oadby and Wigston', 'E07000135', 'E10000018');
     }
 
     /**
@@ -2359,7 +2366,7 @@ final class Ltla
      */
     public static function oldham(): self
     {
-        return new self('Oldham', 'E08000004');
+        return new self('Oldham', 'E08000004', 'E08000004');
     }
 
     /**
@@ -2367,7 +2374,7 @@ final class Ltla
      */
     public static function orkneyIslands(): self
     {
-        return new self('Orkney Islands', 'S12000023');
+        return new self('Orkney Islands', 'S12000023', 'S12000023');
     }
 
     /**
@@ -2375,7 +2382,7 @@ final class Ltla
      */
     public static function oxford(): self
     {
-        return new self('Oxford', 'E07000178');
+        return new self('Oxford', 'E07000178', 'E10000025');
     }
 
     /**
@@ -2383,7 +2390,7 @@ final class Ltla
      */
     public static function pembrokeshire(): self
     {
-        return new self('Pembrokeshire', 'W06000009');
+        return new self('Pembrokeshire', 'W06000009', 'W06000009');
     }
 
     /**
@@ -2391,7 +2398,7 @@ final class Ltla
      */
     public static function pendle(): self
     {
-        return new self('Pendle', 'E07000122');
+        return new self('Pendle', 'E07000122', 'E10000017');
     }
 
     /**
@@ -2399,7 +2406,7 @@ final class Ltla
      */
     public static function perthAndKinross(): self
     {
-        return new self('Perth and Kinross', 'S12000048');
+        return new self('Perth and Kinross', 'S12000048', 'S12000048');
     }
 
     /**
@@ -2407,7 +2414,7 @@ final class Ltla
      */
     public static function peterborough(): self
     {
-        return new self('Peterborough', 'E06000031');
+        return new self('Peterborough', 'E06000031', 'E06000031');
     }
 
     /**
@@ -2415,7 +2422,7 @@ final class Ltla
      */
     public static function plymouth(): self
     {
-        return new self('Plymouth', 'E06000026');
+        return new self('Plymouth', 'E06000026', 'E06000026');
     }
 
     /**
@@ -2423,7 +2430,7 @@ final class Ltla
      */
     public static function portsmouth(): self
     {
-        return new self('Portsmouth', 'E06000044');
+        return new self('Portsmouth', 'E06000044', 'E06000044');
     }
 
     /**
@@ -2431,7 +2438,7 @@ final class Ltla
      */
     public static function powys(): self
     {
-        return new self('Powys', 'W06000023');
+        return new self('Powys', 'W06000023', 'W06000023');
     }
 
     /**
@@ -2439,7 +2446,7 @@ final class Ltla
      */
     public static function preston(): self
     {
-        return new self('Preston', 'E07000123');
+        return new self('Preston', 'E07000123', 'E10000017');
     }
 
     /**
@@ -2447,7 +2454,7 @@ final class Ltla
      */
     public static function reading(): self
     {
-        return new self('Reading', 'E06000038');
+        return new self('Reading', 'E06000038', 'E06000038');
     }
 
     /**
@@ -2455,7 +2462,7 @@ final class Ltla
      */
     public static function redbridge(): self
     {
-        return new self('Redbridge', 'E09000026');
+        return new self('Redbridge', 'E09000026', 'E09000026');
     }
 
     /**
@@ -2463,7 +2470,7 @@ final class Ltla
      */
     public static function redcarAndCleveland(): self
     {
-        return new self('Redcar and Cleveland', 'E06000003');
+        return new self('Redcar and Cleveland', 'E06000003', 'E06000003');
     }
 
     /**
@@ -2471,7 +2478,7 @@ final class Ltla
      */
     public static function redditch(): self
     {
-        return new self('Redditch', 'E07000236');
+        return new self('Redditch', 'E07000236', 'E10000034');
     }
 
     /**
@@ -2479,7 +2486,7 @@ final class Ltla
      */
     public static function reigateAndBanstead(): self
     {
-        return new self('Reigate and Banstead', 'E07000211');
+        return new self('Reigate and Banstead', 'E07000211', 'E10000030');
     }
 
     /**
@@ -2487,7 +2494,7 @@ final class Ltla
      */
     public static function renfrewshire(): self
     {
-        return new self('Renfrewshire', 'S12000038');
+        return new self('Renfrewshire', 'S12000038', 'S12000038');
     }
 
     /**
@@ -2495,7 +2502,7 @@ final class Ltla
      */
     public static function residentOutsideWales(): self
     {
-        return new self('Resident outside Wales', null);
+        return new self('Resident outside Wales', null, null);
     }
 
     /**
@@ -2503,7 +2510,7 @@ final class Ltla
      */
     public static function rhonddaCynonTaf(): self
     {
-        return new self('Rhondda Cynon Taf', 'W06000016');
+        return new self('Rhondda Cynon Taf', 'W06000016', 'W06000016');
     }
 
     /**
@@ -2511,7 +2518,7 @@ final class Ltla
      */
     public static function ribbleValley(): self
     {
-        return new self('Ribble Valley', 'E07000124');
+        return new self('Ribble Valley', 'E07000124', 'E10000017');
     }
 
     /**
@@ -2519,7 +2526,7 @@ final class Ltla
      */
     public static function richmondUponThames(): self
     {
-        return new self('Richmond upon Thames', 'E09000027');
+        return new self('Richmond upon Thames', 'E09000027', 'E09000027');
     }
 
     /**
@@ -2527,7 +2534,7 @@ final class Ltla
      */
     public static function richmondshire(): self
     {
-        return new self('Richmondshire', 'E07000166');
+        return new self('Richmondshire', 'E07000166', 'E10000023');
     }
 
     /**
@@ -2535,7 +2542,7 @@ final class Ltla
      */
     public static function rochdale(): self
     {
-        return new self('Rochdale', 'E08000005');
+        return new self('Rochdale', 'E08000005', 'E08000005');
     }
 
     /**
@@ -2543,7 +2550,7 @@ final class Ltla
      */
     public static function rochford(): self
     {
-        return new self('Rochford', 'E07000075');
+        return new self('Rochford', 'E07000075', 'E10000012');
     }
 
     /**
@@ -2551,7 +2558,7 @@ final class Ltla
      */
     public static function rossendale(): self
     {
-        return new self('Rossendale', 'E07000125');
+        return new self('Rossendale', 'E07000125', 'E10000017');
     }
 
     /**
@@ -2559,7 +2566,7 @@ final class Ltla
      */
     public static function rother(): self
     {
-        return new self('Rother', 'E07000064');
+        return new self('Rother', 'E07000064', 'E10000011');
     }
 
     /**
@@ -2567,7 +2574,7 @@ final class Ltla
      */
     public static function rotherham(): self
     {
-        return new self('Rotherham', 'E08000018');
+        return new self('Rotherham', 'E08000018', 'E08000018');
     }
 
     /**
@@ -2575,7 +2582,7 @@ final class Ltla
      */
     public static function rugby(): self
     {
-        return new self('Rugby', 'E07000220');
+        return new self('Rugby', 'E07000220', 'E10000031');
     }
 
     /**
@@ -2583,7 +2590,7 @@ final class Ltla
      */
     public static function runnymede(): self
     {
-        return new self('Runnymede', 'E07000212');
+        return new self('Runnymede', 'E07000212', 'E10000030');
     }
 
     /**
@@ -2591,7 +2598,7 @@ final class Ltla
      */
     public static function rushcliffe(): self
     {
-        return new self('Rushcliffe', 'E07000176');
+        return new self('Rushcliffe', 'E07000176', 'E10000024');
     }
 
     /**
@@ -2599,7 +2606,7 @@ final class Ltla
      */
     public static function rushmoor(): self
     {
-        return new self('Rushmoor', 'E07000092');
+        return new self('Rushmoor', 'E07000092', 'E10000014');
     }
 
     /**
@@ -2607,7 +2614,7 @@ final class Ltla
      */
     public static function rutland(): self
     {
-        return new self('Rutland', 'E06000017');
+        return new self('Rutland', 'E06000017', 'E06000017');
     }
 
     /**
@@ -2615,7 +2622,7 @@ final class Ltla
      */
     public static function ryedale(): self
     {
-        return new self('Ryedale', 'E07000167');
+        return new self('Ryedale', 'E07000167', 'E10000023');
     }
 
     /**
@@ -2623,7 +2630,7 @@ final class Ltla
      */
     public static function salford(): self
     {
-        return new self('Salford', 'E08000006');
+        return new self('Salford', 'E08000006', 'E08000006');
     }
 
     /**
@@ -2631,7 +2638,7 @@ final class Ltla
      */
     public static function sandwell(): self
     {
-        return new self('Sandwell', 'E08000028');
+        return new self('Sandwell', 'E08000028', 'E08000028');
     }
 
     /**
@@ -2639,7 +2646,7 @@ final class Ltla
      */
     public static function scarborough(): self
     {
-        return new self('Scarborough', 'E07000168');
+        return new self('Scarborough', 'E07000168', 'E10000023');
     }
 
     /**
@@ -2647,7 +2654,7 @@ final class Ltla
      */
     public static function scottishBorders(): self
     {
-        return new self('Scottish Borders', 'S12000026');
+        return new self('Scottish Borders', 'S12000026', 'S12000026');
     }
 
     /**
@@ -2655,7 +2662,7 @@ final class Ltla
      */
     public static function sedgemoor(): self
     {
-        return new self('Sedgemoor', 'E07000188');
+        return new self('Sedgemoor', 'E07000188', 'E10000027');
     }
 
     /**
@@ -2663,7 +2670,7 @@ final class Ltla
      */
     public static function sefton(): self
     {
-        return new self('Sefton', 'E08000014');
+        return new self('Sefton', 'E08000014', 'E08000014');
     }
 
     /**
@@ -2671,7 +2678,7 @@ final class Ltla
      */
     public static function selby(): self
     {
-        return new self('Selby', 'E07000169');
+        return new self('Selby', 'E07000169', 'E10000023');
     }
 
     /**
@@ -2679,7 +2686,7 @@ final class Ltla
      */
     public static function sevenoaks(): self
     {
-        return new self('Sevenoaks', 'E07000111');
+        return new self('Sevenoaks', 'E07000111', 'E10000016');
     }
 
     /**
@@ -2687,7 +2694,7 @@ final class Ltla
      */
     public static function sheffield(): self
     {
-        return new self('Sheffield', 'E08000019');
+        return new self('Sheffield', 'E08000019', 'E08000019');
     }
 
     /**
@@ -2695,7 +2702,7 @@ final class Ltla
      */
     public static function shetlandIslands(): self
     {
-        return new self('Shetland Islands', 'S12000027');
+        return new self('Shetland Islands', 'S12000027', 'S12000027');
     }
 
     /**
@@ -2703,7 +2710,7 @@ final class Ltla
      */
     public static function shropshire(): self
     {
-        return new self('Shropshire', 'E06000051');
+        return new self('Shropshire', 'E06000051', 'E06000051');
     }
 
     /**
@@ -2711,7 +2718,7 @@ final class Ltla
      */
     public static function slough(): self
     {
-        return new self('Slough', 'E06000039');
+        return new self('Slough', 'E06000039', 'E06000039');
     }
 
     /**
@@ -2719,7 +2726,7 @@ final class Ltla
      */
     public static function solihull(): self
     {
-        return new self('Solihull', 'E08000029');
+        return new self('Solihull', 'E08000029', 'E08000029');
     }
 
     /**
@@ -2727,7 +2734,7 @@ final class Ltla
      */
     public static function somersetWestAndTaunton(): self
     {
-        return new self('Somerset West and Taunton', 'E07000246');
+        return new self('Somerset West and Taunton', 'E07000246', 'E10000027');
     }
 
     /**
@@ -2735,7 +2742,7 @@ final class Ltla
      */
     public static function southAyrshire(): self
     {
-        return new self('South Ayrshire', 'S12000028');
+        return new self('South Ayrshire', 'S12000028', 'S12000028');
     }
 
     /**
@@ -2743,7 +2750,7 @@ final class Ltla
      */
     public static function southBucks(): self
     {
-        return new self('South Bucks', 'E07000006');
+        return new self('South Bucks', 'E07000006', 'E10000002');
     }
 
     /**
@@ -2751,7 +2758,7 @@ final class Ltla
      */
     public static function southCambridgeshire(): self
     {
-        return new self('South Cambridgeshire', 'E07000012');
+        return new self('South Cambridgeshire', 'E07000012', 'E10000003');
     }
 
     /**
@@ -2759,7 +2766,7 @@ final class Ltla
      */
     public static function southDerbyshire(): self
     {
-        return new self('South Derbyshire', 'E07000039');
+        return new self('South Derbyshire', 'E07000039', 'E10000007');
     }
 
     /**
@@ -2767,7 +2774,7 @@ final class Ltla
      */
     public static function southGloucestershire(): self
     {
-        return new self('South Gloucestershire', 'E06000025');
+        return new self('South Gloucestershire', 'E06000025', 'E06000025');
     }
 
     /**
@@ -2775,7 +2782,7 @@ final class Ltla
      */
     public static function southHams(): self
     {
-        return new self('South Hams', 'E07000044');
+        return new self('South Hams', 'E07000044', 'E10000008');
     }
 
     /**
@@ -2783,7 +2790,7 @@ final class Ltla
      */
     public static function southHolland(): self
     {
-        return new self('South Holland', 'E07000140');
+        return new self('South Holland', 'E07000140', 'E10000019');
     }
 
     /**
@@ -2791,7 +2798,7 @@ final class Ltla
      */
     public static function southKesteven(): self
     {
-        return new self('South Kesteven', 'E07000141');
+        return new self('South Kesteven', 'E07000141', 'E10000019');
     }
 
     /**
@@ -2799,7 +2806,7 @@ final class Ltla
      */
     public static function southLakeland(): self
     {
-        return new self('South Lakeland', 'E07000031');
+        return new self('South Lakeland', 'E07000031', 'E10000006');
     }
 
     /**
@@ -2807,7 +2814,7 @@ final class Ltla
      */
     public static function southLanarkshire(): self
     {
-        return new self('South Lanarkshire', 'S12000029');
+        return new self('South Lanarkshire', 'S12000029', 'S12000029');
     }
 
     /**
@@ -2815,7 +2822,7 @@ final class Ltla
      */
     public static function southNorfolk(): self
     {
-        return new self('South Norfolk', 'E07000149');
+        return new self('South Norfolk', 'E07000149', 'E10000020');
     }
 
     /**
@@ -2823,7 +2830,7 @@ final class Ltla
      */
     public static function southNorthamptonshire(): self
     {
-        return new self('South Northamptonshire', 'E07000155');
+        return new self('South Northamptonshire', 'E07000155', 'E10000021');
     }
 
     /**
@@ -2831,7 +2838,7 @@ final class Ltla
      */
     public static function southOxfordshire(): self
     {
-        return new self('South Oxfordshire', 'E07000179');
+        return new self('South Oxfordshire', 'E07000179', 'E10000025');
     }
 
     /**
@@ -2839,7 +2846,7 @@ final class Ltla
      */
     public static function southRibble(): self
     {
-        return new self('South Ribble', 'E07000126');
+        return new self('South Ribble', 'E07000126', 'E10000017');
     }
 
     /**
@@ -2847,7 +2854,7 @@ final class Ltla
      */
     public static function southSomerset(): self
     {
-        return new self('South Somerset', 'E07000189');
+        return new self('South Somerset', 'E07000189', 'E10000027');
     }
 
     /**
@@ -2855,7 +2862,7 @@ final class Ltla
      */
     public static function southStaffordshire(): self
     {
-        return new self('South Staffordshire', 'E07000196');
+        return new self('South Staffordshire', 'E07000196', 'E10000028');
     }
 
     /**
@@ -2863,7 +2870,7 @@ final class Ltla
      */
     public static function southTyneside(): self
     {
-        return new self('South Tyneside', 'E08000023');
+        return new self('South Tyneside', 'E08000023', 'E08000023');
     }
 
     /**
@@ -2871,7 +2878,7 @@ final class Ltla
      */
     public static function southampton(): self
     {
-        return new self('Southampton', 'E06000045');
+        return new self('Southampton', 'E06000045', 'E06000045');
     }
 
     /**
@@ -2879,7 +2886,7 @@ final class Ltla
      */
     public static function southendOnSea(): self
     {
-        return new self('Southend-on-Sea', 'E06000033');
+        return new self('Southend-on-Sea', 'E06000033', 'E06000033');
     }
 
     /**
@@ -2887,7 +2894,7 @@ final class Ltla
      */
     public static function southwark(): self
     {
-        return new self('Southwark', 'E09000028');
+        return new self('Southwark', 'E09000028', 'E09000028');
     }
 
     /**
@@ -2895,7 +2902,7 @@ final class Ltla
      */
     public static function spelthorne(): self
     {
-        return new self('Spelthorne', 'E07000213');
+        return new self('Spelthorne', 'E07000213', 'E10000030');
     }
 
     /**
@@ -2903,7 +2910,7 @@ final class Ltla
      */
     public static function stAlbans(): self
     {
-        return new self('St Albans', 'E07000240');
+        return new self('St Albans', 'E07000240', 'E10000015');
     }
 
     /**
@@ -2911,7 +2918,7 @@ final class Ltla
      */
     public static function stHelens(): self
     {
-        return new self('St. Helens', 'E08000013');
+        return new self('St. Helens', 'E08000013', 'E08000013');
     }
 
     /**
@@ -2919,7 +2926,7 @@ final class Ltla
      */
     public static function stafford(): self
     {
-        return new self('Stafford', 'E07000197');
+        return new self('Stafford', 'E07000197', 'E10000028');
     }
 
     /**
@@ -2927,7 +2934,7 @@ final class Ltla
      */
     public static function staffordshireMoorlands(): self
     {
-        return new self('Staffordshire Moorlands', 'E07000198');
+        return new self('Staffordshire Moorlands', 'E07000198', 'E10000028');
     }
 
     /**
@@ -2935,7 +2942,7 @@ final class Ltla
      */
     public static function stevenage(): self
     {
-        return new self('Stevenage', 'E07000243');
+        return new self('Stevenage', 'E07000243', 'E10000015');
     }
 
     /**
@@ -2943,7 +2950,7 @@ final class Ltla
      */
     public static function stirling(): self
     {
-        return new self('Stirling', 'S12000030');
+        return new self('Stirling', 'S12000030', 'S12000030');
     }
 
     /**
@@ -2951,7 +2958,7 @@ final class Ltla
      */
     public static function stockport(): self
     {
-        return new self('Stockport', 'E08000007');
+        return new self('Stockport', 'E08000007', 'E08000007');
     }
 
     /**
@@ -2959,7 +2966,7 @@ final class Ltla
      */
     public static function stocktonOnTees(): self
     {
-        return new self('Stockton-on-Tees', 'E06000004');
+        return new self('Stockton-on-Tees', 'E06000004', 'E06000004');
     }
 
     /**
@@ -2967,7 +2974,7 @@ final class Ltla
      */
     public static function stokeOnTrent(): self
     {
-        return new self('Stoke-on-Trent', 'E06000021');
+        return new self('Stoke-on-Trent', 'E06000021', 'E06000021');
     }
 
     /**
@@ -2975,7 +2982,7 @@ final class Ltla
      */
     public static function stratfordOnAvon(): self
     {
-        return new self('Stratford-on-Avon', 'E07000221');
+        return new self('Stratford-on-Avon', 'E07000221', 'E10000031');
     }
 
     /**
@@ -2983,7 +2990,7 @@ final class Ltla
      */
     public static function stroud(): self
     {
-        return new self('Stroud', 'E07000082');
+        return new self('Stroud', 'E07000082', 'E10000013');
     }
 
     /**
@@ -2991,7 +2998,7 @@ final class Ltla
      */
     public static function sunderland(): self
     {
-        return new self('Sunderland', 'E08000024');
+        return new self('Sunderland', 'E08000024', 'E08000024');
     }
 
     /**
@@ -2999,7 +3006,7 @@ final class Ltla
      */
     public static function surreyHeath(): self
     {
-        return new self('Surrey Heath', 'E07000214');
+        return new self('Surrey Heath', 'E07000214', 'E10000030');
     }
 
     /**
@@ -3007,7 +3014,7 @@ final class Ltla
      */
     public static function sutton(): self
     {
-        return new self('Sutton', 'E09000029');
+        return new self('Sutton', 'E09000029', 'E09000029');
     }
 
     /**
@@ -3015,7 +3022,7 @@ final class Ltla
      */
     public static function swale(): self
     {
-        return new self('Swale', 'E07000113');
+        return new self('Swale', 'E07000113', 'E10000016');
     }
 
     /**
@@ -3023,7 +3030,7 @@ final class Ltla
      */
     public static function swansea(): self
     {
-        return new self('Swansea', 'W06000011');
+        return new self('Swansea', 'W06000011', 'W06000011');
     }
 
     /**
@@ -3031,7 +3038,7 @@ final class Ltla
      */
     public static function swindon(): self
     {
-        return new self('Swindon', 'E06000030');
+        return new self('Swindon', 'E06000030', 'E06000030');
     }
 
     /**
@@ -3039,7 +3046,7 @@ final class Ltla
      */
     public static function tameside(): self
     {
-        return new self('Tameside', 'E08000008');
+        return new self('Tameside', 'E08000008', 'E08000008');
     }
 
     /**
@@ -3047,7 +3054,7 @@ final class Ltla
      */
     public static function tamworth(): self
     {
-        return new self('Tamworth', 'E07000199');
+        return new self('Tamworth', 'E07000199', 'E10000028');
     }
 
     /**
@@ -3055,7 +3062,7 @@ final class Ltla
      */
     public static function tandridge(): self
     {
-        return new self('Tandridge', 'E07000215');
+        return new self('Tandridge', 'E07000215', 'E10000030');
     }
 
     /**
@@ -3063,7 +3070,7 @@ final class Ltla
      */
     public static function teignbridge(): self
     {
-        return new self('Teignbridge', 'E07000045');
+        return new self('Teignbridge', 'E07000045', 'E10000008');
     }
 
     /**
@@ -3071,7 +3078,7 @@ final class Ltla
      */
     public static function telfordAndWrekin(): self
     {
-        return new self('Telford and Wrekin', 'E06000020');
+        return new self('Telford and Wrekin', 'E06000020', 'E06000020');
     }
 
     /**
@@ -3079,7 +3086,7 @@ final class Ltla
      */
     public static function tendring(): self
     {
-        return new self('Tendring', 'E07000076');
+        return new self('Tendring', 'E07000076', 'E10000012');
     }
 
     /**
@@ -3087,7 +3094,7 @@ final class Ltla
      */
     public static function testValley(): self
     {
-        return new self('Test Valley', 'E07000093');
+        return new self('Test Valley', 'E07000093', 'E10000014');
     }
 
     /**
@@ -3095,7 +3102,7 @@ final class Ltla
      */
     public static function tewkesbury(): self
     {
-        return new self('Tewkesbury', 'E07000083');
+        return new self('Tewkesbury', 'E07000083', 'E10000013');
     }
 
     /**
@@ -3103,7 +3110,7 @@ final class Ltla
      */
     public static function thanet(): self
     {
-        return new self('Thanet', 'E07000114');
+        return new self('Thanet', 'E07000114', 'E10000016');
     }
 
     /**
@@ -3111,7 +3118,7 @@ final class Ltla
      */
     public static function threeRivers(): self
     {
-        return new self('Three Rivers', 'E07000102');
+        return new self('Three Rivers', 'E07000102', 'E10000015');
     }
 
     /**
@@ -3119,7 +3126,7 @@ final class Ltla
      */
     public static function thurrock(): self
     {
-        return new self('Thurrock', 'E06000034');
+        return new self('Thurrock', 'E06000034', 'E06000034');
     }
 
     /**
@@ -3127,7 +3134,7 @@ final class Ltla
      */
     public static function tonbridgeAndMalling(): self
     {
-        return new self('Tonbridge and Malling', 'E07000115');
+        return new self('Tonbridge and Malling', 'E07000115', 'E10000016');
     }
 
     /**
@@ -3135,7 +3142,7 @@ final class Ltla
      */
     public static function torbay(): self
     {
-        return new self('Torbay', 'E06000027');
+        return new self('Torbay', 'E06000027', 'E06000027');
     }
 
     /**
@@ -3143,7 +3150,7 @@ final class Ltla
      */
     public static function torfaen(): self
     {
-        return new self('Torfaen', 'W06000020');
+        return new self('Torfaen', 'W06000020', 'W06000020');
     }
 
     /**
@@ -3151,7 +3158,7 @@ final class Ltla
      */
     public static function torridge(): self
     {
-        return new self('Torridge', 'E07000046');
+        return new self('Torridge', 'E07000046', 'E10000008');
     }
 
     /**
@@ -3159,7 +3166,7 @@ final class Ltla
      */
     public static function towerHamlets(): self
     {
-        return new self('Tower Hamlets', 'E09000030');
+        return new self('Tower Hamlets', 'E09000030', 'E09000030');
     }
 
     /**
@@ -3167,7 +3174,7 @@ final class Ltla
      */
     public static function trafford(): self
     {
-        return new self('Trafford', 'E08000009');
+        return new self('Trafford', 'E08000009', 'E08000009');
     }
 
     /**
@@ -3175,7 +3182,7 @@ final class Ltla
      */
     public static function tunbridgeWells(): self
     {
-        return new self('Tunbridge Wells', 'E07000116');
+        return new self('Tunbridge Wells', 'E07000116', 'E10000016');
     }
 
     /**
@@ -3183,7 +3190,7 @@ final class Ltla
      */
     public static function uttlesford(): self
     {
-        return new self('Uttlesford', 'E07000077');
+        return new self('Uttlesford', 'E07000077', 'E10000012');
     }
 
     /**
@@ -3191,7 +3198,7 @@ final class Ltla
      */
     public static function valeOfGlamorgan(): self
     {
-        return new self('Vale of Glamorgan', 'W06000014');
+        return new self('Vale of Glamorgan', 'W06000014', 'W06000014');
     }
 
     /**
@@ -3199,7 +3206,7 @@ final class Ltla
      */
     public static function valeOfWhiteHorse(): self
     {
-        return new self('Vale of White Horse', 'E07000180');
+        return new self('Vale of White Horse', 'E07000180', 'E10000025');
     }
 
     /**
@@ -3207,7 +3214,7 @@ final class Ltla
      */
     public static function wakefield(): self
     {
-        return new self('Wakefield', 'E08000036');
+        return new self('Wakefield', 'E08000036', 'E08000036');
     }
 
     /**
@@ -3215,7 +3222,7 @@ final class Ltla
      */
     public static function walsall(): self
     {
-        return new self('Walsall', 'E08000030');
+        return new self('Walsall', 'E08000030', 'E08000030');
     }
 
     /**
@@ -3223,7 +3230,7 @@ final class Ltla
      */
     public static function walthamForest(): self
     {
-        return new self('Waltham Forest', 'E09000031');
+        return new self('Waltham Forest', 'E09000031', 'E09000031');
     }
 
     /**
@@ -3231,7 +3238,7 @@ final class Ltla
      */
     public static function wandsworth(): self
     {
-        return new self('Wandsworth', 'E09000032');
+        return new self('Wandsworth', 'E09000032', 'E09000032');
     }
 
     /**
@@ -3239,7 +3246,7 @@ final class Ltla
      */
     public static function warrington(): self
     {
-        return new self('Warrington', 'E06000007');
+        return new self('Warrington', 'E06000007', 'E06000007');
     }
 
     /**
@@ -3247,7 +3254,7 @@ final class Ltla
      */
     public static function warwick(): self
     {
-        return new self('Warwick', 'E07000222');
+        return new self('Warwick', 'E07000222', 'E10000031');
     }
 
     /**
@@ -3255,7 +3262,7 @@ final class Ltla
      */
     public static function watford(): self
     {
-        return new self('Watford', 'E07000103');
+        return new self('Watford', 'E07000103', 'E10000015');
     }
 
     /**
@@ -3263,7 +3270,7 @@ final class Ltla
      */
     public static function waverley(): self
     {
-        return new self('Waverley', 'E07000216');
+        return new self('Waverley', 'E07000216', 'E10000030');
     }
 
     /**
@@ -3271,7 +3278,7 @@ final class Ltla
      */
     public static function wealden(): self
     {
-        return new self('Wealden', 'E07000065');
+        return new self('Wealden', 'E07000065', 'E10000011');
     }
 
     /**
@@ -3279,7 +3286,7 @@ final class Ltla
      */
     public static function wellingborough(): self
     {
-        return new self('Wellingborough', 'E07000156');
+        return new self('Wellingborough', 'E07000156', 'E10000021');
     }
 
     /**
@@ -3287,7 +3294,7 @@ final class Ltla
      */
     public static function welwynHatfield(): self
     {
-        return new self('Welwyn Hatfield', 'E07000241');
+        return new self('Welwyn Hatfield', 'E07000241', 'E10000015');
     }
 
     /**
@@ -3295,7 +3302,7 @@ final class Ltla
      */
     public static function westBerkshire(): self
     {
-        return new self('West Berkshire', 'E06000037');
+        return new self('West Berkshire', 'E06000037', 'E06000037');
     }
 
     /**
@@ -3303,7 +3310,7 @@ final class Ltla
      */
     public static function westDevon(): self
     {
-        return new self('West Devon', 'E07000047');
+        return new self('West Devon', 'E07000047', 'E10000008');
     }
 
     /**
@@ -3311,7 +3318,7 @@ final class Ltla
      */
     public static function westDunbartonshire(): self
     {
-        return new self('West Dunbartonshire', 'S12000039');
+        return new self('West Dunbartonshire', 'S12000039', 'S12000039');
     }
 
     /**
@@ -3319,7 +3326,7 @@ final class Ltla
      */
     public static function westLancashire(): self
     {
-        return new self('West Lancashire', 'E07000127');
+        return new self('West Lancashire', 'E07000127', 'E10000017');
     }
 
     /**
@@ -3327,7 +3334,7 @@ final class Ltla
      */
     public static function westLindsey(): self
     {
-        return new self('West Lindsey', 'E07000142');
+        return new self('West Lindsey', 'E07000142', 'E10000019');
     }
 
     /**
@@ -3335,7 +3342,7 @@ final class Ltla
      */
     public static function westLothian(): self
     {
-        return new self('West Lothian', 'S12000040');
+        return new self('West Lothian', 'S12000040', 'S12000040');
     }
 
     /**
@@ -3343,7 +3350,7 @@ final class Ltla
      */
     public static function westOxfordshire(): self
     {
-        return new self('West Oxfordshire', 'E07000181');
+        return new self('West Oxfordshire', 'E07000181', 'E10000025');
     }
 
     /**
@@ -3351,7 +3358,7 @@ final class Ltla
      */
     public static function westSuffolk(): self
     {
-        return new self('West Suffolk', 'E07000245');
+        return new self('West Suffolk', 'E07000245', 'E10000029');
     }
 
     /**
@@ -3359,7 +3366,7 @@ final class Ltla
      */
     public static function westminster(): self
     {
-        return new self('Westminster', 'E09000033');
+        return new self('Westminster', 'E09000033', 'E09000033');
     }
 
     /**
@@ -3367,7 +3374,7 @@ final class Ltla
      */
     public static function wigan(): self
     {
-        return new self('Wigan', 'E08000010');
+        return new self('Wigan', 'E08000010', 'E08000010');
     }
 
     /**
@@ -3375,7 +3382,7 @@ final class Ltla
      */
     public static function wiltshire(): self
     {
-        return new self('Wiltshire', 'E06000054');
+        return new self('Wiltshire', 'E06000054', 'E06000054');
     }
 
     /**
@@ -3383,7 +3390,7 @@ final class Ltla
      */
     public static function winchester(): self
     {
-        return new self('Winchester', 'E07000094');
+        return new self('Winchester', 'E07000094', 'E10000014');
     }
 
     /**
@@ -3391,7 +3398,7 @@ final class Ltla
      */
     public static function windsorAndMaidenhead(): self
     {
-        return new self('Windsor and Maidenhead', 'E06000040');
+        return new self('Windsor and Maidenhead', 'E06000040', 'E06000040');
     }
 
     /**
@@ -3399,7 +3406,7 @@ final class Ltla
      */
     public static function wirral(): self
     {
-        return new self('Wirral', 'E08000015');
+        return new self('Wirral', 'E08000015', 'E08000015');
     }
 
     /**
@@ -3407,7 +3414,7 @@ final class Ltla
      */
     public static function woking(): self
     {
-        return new self('Woking', 'E07000217');
+        return new self('Woking', 'E07000217', 'E10000030');
     }
 
     /**
@@ -3415,7 +3422,7 @@ final class Ltla
      */
     public static function wokingham(): self
     {
-        return new self('Wokingham', 'E06000041');
+        return new self('Wokingham', 'E06000041', 'E06000041');
     }
 
     /**
@@ -3423,7 +3430,7 @@ final class Ltla
      */
     public static function wolverhampton(): self
     {
-        return new self('Wolverhampton', 'E08000031');
+        return new self('Wolverhampton', 'E08000031', 'E08000031');
     }
 
     /**
@@ -3431,7 +3438,7 @@ final class Ltla
      */
     public static function worcester(): self
     {
-        return new self('Worcester', 'E07000237');
+        return new self('Worcester', 'E07000237', 'E10000034');
     }
 
     /**
@@ -3439,7 +3446,7 @@ final class Ltla
      */
     public static function worthing(): self
     {
-        return new self('Worthing', 'E07000229');
+        return new self('Worthing', 'E07000229', 'E10000032');
     }
 
     /**
@@ -3447,7 +3454,7 @@ final class Ltla
      */
     public static function wrexham(): self
     {
-        return new self('Wrexham', 'W06000006');
+        return new self('Wrexham', 'W06000006', 'W06000006');
     }
 
     /**
@@ -3455,7 +3462,7 @@ final class Ltla
      */
     public static function wychavon(): self
     {
-        return new self('Wychavon', 'E07000238');
+        return new self('Wychavon', 'E07000238', 'E10000034');
     }
 
     /**
@@ -3463,7 +3470,7 @@ final class Ltla
      */
     public static function wycombe(): self
     {
-        return new self('Wycombe', 'E07000007');
+        return new self('Wycombe', 'E07000007', 'E10000002');
     }
 
     /**
@@ -3471,7 +3478,7 @@ final class Ltla
      */
     public static function wyre(): self
     {
-        return new self('Wyre', 'E07000128');
+        return new self('Wyre', 'E07000128', 'E10000017');
     }
 
     /**
@@ -3479,7 +3486,7 @@ final class Ltla
      */
     public static function wyreForest(): self
     {
-        return new self('Wyre Forest', 'E07000239');
+        return new self('Wyre Forest', 'E07000239', 'E10000034');
     }
 
     /**
@@ -3487,7 +3494,7 @@ final class Ltla
      */
     public static function york(): self
     {
-        return new self('York', 'E06000014');
+        return new self('York', 'E06000014', 'E06000014');
     }
 
     /**
@@ -3508,5 +3515,17 @@ final class Ltla
         }
 
         return $this->code;
+    }
+
+    /**
+     * @return \PHECovid\Client\Model\Utla
+     */
+    public function getUtla(): Utla
+    {
+        if (null === $this->utlaCode) {
+            throw new \BadMethodCallException('UTLA code not available.');
+        }
+
+        return Utla::fromCode($this->utlaCode);
     }
 }
