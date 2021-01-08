@@ -167,6 +167,7 @@ class DataV2 extends AbstractApi
 
         return \array_values($results);
     }
+
     /**
      * @param string      $areaType
      * @param string|null $areaCode
