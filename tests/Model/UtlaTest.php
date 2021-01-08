@@ -19,7 +19,7 @@ use PHPUnit\Framework\TestCase;
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
-final class UltaTest extends TestCase
+final class UtlaTest extends TestCase
 {
     public function testDirectCreate(): void
     {
