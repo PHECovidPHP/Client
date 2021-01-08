@@ -108,7 +108,7 @@ final class DateTest extends TestCase
 
     public function testFromValidDateTime(): void
     {
-        $date = Date::fromDateTime(\DateTimeImmutable::createFromFormat('U', (string) strtotime('2020-04-12')));
+        $date = Date::fromDateTime(\DateTimeImmutable::createFromFormat('U', (string) \strtotime('2020-04-12')));
 
         self::assertInstanceOf(Date::class, $date);
         self::assertSame(2020, $date->getYear());

@@ -47,9 +47,9 @@ class DataV1 extends AbstractApi
      * Create a new data API instance.
      *
      * @param \PHECovid\Client\Client     $client
-     * @param array                $structure
+     * @param array                       $structure
      * @param \PHECovid\Client\Model\Date $date
-     * @param string|null          $latestBy
+     * @param string|null                 $latestBy
      *
      * @return void
      */

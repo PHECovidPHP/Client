@@ -17,7 +17,6 @@ use DateInterval;
 use DateTimeImmutable;
 use PHECovid\Client\Client;
 use PHECovid\Client\Model\Date;
-use PHECovid\Client\Model\Msoa;
 use PHECovid\Client\Model\Postcode;
 use PHPUnit\Framework\TestCase;
 

@@ -45,10 +45,10 @@ final class Cases
 
     /**
      * @param \PHECovid\Client\Model\Date $date
-     * @param int                  $rollingSum
-     * @param float                $rollingChange
-     * @param int                  $change
-     * @param float                $changePercentage
+     * @param int                         $rollingSum
+     * @param float                       $rollingChange
+     * @param int                         $change
+     * @param float                       $changePercentage
      *
      * @return void
      */

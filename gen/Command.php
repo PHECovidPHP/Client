@@ -55,7 +55,7 @@ final class Command
         echo \sprintf("Written %s\n", \basename($filename));
     }
 
-    private function generateUtla( array $map): void
+    private function generateUtla(array $map): void
     {
         $filename = \sprintf('%s/../src/Model/Utla.php', __DIR__);
         $content = Generator::generateUtla($map);
@@ -64,7 +64,7 @@ final class Command
         echo \sprintf("Written %s\n", \basename($filename));
     }
 
-    private function generateLtla( array $map): void
+    private function generateLtla(array $map): void
     {
         $filename = \sprintf('%s/../src/Model/Ltla.php', __DIR__);
         $content = Generator::generateLtla($map);

@@ -443,7 +443,7 @@ final class Msoa
             }
         }
 
-        return rtrim($output);
+        return \rtrim($output);
     }
 
     private static function generateClassMethods(string $class, array $map): string
