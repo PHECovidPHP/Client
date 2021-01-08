@@ -49,6 +49,28 @@ class DataV2 extends AbstractApi
     }
 
     /**
+     * @throws \Http\Client\Exception
+     *
+     * @return \PHECovid\Client\Model\Cases[]
+     */
+    public function overview(): array
+    {
+        return $this->getData('overview');
+    }
+
+    /**
+     * @param \PHECovid\Client\Model\Nation $nation
+     *
+     * @throws \Http\Client\Exception
+     *
+     * @return \PHECovid\Client\Model\Cases[]
+     */
+    public function forNation(Nation $nation): array
+    {
+        return $this->getData('nation', $nation->getCode());
+    }
+
+    /**
      * @param \PHECovid\Client\Model\Region $region
      *
      * @throws \Http\Client\Exception
@@ -97,16 +119,16 @@ class DataV2 extends AbstractApi
     }
 
     /**
-     * @param string $areaType
-     * @param string $areaCode
+     * @param string      $areaType
+     * @param string|null $areaCode
      *
      * @throws \Http\Client\Exception
      *
      * @return \PHECovid\Client\Model\Cases[]
      */
-    protected function getData(string $areaType, string $areaCode): array
+    protected function getData(string $areaType, string $areaCode = null): array
     {
-        $data = $this->get(\sprintf('v2/data?areaType=%s&areaCode=%s&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&metric=newCasesBySpecimenDateChange&metric=newCasesBySpecimenDateChangePercentage&format=json', $areaType, $areaCode));
+        $data = $this->get(self::buildUri($areaType, $areaCode));
 
         if (null === $data || !isset($data['body']) || [] === $data['body']) {
             throw new RuntimeException('The response body was unexpectedly empty.');
@@ -144,5 +166,18 @@ class DataV2 extends AbstractApi
         }
 
         return \array_values($results);
+    }
+    /**
+     * @param string      $areaType
+     * @param string|null $areaCode
+     *
+     * @return string
+     */
+    private function buildUri(string $areaType, string $areaCode = null)
+    {
+        return \sprintf(
+            'v2/data?%s&metric=newCasesBySpecimenDateRollingSum&metric=newCasesBySpecimenDateRollingRate&metric=newCasesBySpecimenDateChange&metric=newCasesBySpecimenDateChangePercentage&format=json',
+            null === $areaCode ? \sprintf('areaType=%s', $areaType) : \sprintf('areaType=%s&areaCode=%s', $areaType, $areaCode)
+        );
     }
 }
