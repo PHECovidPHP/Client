@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Model;
+namespace PHECovid\Client\Model;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
@@ -19,29 +19,60 @@ namespace PHECovid\Model;
 final class Region
 {
     /**
+     * @var array<string,string>
+     */
+    private const CODE_TO_METHOD = [
+        'E12000004' => 'eastMidlands',
+        'E12000006' => 'eastOfEngland',
+        'E12000007' => 'london',
+        'E12000001' => 'northEast',
+        'E12000002' => 'northWest',
+        'E12000008' => 'southEast',
+        'E12000009' => 'southWest',
+        'E12000005' => 'westMidlands',
+        'E12000003' => 'yorkshireAndTheHumber',
+    ];
+
+    /**
      * @var string
      */
     private $name;
 
     /**
-     * @var string|null
+     * @var string
      */
     private $code;
 
     /**
-     * @param string      $name
-     * @param string|null $code
+     * @param string $name
+     * @param string $code
      *
      * @return void
      */
-    private function __construct(string $name, ?string $code)
+    private function __construct(string $name, string $code)
     {
         $this->name = $name;
         $this->code = $code;
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @param string $code
+     *
+     * @return \PHECovid\Client\Model\Region
+     */
+    public static function fromCode(string $code): self
+    {
+        $method = self::CODE_TO_METHOD[$code] ?? null;
+
+        if (null === $method) {
+            throw new \InvalidArgumentException('Unknown area code.');
+        }
+
+        return self::$method();
+    }
+
+    /**
+     * @return \PHECovid\Client\Model\Region
      */
     public static function eastMidlands(): self
     {
@@ -49,7 +80,7 @@ final class Region
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @return \PHECovid\Client\Model\Region
      */
     public static function eastOfEngland(): self
     {
@@ -57,7 +88,7 @@ final class Region
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @return \PHECovid\Client\Model\Region
      */
     public static function london(): self
     {
@@ -65,7 +96,7 @@ final class Region
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @return \PHECovid\Client\Model\Region
      */
     public static function northEast(): self
     {
@@ -73,7 +104,7 @@ final class Region
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @return \PHECovid\Client\Model\Region
      */
     public static function northWest(): self
     {
@@ -81,7 +112,7 @@ final class Region
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @return \PHECovid\Client\Model\Region
      */
     public static function southEast(): self
     {
@@ -89,7 +120,7 @@ final class Region
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @return \PHECovid\Client\Model\Region
      */
     public static function southWest(): self
     {
@@ -97,7 +128,7 @@ final class Region
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @return \PHECovid\Client\Model\Region
      */
     public static function westMidlands(): self
     {
@@ -105,7 +136,7 @@ final class Region
     }
 
     /**
-     * @return \PHECovid\Model\Region
+     * @return \PHECovid\Client\Model\Region
      */
     public static function yorkshireAndTheHumber(): self
     {
@@ -125,10 +156,6 @@ final class Region
      */
     public function getCode(): string
     {
-        if (null === $this->code) {
-            throw new \BadMethodCallException('Area code not available.');
-        }
-
         return $this->code;
     }
 }

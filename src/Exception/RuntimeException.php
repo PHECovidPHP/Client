@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Exception;
+namespace PHECovid\Client\Exception;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>

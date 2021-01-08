@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Gen;
+namespace PHECovid\Gen\Client;
 
 /**
- * This is the generator class.
+ * @internal
  *
  * @author Graham Campbell <graham@alt-three.com>
  */
@@ -33,13 +33,103 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Model;
+namespace PHECovid\\Client\\Model;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
 final class %s
 {
+    /**
+     * @var array<string,string>
+     */
+    private const CODE_TO_METHOD = [
+%s
+    ];
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $code;
+
+    /**
+     * @param string $name
+     * @param string $code
+     *
+     * @return void
+     */
+    private function __construct(string $name, string $code)
+    {
+        $this->name = $name;
+        $this->code = $code;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return \\PHECovid\\Client\\Model\\%s
+     */
+    public static function fromCode(string $code): self
+    {
+        $method = self::CODE_TO_METHOD[$code] ?? null;
+
+        if (null === $method) {
+            throw new \\InvalidArgumentException(\'Unknown area code.\');
+        }
+
+        return self::$method();
+    }
+%s
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+}
+';
+
+    private const UTLA_TEMPLATE = '<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the PHE Covid API Client.
+ *
+ * (c) Graham Campbell <graham@alt-three.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace PHECovid\\Client\\Model;
+
+/**
+ * @author Graham Campbell <graham@alt-three.com>
+ */
+final class Utla
+{
+    /**
+     * @var array<string,string>
+     */
+    private const CODE_TO_METHOD = [
+%s
+    ];
+
     /**
      * @var string
      */
@@ -61,6 +151,22 @@ final class %s
         $this->name = $name;
         $this->code = $code;
     }
+
+    /**
+     * @param string $code
+     *
+     * @return \\PHECovid\\Client\\Model\\Utla
+     */
+    public static function fromCode(string $code): self
+    {
+        $method = self::CODE_TO_METHOD[$code] ?? null;
+
+        if (null === $method) {
+            throw new \\InvalidArgumentException(\'Unknown area code.\');
+        }
+
+        return self::$method();
+    }
 %s
     /**
      * @return string
@@ -76,7 +182,7 @@ final class %s
     public function getCode(): string
     {
         if (null === $this->code) {
-            throw new \BadMethodCallException(\'Area code not available.\');
+            throw new \\BadMethodCallException(\'Area code not available.\');
         }
 
         return $this->code;
@@ -84,9 +190,194 @@ final class %s
 }
 ';
 
-    private const METHOD_TEMPLATE = '
+    private const LTLA_TEMPLATE = '<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the PHE Covid API Client.
+ *
+ * (c) Graham Campbell <graham@alt-three.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace PHECovid\\Client\\Model;
+
+/**
+ * @author Graham Campbell <graham@alt-three.com>
+ */
+final class Ltla
+{
     /**
-     * @return \PHECovid\Model\%s
+     * @var array<string,string>
+     */
+    private const CODE_TO_METHOD = [
+%s
+    ];
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string|null
+     */
+    private $code;
+
+    /**
+     * @param string      $name
+     * @param string|null $code
+     *
+     * @return void
+     */
+    private function __construct(string $name, ?string $code)
+    {
+        $this->name = $name;
+        $this->code = $code;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return \\PHECovid\\Client\\Model\\Ltla
+     */
+    public static function fromCode(string $code): self
+    {
+        $method = self::CODE_TO_METHOD[$code] ?? null;
+
+        if (null === $method) {
+            throw new \\InvalidArgumentException(\'Unknown area code.\');
+        }
+
+        return self::$method();
+    }
+%s
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        if (null === $this->code) {
+            throw new \\BadMethodCallException(\'Area code not available.\');
+        }
+
+        return $this->code;
+    }
+}
+';
+
+    private const MSOA_TEMPLATE = '<?php
+
+declare(strict_types=1);
+
+/*
+ * This file is part of the PHE Covid API Client.
+ *
+ * (c) Graham Campbell <graham@alt-three.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace PHECovid\\Client\\Model;
+
+/**
+ * @author Graham Campbell <graham@alt-three.com>
+ */
+final class Msoa
+{
+    /**
+     * @var array<string,string>
+     */
+    private const CODE_TO_METHOD = [
+%s
+    ];
+
+    /**
+     * @var string
+     */
+    private $name;
+
+    /**
+     * @var string
+     */
+    private $code;
+
+    /**
+     * @var string
+     */
+    private $ltlaCode;
+
+    /**
+     * @param string $name
+     * @param string $code
+     * @param string $ltlaCode
+     *
+     * @return void
+     */
+    private function __construct(string $name, string $code, string $ltlaCode)
+    {
+        $this->name = $name;
+        $this->code = $code;
+        $this->ltlaCode = $ltlaCode;
+    }
+
+    /**
+     * @param string $code
+     *
+     * @return \\PHECovid\\Client\\Model\\Msoa
+     */
+    public static function fromCode(string $code): self
+    {
+        $method = self::CODE_TO_METHOD[$code] ?? null;
+
+        if (null === $method) {
+            throw new \\InvalidArgumentException(\'Unknown area code.\');
+        }
+
+        return self::$method();
+    }
+%s
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @return \\PHECovid\\Client\\Model\\Ltla
+     */
+    public function getLtla(): Ltla
+    {
+        return Ltla::fromCode($this->ltlaCode);
+    }
+}
+';
+
+    private const METHOD_TEMPLATE_2 = '
+    /**
+     * @return \\PHECovid\\Client\\Model\\%s
      */
     public static function %s(): self
     {
@@ -94,30 +385,114 @@ final class %s
     }
 ';
 
-    public static function generate(string $class, array $map): string
+    private const METHOD_TEMPLATE_3 = '
+    /**
+     * @return \\PHECovid\\Client\\Model\\%s
+     */
+    public static function %s(): self
     {
-        return \sprintf(self::FILE_TEMPLATE, $class, self::generateMethods($class, $map));
+        return new self(%s, %s, %s);
+    }
+';
+
+    public static function generateClass(string $class, array $map): string
+    {
+        return \sprintf(
+            self::FILE_TEMPLATE,
+            $class,
+            self::generateMap($map),
+            $class,
+            self::generateClassMethods($class, $map)
+        );
     }
 
-    private static function generateMethods(string $class, array $map): string
+    public static function generateUtla(array $map): string
+    {
+        return \sprintf(
+            self::UTLA_TEMPLATE,
+            self::generateMap($map),
+            self::generateClassMethods('Utla', $map)
+        );
+    }
+
+    public static function generateLtla(array $map): string
+    {
+        return \sprintf(
+            self::LTLA_TEMPLATE,
+            self::generateMap($map),
+            self::generateClassMethods('Ltla', $map)
+        );
+    }
+
+    public static function generateMsoa(array $map): string
+    {
+        return \sprintf(
+            self::MSOA_TEMPLATE,
+            self::generateMap($map),
+            self::generateMsoaMethods($map)
+        );
+    }
+
+    private static function generateMap(array $map): string
     {
         $output = '';
 
         foreach ($map as $code => $data) {
-            $output .= self::generateMethod($class, $code, $data['name'], $data['la'] ?? null);
+            if ('null' !== $code) {
+                $output .= \sprintf("        '%s' => '%s',\n", $code, self::methodName($data['name'], $data['la']['name'] ?? null));
+            }
+        }
+
+        return rtrim($output);
+    }
+
+    private static function generateClassMethods(string $class, array $map): string
+    {
+        $output = '';
+
+        foreach ($map as $code => $data) {
+            $output .= self::generateClassMethod($class, $code, $data['name']);
         }
 
         return $output;
     }
 
-    private static function generateMethod(string $class, string $code, string $name, ?string $la): string
+    private static function generateMsoaMethods(array $map): string
+    {
+        $output = '';
+
+        foreach ($map as $code => $data) {
+            $output .= self::generateMsoaMethod($code, $data['name'], $data['la']);
+        }
+
+        return $output;
+    }
+
+    private static function generateClassMethod(string $class, string $code, string $name): string
     {
         return \sprintf(
-            self::METHOD_TEMPLATE,
+            self::METHOD_TEMPLATE_2,
             $class,
-            \lcfirst(\str_replace([' ', ',', '.'], ['', '', ''], \ucwords(\str_replace(['\'', '!', '-', '(', ')', '&'], ['', '', ' ', ' ', ' ', 'and'], null === $la ? $name : \sprintf('%s %s', $la, $name))))),
+            self::methodName($name),
             \sprintf('\'%s\'', \str_replace('\'', '\\\'', $name)),
             'null' === $code ? 'null' : \sprintf('\'%s\'', $code)
         );
+    }
+
+    private static function generateMsoaMethod(string $code, string $name, array $la): string
+    {
+        return \sprintf(
+            self::METHOD_TEMPLATE_3,
+            'Msoa',
+            self::methodName($name, $la['name']),
+            \sprintf('\'%s\'', \str_replace('\'', '\\\'', $name)),
+            \sprintf('\'%s\'', $code),
+            \sprintf('\'%s\'', $la['code'])
+        );
+    }
+
+    private static function methodName(string $name, string $laName = null): string
+    {
+        return \lcfirst(\str_replace([' ', ',', '.'], ['', '', ''], \ucwords(\str_replace(['\'', '!', '-', '(', ')', '&'], ['', '', ' ', ' ', ' ', 'and'], null === $laName ? $name : \sprintf('%s %s', $laName, $name)))));
     }
 }

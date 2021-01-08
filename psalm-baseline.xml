@@ -27,4 +27,44 @@
       <code>!\is_int($rollingChange) &amp;&amp; !\is_float($rollingChange)</code>
     </DocblockTypeContradiction>
   </file>
+  <file src="src/Model/Ltla.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>\PHECovid\Client\Model\Ltla</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>self::$method()</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Model/Msoa.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>\PHECovid\Client\Model\Msoa</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>self::$method()</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Model/Nation.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>\PHECovid\Client\Model\Nation</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>self::$method()</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Model/Region.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>\PHECovid\Client\Model\Region</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>self::$method()</code>
+    </MixedReturnStatement>
+  </file>
+  <file src="src/Model/Utla.php">
+    <MixedInferredReturnType occurrences="1">
+      <code>\PHECovid\Client\Model\Utla</code>
+    </MixedInferredReturnType>
+    <MixedReturnStatement occurrences="1">
+      <code>self::$method()</code>
+    </MixedReturnStatement>
+  </file>
 </files>

@@ -11,9 +11,9 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\HttpClient\Util;
+namespace PHECovid\Client\HttpClient\Util;
 
-use PHECovid\Exception\RuntimeException;
+use PHECovid\Client\Exception\RuntimeException;
 
 /**
  * The is the JSON array helper class.
@@ -29,7 +29,7 @@ final class JsonArray
      *
      * @param string $json
      *
-     * @throws \PHECovid\Exception\RuntimeException
+     * @throws \PHECovid\Client\Exception\RuntimeException
      *
      * @return array
      */
@@ -54,7 +54,7 @@ final class JsonArray
      *
      * @param array $value
      *
-     * @throws \PHECovid\Exception\RuntimeException
+     * @throws \PHECovid\Client\Exception\RuntimeException
      *
      * @return string
      */

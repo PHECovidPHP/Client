@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Model;
+namespace PHECovid\Client\Model;
 
 use DateTimeInterface;
 
@@ -54,7 +54,7 @@ final class Date
      * @param int $month
      * @param int $day
      *
-     * @return \PHECovid\Model\Date
+     * @return \PHECovid\Client\Model\Date
      */
     public static function create(int $year, int $month, int $day): self
     {
@@ -68,12 +68,12 @@ final class Date
     /**
      * @param string $timestamp
      *
-     * @return \PHECovid\Model\Date
+     * @return \PHECovid\Client\Model\Date
      */
-    public static function createFromTimestamp(string $timestamp): self
+    public static function fromTimestamp(string $timestamp): self
     {
         if (1 !== @\preg_match('#^\d\d\d\d-\d\d-\d\d$#', $timestamp)) {
-            throw new \ValueError(self::class.'::createFromTimestamp(): Argument #1 ($timestamp) must be of the form YYYY-MM-DD');
+            throw new \ValueError(self::class.'::fromTimestamp(): Argument #1 ($timestamp) must be of the form YYYY-MM-DD');
         }
 
         return self::create(...\array_map('intval', \explode('-', $timestamp)));
@@ -82,11 +82,11 @@ final class Date
     /**
      * @param \DateTimeInterface $dateTime
      *
-     * @return \PHECovid\Model\Date
+     * @return \PHECovid\Client\Model\Date
      */
-    public static function createFromDateTime(DateTimeInterface $dateTime): self
+    public static function fromDateTime(DateTimeInterface $dateTime): self
     {
-        return self::createFromTimestamp($dateTime->format('Y-m-d'));
+        return self::fromTimestamp($dateTime->format('Y-m-d'));
     }
 
     /**
@@ -122,7 +122,7 @@ final class Date
     }
 
     /**
-     * @param \PHECovid\Model\Date $other
+     * @param \PHECovid\Client\Model\Date $other
      *
      * @return int
      */

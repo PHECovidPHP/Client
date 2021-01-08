@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\HttpClient\Util;
+namespace PHECovid\Client\HttpClient\Util;
 
 /**
  * The is the query string builder helper class.

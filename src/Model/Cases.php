@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Model;
+namespace PHECovid\Client\Model;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
@@ -19,7 +19,7 @@ namespace PHECovid\Model;
 final class Cases
 {
     /**
-     * @var \PHECovid\Model\Date
+     * @var \PHECovid\Client\Model\Date
      */
     private $date;
 
@@ -44,7 +44,7 @@ final class Cases
     private $changePercentage;
 
     /**
-     * @param \PHECovid\Model\Date $date
+     * @param \PHECovid\Client\Model\Date $date
      * @param int                  $rollingSum
      * @param float                $rollingChange
      * @param int                  $change
@@ -68,7 +68,7 @@ final class Cases
      * @param int       $change
      * @param int|float $changePercentage
      *
-     * @return \PHECovid\Model\Cases
+     * @return \PHECovid\Client\Model\Cases
      */
     public static function create(string $date, int $rollingSum, $rollingChange, int $change, $changePercentage): self
     {
@@ -84,11 +84,11 @@ final class Cases
             throw new \TypeError(self::class.'::create(): Argument #5 ($changePercentage) must be of type int|float');
         }
 
-        return new self(Date::createFromTimestamp($date), $rollingSum, (float) $rollingChange, $change, (float) $changePercentage);
+        return new self(Date::fromTimestamp($date), $rollingSum, (float) $rollingChange, $change, (float) $changePercentage);
     }
 
     /**
-     * @return \PHECovid\Model\Date
+     * @return \PHECovid\Client\Model\Date
      */
     public function getDate(): Date
     {

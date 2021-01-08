@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Model;
+namespace PHECovid\Client\Model;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
@@ -19,29 +19,55 @@ namespace PHECovid\Model;
 final class Nation
 {
     /**
+     * @var array<string,string>
+     */
+    private const CODE_TO_METHOD = [
+        'E92000001' => 'england',
+        'N92000002' => 'northernIreland',
+        'S92000003' => 'scotland',
+        'W92000004' => 'wales',
+    ];
+
+    /**
      * @var string
      */
     private $name;
 
     /**
-     * @var string|null
+     * @var string
      */
     private $code;
 
     /**
-     * @param string      $name
-     * @param string|null $code
+     * @param string $name
+     * @param string $code
      *
      * @return void
      */
-    private function __construct(string $name, ?string $code)
+    private function __construct(string $name, string $code)
     {
         $this->name = $name;
         $this->code = $code;
     }
 
     /**
-     * @return \PHECovid\Model\Nation
+     * @param string $code
+     *
+     * @return \PHECovid\Client\Model\Nation
+     */
+    public static function fromCode(string $code): self
+    {
+        $method = self::CODE_TO_METHOD[$code] ?? null;
+
+        if (null === $method) {
+            throw new \InvalidArgumentException('Unknown area code.');
+        }
+
+        return self::$method();
+    }
+
+    /**
+     * @return \PHECovid\Client\Model\Nation
      */
     public static function england(): self
     {
@@ -49,7 +75,7 @@ final class Nation
     }
 
     /**
-     * @return \PHECovid\Model\Nation
+     * @return \PHECovid\Client\Model\Nation
      */
     public static function northernIreland(): self
     {
@@ -57,7 +83,7 @@ final class Nation
     }
 
     /**
-     * @return \PHECovid\Model\Nation
+     * @return \PHECovid\Client\Model\Nation
      */
     public static function scotland(): self
     {
@@ -65,7 +91,7 @@ final class Nation
     }
 
     /**
-     * @return \PHECovid\Model\Nation
+     * @return \PHECovid\Client\Model\Nation
      */
     public static function wales(): self
     {
@@ -85,10 +111,6 @@ final class Nation
      */
     public function getCode(): string
     {
-        if (null === $this->code) {
-            throw new \BadMethodCallException('Area code not available.');
-        }
-
         return $this->code;
     }
 }

@@ -11,12 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid;
+namespace PHECovid\Client;
 
 use Generator;
-use PHECovid\Api\AbstractApi;
-use PHECovid\Exception\RuntimeException;
-use PHECovid\HttpClient\Message\ResponseMediator;
+use PHECovid\Client\Api\AbstractApi;
+use PHECovid\Client\Exception\RuntimeException;
+use PHECovid\Client\HttpClient\Message\ResponseMediator;
 
 /**
  * This is the result pager class.
@@ -42,7 +42,7 @@ final class ResultPager implements ResultPagerInterface
     /**
      * Create a new result pager instance.
      *
-     * @param \PHECovid\Client $client
+     * @param \PHECovid\Client\Client $client
      *
      * @return void
      */
@@ -55,9 +55,9 @@ final class ResultPager implements ResultPagerInterface
     /**
      * Fetch a single result from an api call.
      *
-     * @param \PHECovid\Api\AbstractApi $api
-     * @param string                    $method
-     * @param array                     $parameters
+     * @param \PHECovid\Client\Api\AbstractApi $api
+     * @param string                           $method
+     * @param array                            $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -80,9 +80,9 @@ final class ResultPager implements ResultPagerInterface
     /**
      * Fetch all results from an api call.
      *
-     * @param \PHECovid\Api\AbstractApi $api
-     * @param string                    $method
-     * @param array                     $parameters
+     * @param \PHECovid\Client\Api\AbstractApi $api
+     * @param string                           $method
+     * @param array                            $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -96,9 +96,9 @@ final class ResultPager implements ResultPagerInterface
     /**
      * Lazily fetch all results from an api call.
      *
-     * @param \PHECovid\Api\AbstractApi $api
-     * @param string                    $method
-     * @param array                     $parameters
+     * @param \PHECovid\Client\Api\AbstractApi $api
+     * @param string                           $method
+     * @param array                            $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -206,7 +206,7 @@ final class ResultPager implements ResultPagerInterface
     /**
      * @param array $result
      *
-     * @throws \PHECovid\Exception\RuntimeException
+     * @throws \PHECovid\Client\Exception\RuntimeException
      *
      * @return array
      */

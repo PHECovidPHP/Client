@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Tests;
+namespace PHECovid\Tests\Client;
 
 use Http\Client\Common\HttpMethodsClientInterface;
-use PHECovid\Client;
+use PHECovid\Client\Client;
 use PHPUnit\Framework\TestCase;
 
 /**

@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\HttpClient\Plugin;
+namespace PHECovid\Client\HttpClient\Plugin;
 
 use Http\Client\Common\Plugin\Journal;
 use Psr\Http\Client\ClientExceptionInterface;

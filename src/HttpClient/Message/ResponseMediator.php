@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\HttpClient\Message;
+namespace PHECovid\Client\HttpClient\Message;
 
-use PHECovid\Exception\RuntimeException;
-use PHECovid\HttpClient\Util\JsonArray;
+use PHECovid\Client\Exception\RuntimeException;
+use PHECovid\Client\HttpClient\Util\JsonArray;
 use Psr\Http\Message\ResponseInterface;
 
 /**
@@ -38,7 +38,7 @@ final class ResponseMediator
      *
      * @param \Psr\Http\Message\ResponseInterface $response
      *
-     * @throws \PHECovid\Exception\RuntimeException
+     * @throws \PHECovid\Client\Exception\RuntimeException
      *
      * @return array|null
      */

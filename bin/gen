@@ -4,9 +4,9 @@
 declare(strict_types=1);
 
 /*
- * This file is part of Alt Three Config.
+ * This file is part of the PHE Covid API Client.
  *
- * (c) Alt Three Services Limited
+ * (c) Graham Campbell <graham@alt-three.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -35,4 +35,4 @@ error_reporting(E_ALL);
     }
 })();
 
-exit(PHECovid\Gen\Command::create()->run());
+exit(PHECovid\Gen\Client\Command::create()->run());

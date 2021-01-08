@@ -11,10 +11,10 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid;
+namespace PHECovid\Client;
 
 use Generator;
-use PHECovid\Api\AbstractApi;
+use PHECovid\Client\Api\AbstractApi;
 
 /**
  * This is the result pager interface.
@@ -26,9 +26,9 @@ interface ResultPagerInterface
     /**
      * Fetch a single result from an api call.
      *
-     * @param \PHECovid\Api\AbstractApi $api
-     * @param string                    $method
-     * @param array                     $parameters
+     * @param \PHECovid\Client\Api\AbstractApi $api
+     * @param string                           $method
+     * @param array                            $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -39,9 +39,9 @@ interface ResultPagerInterface
     /**
      * Fetch all results from an api call.
      *
-     * @param \PHECovid\Api\AbstractApi $api
-     * @param string                    $method
-     * @param array                     $parameters
+     * @param \PHECovid\Client\Api\AbstractApi $api
+     * @param string                           $method
+     * @param array                            $parameters
      *
      * @throws \Http\Client\Exception
      *
@@ -52,9 +52,9 @@ interface ResultPagerInterface
     /**
      * Lazily fetch all results from an api call.
      *
-     * @param \PHECovid\Api\AbstractApi $api
-     * @param string                    $method
-     * @param array                     $parameters
+     * @param \PHECovid\Client\Api\AbstractApi $api
+     * @param string                           $method
+     * @param array                            $parameters
      *
      * @throws \Http\Client\Exception
      *

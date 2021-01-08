@@ -11,12 +11,12 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Tests;
+namespace PHECovid\Tests\Client;
 
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Utils;
-use PHECovid\Exception\RuntimeException;
-use PHECovid\HttpClient\Message\ResponseMediator;
+use PHECovid\Client\Exception\RuntimeException;
+use PHECovid\Client\HttpClient\Message\ResponseMediator;
 use PHPUnit\Framework\TestCase;
 
 /**

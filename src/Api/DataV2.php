@@ -11,16 +11,16 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Api;
+namespace PHECovid\Client\Api;
 
-use PHECovid\Client;
-use PHECovid\Exception\RuntimeException;
-use PHECovid\Model\Cases;
-use PHECovid\Model\Date;
-use PHECovid\Model\Ltla;
-use PHECovid\Model\Msoa;
-use PHECovid\Model\Region;
-use PHECovid\Model\Utla;
+use PHECovid\Client\Client;
+use PHECovid\Client\Exception\RuntimeException;
+use PHECovid\Client\Model\Cases;
+use PHECovid\Client\Model\Date;
+use PHECovid\Client\Model\Ltla;
+use PHECovid\Client\Model\Msoa;
+use PHECovid\Client\Model\Region;
+use PHECovid\Client\Model\Utla;
 
 /**
  * The data V2 API class.
@@ -30,15 +30,15 @@ use PHECovid\Model\Utla;
 class DataV2 extends AbstractApi
 {
     /**
-     * @var \PHECovid\Model\Date|null
+     * @var \PHECovid\Client\Model\Date|null
      */
     protected $since;
 
     /**
      * Create a new data API instance.
      *
-     * @param \PHECovid\Client          $client
-     * @param \PHECovid\Model\Date|null $since
+     * @param \PHECovid\Client\Client          $client
+     * @param \PHECovid\Client\Model\Date|null $since
      *
      * @return void
      */
@@ -49,11 +49,11 @@ class DataV2 extends AbstractApi
     }
 
     /**
-     * @param \PHECovid\Model\Region $region
+     * @param \PHECovid\Client\Model\Region $region
      *
      * @throws \Http\Client\Exception
      *
-     * @return \PHECovid\Model\Cases[]
+     * @return \PHECovid\Client\Model\Cases[]
      */
     public function forRegion(Region $region): array
     {
@@ -61,11 +61,11 @@ class DataV2 extends AbstractApi
     }
 
     /**
-     * @param \PHECovid\Model\Utla $utla
+     * @param \PHECovid\Client\Model\Utla $utla
      *
      * @throws \Http\Client\Exception
      *
-     * @return \PHECovid\Model\Cases[]
+     * @return \PHECovid\Client\Model\Cases[]
      */
     public function forUtla(Utla $utla): array
     {
@@ -73,11 +73,11 @@ class DataV2 extends AbstractApi
     }
 
     /**
-     * @param \PHECovid\Model\Ltla $ltla
+     * @param \PHECovid\Client\Model\Ltla $ltla
      *
      * @throws \Http\Client\Exception
      *
-     * @return \PHECovid\Model\Cases[]
+     * @return \PHECovid\Client\Model\Cases[]
      */
     public function forLtla(Ltla $ltla): array
     {
@@ -85,11 +85,11 @@ class DataV2 extends AbstractApi
     }
 
     /**
-     * @param \PHECovid\Model\Msoa $msoa
+     * @param \PHECovid\Client\Model\Msoa $msoa
      *
      * @throws \Http\Client\Exception
      *
-     * @return \PHECovid\Model\Cases[]
+     * @return \PHECovid\Client\Model\Cases[]
      */
     public function forMsoa(Msoa $msoa): array
     {
@@ -102,7 +102,7 @@ class DataV2 extends AbstractApi
      *
      * @throws \Http\Client\Exception
      *
-     * @return \PHECovid\Model\Cases[]
+     * @return \PHECovid\Client\Model\Cases[]
      */
     protected function getData(string $areaType, string $areaCode): array
     {

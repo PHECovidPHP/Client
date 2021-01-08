@@ -11,15 +11,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\HttpClient\Plugin;
+namespace PHECovid\Client\HttpClient\Plugin;
 
 use Http\Client\Common\Plugin;
 use Http\Promise\Promise;
-use PHECovid\Exception\ApiLimitExceededException;
-use PHECovid\Exception\ExceptionInterface;
-use PHECovid\Exception\RuntimeException;
-use PHECovid\Exception\ValidationFailedException;
-use PHECovid\HttpClient\Message\ResponseMediator;
+use PHECovid\Client\Exception\ApiLimitExceededException;
+use PHECovid\Client\Exception\ExceptionInterface;
+use PHECovid\Client\Exception\RuntimeException;
+use PHECovid\Client\Exception\ValidationFailedException;
+use PHECovid\Client\HttpClient\Message\ResponseMediator;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -60,7 +60,7 @@ final class ExceptionThrower implements Plugin
      * @param int    $status
      * @param string $message
      *
-     * @return \PHECovid\Exception\ErrorException|\PHECovid\Exception\RuntimeException
+     * @return \PHECovid\Client\Exception\ErrorException|\PHECovid\Client\Exception\RuntimeException
      */
     private static function createException(int $status, string $message): ExceptionInterface
     {

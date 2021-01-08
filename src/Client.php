@@ -11,7 +11,7 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid;
+namespace PHECovid\Client;
 
 use Http\Client\Common\HttpMethodsClientInterface;
 use Http\Client\Common\Plugin\AddHostPlugin;
@@ -19,13 +19,13 @@ use Http\Client\Common\Plugin\HeaderDefaultsPlugin;
 use Http\Client\Common\Plugin\HistoryPlugin;
 use Http\Client\Common\Plugin\RedirectPlugin;
 use Http\Discovery\Psr17FactoryDiscovery;
-use PHECovid\Api\DataV1;
-use PHECovid\Api\DataV2;
-use PHECovid\HttpClient\Builder;
-use PHECovid\HttpClient\Message\ResponseMediator;
-use PHECovid\HttpClient\Plugin\ExceptionThrower;
-use PHECovid\HttpClient\Plugin\History;
-use PHECovid\Model\Date;
+use PHECovid\Client\Api\DataV1;
+use PHECovid\Client\Api\DataV2;
+use PHECovid\Client\HttpClient\Builder;
+use PHECovid\Client\HttpClient\Message\ResponseMediator;
+use PHECovid\Client\HttpClient\Plugin\ExceptionThrower;
+use PHECovid\Client\HttpClient\Plugin\History;
+use PHECovid\Client\Model\Date;
 use Psr\Http\Client\ClientInterface;
 use Psr\Http\Message\ResponseInterface;
 
@@ -53,21 +53,21 @@ class Client
     /**
      * The HTTP client builder.
      *
-     * @var \PHECovid\HttpClient\Builder
+     * @var \PHECovid\Client\HttpClient\Builder
      */
     private $httpClientBuilder;
 
     /**
      * The response history plugin.
      *
-     * @var \PHECovid\HttpClient\Plugin\History
+     * @var \PHECovid\Client\HttpClient\Plugin\History
      */
     private $responseHistory;
 
     /**
      * Create a new API client instance.
      *
-     * @param \PHECovid\HttpClient\Builder|null $httpClientBuilder
+     * @param \PHECovid\Client\HttpClient\Builder|null $httpClientBuilder
      *
      * @return void
      */
@@ -93,7 +93,7 @@ class Client
      *
      * @param \Psr\Http\Client\ClientInterface $httpClient
      *
-     * @return \PHECovid\Client
+     * @return \PHECovid\Client\Client
      */
     public static function createWithHttpClient(ClientInterface $httpClient): self
     {
@@ -103,11 +103,11 @@ class Client
     }
 
     /**
-     * @param array                $structure
-     * @param \PHECovid\Model\Date $date
-     * @param string|null          $latestBy
+     * @param array                       $structure
+     * @param \PHECovid\Client\Model\Date $date
+     * @param string|null                 $latestBy
      *
-     * @return \PHECovid\Api\DataV1
+     * @return \PHECovid\Client\Api\DataV1
      */
     public function dataV1(array $structure, Date $date = null, string $latestBy = null): DataV1
     {
@@ -115,9 +115,9 @@ class Client
     }
 
     /**
-     * @param \PHECovid\Model\Date|null $since
+     * @param \PHECovid\Client\Model\Date|null $since
      *
-     * @return \PHECovid\Api\DataV2
+     * @return \PHECovid\Client\Api\DataV2
      */
     public function dataV2(Date $since = null): DataV2
     {
@@ -160,7 +160,7 @@ class Client
     /**
      * Get the HTTP client builder.
      *
-     * @return \PHECovid\HttpClient\Builder
+     * @return \PHECovid\Client\HttpClient\Builder
      */
     protected function getHttpClientBuilder(): Builder
     {

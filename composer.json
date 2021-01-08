@@ -12,6 +12,7 @@
     "require": {
         "php": "^7.2.5 || ^8.0",
         "ext-json": "*",
+        "phe-covid/postcodes": "^1.0",
         "php-http/cache-plugin": "^1.7.1",
         "php-http/client-common": "^2.3",
         "php-http/discovery": "^1.12",
@@ -29,13 +30,13 @@
     },
     "autoload": {
         "psr-4": {
-            "PHECovid\\": "src/"
+            "PHECovid\\Client\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PHECovid\\Gen\\": "gen/",
-            "PHECovid\\Tests\\": "tests/"
+            "PHECovid\\Gen\\Client\\": "gen/",
+            "PHECovid\\Tests\\Client\\": "tests/"
         }
     },
     "config": {

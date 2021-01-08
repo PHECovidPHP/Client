@@ -1,7 +1,32 @@
 parameters:
 	ignoreErrors:
 		-
-			message: "#^Variable method call on PHECovid\\\\Api\\\\AbstractApi\\.$#"
+			message: "#^Variable static method call on PHECovid\\\\Client\\\\Model\\\\Ltla\\.$#"
+			count: 1
+			path: src/Model/Ltla.php
+
+		-
+			message: "#^Variable static method call on PHECovid\\\\Client\\\\Model\\\\Msoa\\.$#"
+			count: 1
+			path: src/Model/Msoa.php
+
+		-
+			message: "#^Variable static method call on PHECovid\\\\Client\\\\Model\\\\Nation\\.$#"
+			count: 1
+			path: src/Model/Nation.php
+
+		-
+			message: "#^Variable static method call on PHECovid\\\\Client\\\\Model\\\\Region\\.$#"
+			count: 1
+			path: src/Model/Region.php
+
+		-
+			message: "#^Variable static method call on PHECovid\\\\Client\\\\Model\\\\Utla\\.$#"
+			count: 1
+			path: src/Model/Utla.php
+
+		-
+			message: "#^Variable method call on PHECovid\\\\Client\\\\Api\\\\AbstractApi\\.$#"
 			count: 1
 			path: src/ResultPager.php
 

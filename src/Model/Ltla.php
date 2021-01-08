@@ -11,13 +11,399 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Model;
+namespace PHECovid\Client\Model;
 
 /**
  * @author Graham Campbell <graham@alt-three.com>
  */
 final class Ltla
 {
+    /**
+     * @var array<string,string>
+     */
+    private const CODE_TO_METHOD = [
+        'S12000033' => 'aberdeenCity',
+        'S12000034' => 'aberdeenshire',
+        'E07000223' => 'adur',
+        'E07000026' => 'allerdale',
+        'E07000032' => 'amberValley',
+        'S12000041' => 'angus',
+        'N09000001' => 'antrimAndNewtownabbey',
+        'N09000011' => 'ardsAndNorthDown',
+        'S12000035' => 'argyllAndBute',
+        'N09000002' => 'armaghCityBanbridgeAndCraigavon',
+        'E07000224' => 'arun',
+        'E07000170' => 'ashfield',
+        'E07000105' => 'ashford',
+        'E07000004' => 'aylesburyVale',
+        'E07000200' => 'babergh',
+        'E09000002' => 'barkingAndDagenham',
+        'E09000003' => 'barnet',
+        'E08000016' => 'barnsley',
+        'E07000027' => 'barrowInFurness',
+        'E07000066' => 'basildon',
+        'E07000084' => 'basingstokeAndDeane',
+        'E07000171' => 'bassetlaw',
+        'E06000022' => 'bathAndNorthEastSomerset',
+        'E06000055' => 'bedford',
+        'N09000003' => 'belfast',
+        'E09000004' => 'bexley',
+        'E08000025' => 'birmingham',
+        'E07000129' => 'blaby',
+        'E06000008' => 'blackburnWithDarwen',
+        'E06000009' => 'blackpool',
+        'W06000019' => 'blaenauGwent',
+        'E07000033' => 'bolsover',
+        'E08000001' => 'bolton',
+        'E07000136' => 'boston',
+        'E06000058' => 'bournemouthChristchurchAndPoole',
+        'E06000036' => 'bracknellForest',
+        'E08000032' => 'bradford',
+        'E07000067' => 'braintree',
+        'E07000143' => 'breckland',
+        'E09000005' => 'brent',
+        'E07000068' => 'brentwood',
+        'W06000013' => 'bridgend',
+        'E06000043' => 'brightonAndHove',
+        'E06000023' => 'bristolCityOf',
+        'E07000144' => 'broadland',
+        'E09000006' => 'bromley',
+        'E07000234' => 'bromsgrove',
+        'E07000095' => 'broxbourne',
+        'E07000172' => 'broxtowe',
+        'E07000117' => 'burnley',
+        'E08000002' => 'bury',
+        'W06000018' => 'caerphilly',
+        'E08000033' => 'calderdale',
+        'E07000008' => 'cambridge',
+        'E09000007' => 'camden',
+        'E07000192' => 'cannockChase',
+        'E07000106' => 'canterbury',
+        'W06000015' => 'cardiff',
+        'E07000028' => 'carlisle',
+        'W06000010' => 'carmarthenshire',
+        'E07000069' => 'castlePoint',
+        'N09000004' => 'causewayCoastAndGlens',
+        'E06000056' => 'centralBedfordshire',
+        'W06000008' => 'ceredigion',
+        'E07000130' => 'charnwood',
+        'E07000070' => 'chelmsford',
+        'E07000078' => 'cheltenham',
+        'E07000177' => 'cherwell',
+        'E06000049' => 'cheshireEast',
+        'E06000050' => 'cheshireWestAndChester',
+        'E07000034' => 'chesterfield',
+        'E07000225' => 'chichester',
+        'E07000005' => 'chiltern',
+        'E07000118' => 'chorley',
+        'S12000036' => 'cityOfEdinburgh',
+        'S12000005' => 'clackmannanshire',
+        'E07000071' => 'colchester',
+        'S12000013' => 'comhairleNanEileanSiar',
+        'W06000003' => 'conwy',
+        'E07000029' => 'copeland',
+        'E07000150' => 'corby',
+        'E06000052' => 'cornwallAndIslesOfScilly',
+        'E07000079' => 'cotswold',
+        'E06000047' => 'countyDurham',
+        'E08000026' => 'coventry',
+        'E07000163' => 'craven',
+        'E07000226' => 'crawley',
+        'E09000008' => 'croydon',
+        'E07000096' => 'dacorum',
+        'E06000005' => 'darlington',
+        'E07000107' => 'dartford',
+        'E07000151' => 'daventry',
+        'W06000004' => 'denbighshire',
+        'E06000015' => 'derby',
+        'E07000035' => 'derbyshireDales',
+        'N09000005' => 'derryCityAndStrabane',
+        'E08000017' => 'doncaster',
+        'E06000059' => 'dorset',
+        'E07000108' => 'dover',
+        'E08000027' => 'dudley',
+        'S12000006' => 'dumfriesAndGalloway',
+        'S12000042' => 'dundeeCity',
+        'E09000009' => 'ealing',
+        'S12000008' => 'eastAyrshire',
+        'E07000009' => 'eastCambridgeshire',
+        'E07000040' => 'eastDevon',
+        'S12000045' => 'eastDunbartonshire',
+        'E07000085' => 'eastHampshire',
+        'E07000242' => 'eastHertfordshire',
+        'E07000137' => 'eastLindsey',
+        'S12000010' => 'eastLothian',
+        'E07000152' => 'eastNorthamptonshire',
+        'S12000011' => 'eastRenfrewshire',
+        'E06000011' => 'eastRidingOfYorkshire',
+        'E07000193' => 'eastStaffordshire',
+        'E07000244' => 'eastSuffolk',
+        'E07000061' => 'eastbourne',
+        'E07000086' => 'eastleigh',
+        'E07000030' => 'eden',
+        'E07000207' => 'elmbridge',
+        'E09000010' => 'enfield',
+        'E07000072' => 'eppingForest',
+        'E07000208' => 'epsomAndEwell',
+        'E07000036' => 'erewash',
+        'E07000041' => 'exeter',
+        'S12000014' => 'falkirk',
+        'E07000087' => 'fareham',
+        'E07000010' => 'fenland',
+        'N09000006' => 'fermanaghAndOmagh',
+        'S12000047' => 'fife',
+        'W06000005' => 'flintshire',
+        'E07000112' => 'folkestoneAndHythe',
+        'E07000080' => 'forestOfDean',
+        'E07000119' => 'fylde',
+        'E08000037' => 'gateshead',
+        'E07000173' => 'gedling',
+        'S12000049' => 'glasgowCity',
+        'E07000081' => 'gloucester',
+        'E07000088' => 'gosport',
+        'E07000109' => 'gravesham',
+        'E07000145' => 'greatYarmouth',
+        'E09000011' => 'greenwich',
+        'E07000209' => 'guildford',
+        'W06000002' => 'gwynedd',
+        'E09000012' => 'hackneyAndCityOfLondon',
+        'E06000006' => 'halton',
+        'E07000164' => 'hambleton',
+        'E09000013' => 'hammersmithAndFulham',
+        'E07000131' => 'harborough',
+        'E09000014' => 'haringey',
+        'E07000073' => 'harlow',
+        'E07000165' => 'harrogate',
+        'E09000015' => 'harrow',
+        'E07000089' => 'hart',
+        'E06000001' => 'hartlepool',
+        'E07000062' => 'hastings',
+        'E07000090' => 'havant',
+        'E09000016' => 'havering',
+        'E06000019' => 'herefordshireCountyOf',
+        'E07000098' => 'hertsmere',
+        'E07000037' => 'highPeak',
+        'S12000017' => 'highland',
+        'E09000017' => 'hillingdon',
+        'E07000132' => 'hinckleyAndBosworth',
+        'E07000227' => 'horsham',
+        'E09000018' => 'hounslow',
+        'E07000011' => 'huntingdonshire',
+        'E07000120' => 'hyndburn',
+        'S12000018' => 'inverclyde',
+        'E07000202' => 'ipswich',
+        'W06000001' => 'isleOfAnglesey',
+        'E06000046' => 'isleOfWight',
+        'E09000019' => 'islington',
+        'E09000020' => 'kensingtonAndChelsea',
+        'E07000153' => 'kettering',
+        'E07000146' => 'kingsLynnAndWestNorfolk',
+        'E06000010' => 'kingstonUponHullCityOf',
+        'E09000021' => 'kingstonUponThames',
+        'E08000034' => 'kirklees',
+        'E08000011' => 'knowsley',
+        'E09000022' => 'lambeth',
+        'E07000121' => 'lancaster',
+        'E08000035' => 'leeds',
+        'E06000016' => 'leicester',
+        'E07000063' => 'lewes',
+        'E09000023' => 'lewisham',
+        'E07000194' => 'lichfield',
+        'E07000138' => 'lincoln',
+        'N09000007' => 'lisburnAndCastlereagh',
+        'E08000012' => 'liverpool',
+        'E06000032' => 'luton',
+        'E07000110' => 'maidstone',
+        'E07000074' => 'maldon',
+        'E07000235' => 'malvernHills',
+        'E08000003' => 'manchester',
+        'E07000174' => 'mansfield',
+        'E06000035' => 'medway',
+        'E07000133' => 'melton',
+        'E07000187' => 'mendip',
+        'W06000024' => 'merthyrTydfil',
+        'E09000024' => 'merton',
+        'N09000008' => 'midAndEastAntrim',
+        'E07000042' => 'midDevon',
+        'E07000203' => 'midSuffolk',
+        'E07000228' => 'midSussex',
+        'N09000009' => 'midUlster',
+        'E06000002' => 'middlesbrough',
+        'S12000019' => 'midlothian',
+        'E06000042' => 'miltonKeynes',
+        'E07000210' => 'moleValley',
+        'W06000021' => 'monmouthshire',
+        'S12000020' => 'moray',
+        'W06000012' => 'neathPortTalbot',
+        'E07000091' => 'newForest',
+        'E07000175' => 'newarkAndSherwood',
+        'E08000021' => 'newcastleUponTyne',
+        'E07000195' => 'newcastleUnderLyme',
+        'E09000025' => 'newham',
+        'W06000022' => 'newport',
+        'N09000010' => 'newryMourneAndDown',
+        'S12000021' => 'northAyrshire',
+        'E07000043' => 'northDevon',
+        'E07000038' => 'northEastDerbyshire',
+        'E06000012' => 'northEastLincolnshire',
+        'E07000099' => 'northHertfordshire',
+        'E07000139' => 'northKesteven',
+        'S12000050' => 'northLanarkshire',
+        'E06000013' => 'northLincolnshire',
+        'E07000147' => 'northNorfolk',
+        'E06000024' => 'northSomerset',
+        'E08000022' => 'northTyneside',
+        'E07000218' => 'northWarwickshire',
+        'E07000134' => 'northWestLeicestershire',
+        'E07000154' => 'northampton',
+        'E06000057' => 'northumberland',
+        'E07000148' => 'norwich',
+        'E06000018' => 'nottingham',
+        'E07000219' => 'nuneatonAndBedworth',
+        'E07000135' => 'oadbyAndWigston',
+        'E08000004' => 'oldham',
+        'S12000023' => 'orkneyIslands',
+        'E07000178' => 'oxford',
+        'W06000009' => 'pembrokeshire',
+        'E07000122' => 'pendle',
+        'S12000048' => 'perthAndKinross',
+        'E06000031' => 'peterborough',
+        'E06000026' => 'plymouth',
+        'E06000044' => 'portsmouth',
+        'W06000023' => 'powys',
+        'E07000123' => 'preston',
+        'E06000038' => 'reading',
+        'E09000026' => 'redbridge',
+        'E06000003' => 'redcarAndCleveland',
+        'E07000236' => 'redditch',
+        'E07000211' => 'reigateAndBanstead',
+        'S12000038' => 'renfrewshire',
+        'W06000016' => 'rhonddaCynonTaf',
+        'E07000124' => 'ribbleValley',
+        'E09000027' => 'richmondUponThames',
+        'E07000166' => 'richmondshire',
+        'E08000005' => 'rochdale',
+        'E07000075' => 'rochford',
+        'E07000125' => 'rossendale',
+        'E07000064' => 'rother',
+        'E08000018' => 'rotherham',
+        'E07000220' => 'rugby',
+        'E07000212' => 'runnymede',
+        'E07000176' => 'rushcliffe',
+        'E07000092' => 'rushmoor',
+        'E06000017' => 'rutland',
+        'E07000167' => 'ryedale',
+        'E08000006' => 'salford',
+        'E08000028' => 'sandwell',
+        'E07000168' => 'scarborough',
+        'S12000026' => 'scottishBorders',
+        'E07000188' => 'sedgemoor',
+        'E08000014' => 'sefton',
+        'E07000169' => 'selby',
+        'E07000111' => 'sevenoaks',
+        'E08000019' => 'sheffield',
+        'S12000027' => 'shetlandIslands',
+        'E06000051' => 'shropshire',
+        'E06000039' => 'slough',
+        'E08000029' => 'solihull',
+        'E07000246' => 'somersetWestAndTaunton',
+        'S12000028' => 'southAyrshire',
+        'E07000006' => 'southBucks',
+        'E07000012' => 'southCambridgeshire',
+        'E07000039' => 'southDerbyshire',
+        'E06000025' => 'southGloucestershire',
+        'E07000044' => 'southHams',
+        'E07000140' => 'southHolland',
+        'E07000141' => 'southKesteven',
+        'E07000031' => 'southLakeland',
+        'S12000029' => 'southLanarkshire',
+        'E07000149' => 'southNorfolk',
+        'E07000155' => 'southNorthamptonshire',
+        'E07000179' => 'southOxfordshire',
+        'E07000126' => 'southRibble',
+        'E07000189' => 'southSomerset',
+        'E07000196' => 'southStaffordshire',
+        'E08000023' => 'southTyneside',
+        'E06000045' => 'southampton',
+        'E06000033' => 'southendOnSea',
+        'E09000028' => 'southwark',
+        'E07000213' => 'spelthorne',
+        'E07000240' => 'stAlbans',
+        'E08000013' => 'stHelens',
+        'E07000197' => 'stafford',
+        'E07000198' => 'staffordshireMoorlands',
+        'E07000243' => 'stevenage',
+        'S12000030' => 'stirling',
+        'E08000007' => 'stockport',
+        'E06000004' => 'stocktonOnTees',
+        'E06000021' => 'stokeOnTrent',
+        'E07000221' => 'stratfordOnAvon',
+        'E07000082' => 'stroud',
+        'E08000024' => 'sunderland',
+        'E07000214' => 'surreyHeath',
+        'E09000029' => 'sutton',
+        'E07000113' => 'swale',
+        'W06000011' => 'swansea',
+        'E06000030' => 'swindon',
+        'E08000008' => 'tameside',
+        'E07000199' => 'tamworth',
+        'E07000215' => 'tandridge',
+        'E07000045' => 'teignbridge',
+        'E06000020' => 'telfordAndWrekin',
+        'E07000076' => 'tendring',
+        'E07000093' => 'testValley',
+        'E07000083' => 'tewkesbury',
+        'E07000114' => 'thanet',
+        'E07000102' => 'threeRivers',
+        'E06000034' => 'thurrock',
+        'E07000115' => 'tonbridgeAndMalling',
+        'E06000027' => 'torbay',
+        'W06000020' => 'torfaen',
+        'E07000046' => 'torridge',
+        'E09000030' => 'towerHamlets',
+        'E08000009' => 'trafford',
+        'E07000116' => 'tunbridgeWells',
+        'E07000077' => 'uttlesford',
+        'W06000014' => 'valeOfGlamorgan',
+        'E07000180' => 'valeOfWhiteHorse',
+        'E08000036' => 'wakefield',
+        'E08000030' => 'walsall',
+        'E09000031' => 'walthamForest',
+        'E09000032' => 'wandsworth',
+        'E06000007' => 'warrington',
+        'E07000222' => 'warwick',
+        'E07000103' => 'watford',
+        'E07000216' => 'waverley',
+        'E07000065' => 'wealden',
+        'E07000156' => 'wellingborough',
+        'E07000241' => 'welwynHatfield',
+        'E06000037' => 'westBerkshire',
+        'E07000047' => 'westDevon',
+        'S12000039' => 'westDunbartonshire',
+        'E07000127' => 'westLancashire',
+        'E07000142' => 'westLindsey',
+        'S12000040' => 'westLothian',
+        'E07000181' => 'westOxfordshire',
+        'E07000245' => 'westSuffolk',
+        'E09000033' => 'westminster',
+        'E08000010' => 'wigan',
+        'E06000054' => 'wiltshire',
+        'E07000094' => 'winchester',
+        'E06000040' => 'windsorAndMaidenhead',
+        'E08000015' => 'wirral',
+        'E07000217' => 'woking',
+        'E06000041' => 'wokingham',
+        'E08000031' => 'wolverhampton',
+        'E07000237' => 'worcester',
+        'E07000229' => 'worthing',
+        'W06000006' => 'wrexham',
+        'E07000238' => 'wychavon',
+        'E07000007' => 'wycombe',
+        'E07000128' => 'wyre',
+        'E07000239' => 'wyreForest',
+        'E06000014' => 'york',
+    ];
+
     /**
      * @var string
      */
@@ -41,7 +427,23 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @param string $code
+     *
+     * @return \PHECovid\Client\Model\Ltla
+     */
+    public static function fromCode(string $code): self
+    {
+        $method = self::CODE_TO_METHOD[$code] ?? null;
+
+        if (null === $method) {
+            throw new \InvalidArgumentException('Unknown area code.');
+        }
+
+        return self::$method();
+    }
+
+    /**
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function aberdeenCity(): self
     {
@@ -49,7 +451,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function aberdeenshire(): self
     {
@@ -57,7 +459,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function adur(): self
     {
@@ -65,7 +467,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function allerdale(): self
     {
@@ -73,7 +475,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function amberValley(): self
     {
@@ -81,7 +483,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function angus(): self
     {
@@ -89,7 +491,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function antrimAndNewtownabbey(): self
     {
@@ -97,7 +499,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function ardsAndNorthDown(): self
     {
@@ -105,7 +507,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function argyllAndBute(): self
     {
@@ -113,7 +515,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function armaghCityBanbridgeAndCraigavon(): self
     {
@@ -121,7 +523,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function arun(): self
     {
@@ -129,7 +531,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function ashfield(): self
     {
@@ -137,7 +539,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function ashford(): self
     {
@@ -145,7 +547,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function aylesburyVale(): self
     {
@@ -153,7 +555,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function babergh(): self
     {
@@ -161,7 +563,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function barkingAndDagenham(): self
     {
@@ -169,7 +571,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function barnet(): self
     {
@@ -177,7 +579,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function barnsley(): self
     {
@@ -185,7 +587,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function barrowInFurness(): self
     {
@@ -193,7 +595,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function basildon(): self
     {
@@ -201,7 +603,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function basingstokeAndDeane(): self
     {
@@ -209,7 +611,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bassetlaw(): self
     {
@@ -217,7 +619,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bathAndNorthEastSomerset(): self
     {
@@ -225,7 +627,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bedford(): self
     {
@@ -233,7 +635,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function belfast(): self
     {
@@ -241,7 +643,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bexley(): self
     {
@@ -249,7 +651,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function birmingham(): self
     {
@@ -257,7 +659,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function blaby(): self
     {
@@ -265,7 +667,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function blackburnWithDarwen(): self
     {
@@ -273,7 +675,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function blackpool(): self
     {
@@ -281,7 +683,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function blaenauGwent(): self
     {
@@ -289,7 +691,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bolsover(): self
     {
@@ -297,7 +699,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bolton(): self
     {
@@ -305,7 +707,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function boston(): self
     {
@@ -313,7 +715,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bournemouthChristchurchAndPoole(): self
     {
@@ -321,7 +723,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bracknellForest(): self
     {
@@ -329,7 +731,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bradford(): self
     {
@@ -337,7 +739,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function braintree(): self
     {
@@ -345,7 +747,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function breckland(): self
     {
@@ -353,7 +755,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function brent(): self
     {
@@ -361,7 +763,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function brentwood(): self
     {
@@ -369,7 +771,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bridgend(): self
     {
@@ -377,7 +779,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function brightonAndHove(): self
     {
@@ -385,7 +787,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bristolCityOf(): self
     {
@@ -393,7 +795,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function broadland(): self
     {
@@ -401,7 +803,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bromley(): self
     {
@@ -409,7 +811,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bromsgrove(): self
     {
@@ -417,7 +819,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function broxbourne(): self
     {
@@ -425,7 +827,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function broxtowe(): self
     {
@@ -433,7 +835,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function burnley(): self
     {
@@ -441,7 +843,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function bury(): self
     {
@@ -449,7 +851,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function caerphilly(): self
     {
@@ -457,7 +859,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function calderdale(): self
     {
@@ -465,7 +867,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cambridge(): self
     {
@@ -473,7 +875,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function camden(): self
     {
@@ -481,7 +883,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cannockChase(): self
     {
@@ -489,7 +891,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function canterbury(): self
     {
@@ -497,7 +899,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cardiff(): self
     {
@@ -505,7 +907,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function carlisle(): self
     {
@@ -513,7 +915,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function carmarthenshire(): self
     {
@@ -521,7 +923,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function castlePoint(): self
     {
@@ -529,7 +931,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function causewayCoastAndGlens(): self
     {
@@ -537,7 +939,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function centralBedfordshire(): self
     {
@@ -545,7 +947,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function ceredigion(): self
     {
@@ -553,7 +955,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function charnwood(): self
     {
@@ -561,7 +963,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function chelmsford(): self
     {
@@ -569,7 +971,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cheltenham(): self
     {
@@ -577,7 +979,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cherwell(): self
     {
@@ -585,7 +987,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cheshireEast(): self
     {
@@ -593,7 +995,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cheshireWestAndChester(): self
     {
@@ -601,7 +1003,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function chesterfield(): self
     {
@@ -609,7 +1011,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function chichester(): self
     {
@@ -617,7 +1019,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function chiltern(): self
     {
@@ -625,7 +1027,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function chorley(): self
     {
@@ -633,7 +1035,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cityOfEdinburgh(): self
     {
@@ -641,7 +1043,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function clackmannanshire(): self
     {
@@ -649,7 +1051,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function colchester(): self
     {
@@ -657,7 +1059,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function comhairleNanEileanSiar(): self
     {
@@ -665,7 +1067,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function conwy(): self
     {
@@ -673,7 +1075,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function copeland(): self
     {
@@ -681,7 +1083,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function corby(): self
     {
@@ -689,7 +1091,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cornwallAndIslesOfScilly(): self
     {
@@ -697,7 +1099,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function cotswold(): self
     {
@@ -705,7 +1107,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function countyDurham(): self
     {
@@ -713,7 +1115,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function coventry(): self
     {
@@ -721,7 +1123,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function craven(): self
     {
@@ -729,7 +1131,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function crawley(): self
     {
@@ -737,7 +1139,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function croydon(): self
     {
@@ -745,7 +1147,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function dacorum(): self
     {
@@ -753,7 +1155,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function darlington(): self
     {
@@ -761,7 +1163,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function dartford(): self
     {
@@ -769,7 +1171,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function daventry(): self
     {
@@ -777,7 +1179,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function denbighshire(): self
     {
@@ -785,7 +1187,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function derby(): self
     {
@@ -793,7 +1195,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function derbyshireDales(): self
     {
@@ -801,7 +1203,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function derryCityAndStrabane(): self
     {
@@ -809,7 +1211,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function doncaster(): self
     {
@@ -817,7 +1219,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function dorset(): self
     {
@@ -825,7 +1227,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function dover(): self
     {
@@ -833,7 +1235,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function dudley(): self
     {
@@ -841,7 +1243,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function dumfriesAndGalloway(): self
     {
@@ -849,7 +1251,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function dundeeCity(): self
     {
@@ -857,7 +1259,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function ealing(): self
     {
@@ -865,7 +1267,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastAyrshire(): self
     {
@@ -873,7 +1275,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastCambridgeshire(): self
     {
@@ -881,7 +1283,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastDevon(): self
     {
@@ -889,7 +1291,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastDunbartonshire(): self
     {
@@ -897,7 +1299,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastHampshire(): self
     {
@@ -905,7 +1307,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastHertfordshire(): self
     {
@@ -913,7 +1315,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastLindsey(): self
     {
@@ -921,7 +1323,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastLothian(): self
     {
@@ -929,7 +1331,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastNorthamptonshire(): self
     {
@@ -937,7 +1339,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastRenfrewshire(): self
     {
@@ -945,7 +1347,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastRidingOfYorkshire(): self
     {
@@ -953,7 +1355,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastStaffordshire(): self
     {
@@ -961,7 +1363,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastSuffolk(): self
     {
@@ -969,7 +1371,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastbourne(): self
     {
@@ -977,7 +1379,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eastleigh(): self
     {
@@ -985,7 +1387,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eden(): self
     {
@@ -993,7 +1395,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function elmbridge(): self
     {
@@ -1001,7 +1403,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function enfield(): self
     {
@@ -1009,7 +1411,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function eppingForest(): self
     {
@@ -1017,7 +1419,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function epsomAndEwell(): self
     {
@@ -1025,7 +1427,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function erewash(): self
     {
@@ -1033,7 +1435,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function exeter(): self
     {
@@ -1041,7 +1443,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function falkirk(): self
     {
@@ -1049,7 +1451,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function fareham(): self
     {
@@ -1057,7 +1459,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function fenland(): self
     {
@@ -1065,7 +1467,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function fermanaghAndOmagh(): self
     {
@@ -1073,7 +1475,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function fife(): self
     {
@@ -1081,7 +1483,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function flintshire(): self
     {
@@ -1089,7 +1491,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function folkestoneAndHythe(): self
     {
@@ -1097,7 +1499,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function forestOfDean(): self
     {
@@ -1105,7 +1507,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function fylde(): self
     {
@@ -1113,7 +1515,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function gateshead(): self
     {
@@ -1121,7 +1523,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function gedling(): self
     {
@@ -1129,7 +1531,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function glasgowCity(): self
     {
@@ -1137,7 +1539,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function gloucester(): self
     {
@@ -1145,7 +1547,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function gosport(): self
     {
@@ -1153,7 +1555,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function gravesham(): self
     {
@@ -1161,7 +1563,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function greatYarmouth(): self
     {
@@ -1169,7 +1571,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function greenwich(): self
     {
@@ -1177,7 +1579,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function guildford(): self
     {
@@ -1185,7 +1587,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function gwynedd(): self
     {
@@ -1193,7 +1595,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hackneyAndCityOfLondon(): self
     {
@@ -1201,7 +1603,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function halton(): self
     {
@@ -1209,7 +1611,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hambleton(): self
     {
@@ -1217,7 +1619,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hammersmithAndFulham(): self
     {
@@ -1225,7 +1627,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function harborough(): self
     {
@@ -1233,7 +1635,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function haringey(): self
     {
@@ -1241,7 +1643,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function harlow(): self
     {
@@ -1249,7 +1651,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function harrogate(): self
     {
@@ -1257,7 +1659,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function harrow(): self
     {
@@ -1265,7 +1667,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hart(): self
     {
@@ -1273,7 +1675,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hartlepool(): self
     {
@@ -1281,7 +1683,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hastings(): self
     {
@@ -1289,7 +1691,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function havant(): self
     {
@@ -1297,7 +1699,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function havering(): self
     {
@@ -1305,7 +1707,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function herefordshireCountyOf(): self
     {
@@ -1313,7 +1715,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hertsmere(): self
     {
@@ -1321,7 +1723,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function highPeak(): self
     {
@@ -1329,7 +1731,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function highland(): self
     {
@@ -1337,7 +1739,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hillingdon(): self
     {
@@ -1345,7 +1747,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hinckleyAndBosworth(): self
     {
@@ -1353,7 +1755,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function horsham(): self
     {
@@ -1361,7 +1763,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hounslow(): self
     {
@@ -1369,7 +1771,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function huntingdonshire(): self
     {
@@ -1377,7 +1779,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function hyndburn(): self
     {
@@ -1385,7 +1787,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function inverclyde(): self
     {
@@ -1393,7 +1795,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function ipswich(): self
     {
@@ -1401,7 +1803,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function isleOfAnglesey(): self
     {
@@ -1409,7 +1811,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function isleOfWight(): self
     {
@@ -1417,7 +1819,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function islington(): self
     {
@@ -1425,7 +1827,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function kensingtonAndChelsea(): self
     {
@@ -1433,7 +1835,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function kettering(): self
     {
@@ -1441,7 +1843,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function kingsLynnAndWestNorfolk(): self
     {
@@ -1449,7 +1851,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function kingstonUponHullCityOf(): self
     {
@@ -1457,7 +1859,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function kingstonUponThames(): self
     {
@@ -1465,7 +1867,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function kirklees(): self
     {
@@ -1473,7 +1875,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function knowsley(): self
     {
@@ -1481,7 +1883,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function lambeth(): self
     {
@@ -1489,7 +1891,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function lancaster(): self
     {
@@ -1497,7 +1899,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function leeds(): self
     {
@@ -1505,7 +1907,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function leicester(): self
     {
@@ -1513,7 +1915,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function lewes(): self
     {
@@ -1521,7 +1923,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function lewisham(): self
     {
@@ -1529,7 +1931,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function lichfield(): self
     {
@@ -1537,7 +1939,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function lincoln(): self
     {
@@ -1545,7 +1947,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function lisburnAndCastlereagh(): self
     {
@@ -1553,7 +1955,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function liverpool(): self
     {
@@ -1561,7 +1963,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function luton(): self
     {
@@ -1569,7 +1971,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function maidstone(): self
     {
@@ -1577,7 +1979,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function maldon(): self
     {
@@ -1585,7 +1987,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function malvernHills(): self
     {
@@ -1593,7 +1995,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function manchester(): self
     {
@@ -1601,7 +2003,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function mansfield(): self
     {
@@ -1609,7 +2011,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function medway(): self
     {
@@ -1617,7 +2019,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function melton(): self
     {
@@ -1625,7 +2027,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function mendip(): self
     {
@@ -1633,7 +2035,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function merthyrTydfil(): self
     {
@@ -1641,7 +2043,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function merton(): self
     {
@@ -1649,7 +2051,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function midAndEastAntrim(): self
     {
@@ -1657,7 +2059,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function midDevon(): self
     {
@@ -1665,7 +2067,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function midSuffolk(): self
     {
@@ -1673,7 +2075,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function midSussex(): self
     {
@@ -1681,7 +2083,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function midUlster(): self
     {
@@ -1689,7 +2091,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function middlesbrough(): self
     {
@@ -1697,7 +2099,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function midlothian(): self
     {
@@ -1705,7 +2107,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function miltonKeynes(): self
     {
@@ -1713,7 +2115,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function moleValley(): self
     {
@@ -1721,7 +2123,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function monmouthshire(): self
     {
@@ -1729,7 +2131,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function moray(): self
     {
@@ -1737,7 +2139,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function neathPortTalbot(): self
     {
@@ -1745,7 +2147,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function newForest(): self
     {
@@ -1753,7 +2155,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function newarkAndSherwood(): self
     {
@@ -1761,7 +2163,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function newcastleUponTyne(): self
     {
@@ -1769,7 +2171,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function newcastleUnderLyme(): self
     {
@@ -1777,7 +2179,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function newham(): self
     {
@@ -1785,7 +2187,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function newport(): self
     {
@@ -1793,7 +2195,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function newryMourneAndDown(): self
     {
@@ -1801,7 +2203,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northAyrshire(): self
     {
@@ -1809,7 +2211,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northDevon(): self
     {
@@ -1817,7 +2219,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northEastDerbyshire(): self
     {
@@ -1825,7 +2227,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northEastLincolnshire(): self
     {
@@ -1833,7 +2235,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northHertfordshire(): self
     {
@@ -1841,7 +2243,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northKesteven(): self
     {
@@ -1849,7 +2251,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northLanarkshire(): self
     {
@@ -1857,7 +2259,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northLincolnshire(): self
     {
@@ -1865,7 +2267,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northNorfolk(): self
     {
@@ -1873,7 +2275,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northSomerset(): self
     {
@@ -1881,7 +2283,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northTyneside(): self
     {
@@ -1889,7 +2291,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northWarwickshire(): self
     {
@@ -1897,7 +2299,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northWestLeicestershire(): self
     {
@@ -1905,7 +2307,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northampton(): self
     {
@@ -1913,7 +2315,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function northumberland(): self
     {
@@ -1921,7 +2323,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function norwich(): self
     {
@@ -1929,7 +2331,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function nottingham(): self
     {
@@ -1937,7 +2339,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function nuneatonAndBedworth(): self
     {
@@ -1945,7 +2347,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function oadbyAndWigston(): self
     {
@@ -1953,7 +2355,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function oldham(): self
     {
@@ -1961,7 +2363,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function orkneyIslands(): self
     {
@@ -1969,7 +2371,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function oxford(): self
     {
@@ -1977,7 +2379,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function pembrokeshire(): self
     {
@@ -1985,7 +2387,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function pendle(): self
     {
@@ -1993,7 +2395,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function perthAndKinross(): self
     {
@@ -2001,7 +2403,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function peterborough(): self
     {
@@ -2009,7 +2411,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function plymouth(): self
     {
@@ -2017,7 +2419,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function portsmouth(): self
     {
@@ -2025,7 +2427,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function powys(): self
     {
@@ -2033,7 +2435,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function preston(): self
     {
@@ -2041,7 +2443,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function reading(): self
     {
@@ -2049,7 +2451,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function redbridge(): self
     {
@@ -2057,7 +2459,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function redcarAndCleveland(): self
     {
@@ -2065,7 +2467,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function redditch(): self
     {
@@ -2073,7 +2475,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function reigateAndBanstead(): self
     {
@@ -2081,7 +2483,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function renfrewshire(): self
     {
@@ -2089,7 +2491,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function residentOutsideWales(): self
     {
@@ -2097,7 +2499,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rhonddaCynonTaf(): self
     {
@@ -2105,7 +2507,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function ribbleValley(): self
     {
@@ -2113,7 +2515,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function richmondUponThames(): self
     {
@@ -2121,7 +2523,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function richmondshire(): self
     {
@@ -2129,7 +2531,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rochdale(): self
     {
@@ -2137,7 +2539,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rochford(): self
     {
@@ -2145,7 +2547,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rossendale(): self
     {
@@ -2153,7 +2555,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rother(): self
     {
@@ -2161,7 +2563,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rotherham(): self
     {
@@ -2169,7 +2571,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rugby(): self
     {
@@ -2177,7 +2579,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function runnymede(): self
     {
@@ -2185,7 +2587,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rushcliffe(): self
     {
@@ -2193,7 +2595,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rushmoor(): self
     {
@@ -2201,7 +2603,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function rutland(): self
     {
@@ -2209,7 +2611,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function ryedale(): self
     {
@@ -2217,7 +2619,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function salford(): self
     {
@@ -2225,7 +2627,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function sandwell(): self
     {
@@ -2233,7 +2635,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function scarborough(): self
     {
@@ -2241,7 +2643,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function scottishBorders(): self
     {
@@ -2249,7 +2651,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function sedgemoor(): self
     {
@@ -2257,7 +2659,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function sefton(): self
     {
@@ -2265,7 +2667,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function selby(): self
     {
@@ -2273,7 +2675,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function sevenoaks(): self
     {
@@ -2281,7 +2683,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function sheffield(): self
     {
@@ -2289,7 +2691,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function shetlandIslands(): self
     {
@@ -2297,7 +2699,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function shropshire(): self
     {
@@ -2305,7 +2707,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function slough(): self
     {
@@ -2313,7 +2715,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function solihull(): self
     {
@@ -2321,7 +2723,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function somersetWestAndTaunton(): self
     {
@@ -2329,7 +2731,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southAyrshire(): self
     {
@@ -2337,7 +2739,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southBucks(): self
     {
@@ -2345,7 +2747,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southCambridgeshire(): self
     {
@@ -2353,7 +2755,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southDerbyshire(): self
     {
@@ -2361,7 +2763,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southGloucestershire(): self
     {
@@ -2369,7 +2771,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southHams(): self
     {
@@ -2377,7 +2779,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southHolland(): self
     {
@@ -2385,7 +2787,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southKesteven(): self
     {
@@ -2393,7 +2795,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southLakeland(): self
     {
@@ -2401,7 +2803,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southLanarkshire(): self
     {
@@ -2409,7 +2811,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southNorfolk(): self
     {
@@ -2417,7 +2819,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southNorthamptonshire(): self
     {
@@ -2425,7 +2827,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southOxfordshire(): self
     {
@@ -2433,7 +2835,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southRibble(): self
     {
@@ -2441,7 +2843,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southSomerset(): self
     {
@@ -2449,7 +2851,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southStaffordshire(): self
     {
@@ -2457,7 +2859,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southTyneside(): self
     {
@@ -2465,7 +2867,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southampton(): self
     {
@@ -2473,7 +2875,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southendOnSea(): self
     {
@@ -2481,7 +2883,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function southwark(): self
     {
@@ -2489,7 +2891,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function spelthorne(): self
     {
@@ -2497,7 +2899,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stAlbans(): self
     {
@@ -2505,7 +2907,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stHelens(): self
     {
@@ -2513,7 +2915,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stafford(): self
     {
@@ -2521,7 +2923,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function staffordshireMoorlands(): self
     {
@@ -2529,7 +2931,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stevenage(): self
     {
@@ -2537,7 +2939,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stirling(): self
     {
@@ -2545,7 +2947,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stockport(): self
     {
@@ -2553,7 +2955,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stocktonOnTees(): self
     {
@@ -2561,7 +2963,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stokeOnTrent(): self
     {
@@ -2569,7 +2971,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stratfordOnAvon(): self
     {
@@ -2577,7 +2979,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function stroud(): self
     {
@@ -2585,7 +2987,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function sunderland(): self
     {
@@ -2593,7 +2995,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function surreyHeath(): self
     {
@@ -2601,7 +3003,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function sutton(): self
     {
@@ -2609,7 +3011,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function swale(): self
     {
@@ -2617,7 +3019,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function swansea(): self
     {
@@ -2625,7 +3027,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function swindon(): self
     {
@@ -2633,7 +3035,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function tameside(): self
     {
@@ -2641,7 +3043,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function tamworth(): self
     {
@@ -2649,7 +3051,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function tandridge(): self
     {
@@ -2657,7 +3059,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function teignbridge(): self
     {
@@ -2665,7 +3067,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function telfordAndWrekin(): self
     {
@@ -2673,7 +3075,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function tendring(): self
     {
@@ -2681,7 +3083,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function testValley(): self
     {
@@ -2689,7 +3091,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function tewkesbury(): self
     {
@@ -2697,7 +3099,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function thanet(): self
     {
@@ -2705,7 +3107,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function threeRivers(): self
     {
@@ -2713,7 +3115,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function thurrock(): self
     {
@@ -2721,7 +3123,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function tonbridgeAndMalling(): self
     {
@@ -2729,7 +3131,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function torbay(): self
     {
@@ -2737,7 +3139,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function torfaen(): self
     {
@@ -2745,7 +3147,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function torridge(): self
     {
@@ -2753,7 +3155,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function towerHamlets(): self
     {
@@ -2761,7 +3163,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function trafford(): self
     {
@@ -2769,7 +3171,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function tunbridgeWells(): self
     {
@@ -2777,7 +3179,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function uttlesford(): self
     {
@@ -2785,7 +3187,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function valeOfGlamorgan(): self
     {
@@ -2793,7 +3195,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function valeOfWhiteHorse(): self
     {
@@ -2801,7 +3203,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wakefield(): self
     {
@@ -2809,7 +3211,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function walsall(): self
     {
@@ -2817,7 +3219,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function walthamForest(): self
     {
@@ -2825,7 +3227,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wandsworth(): self
     {
@@ -2833,7 +3235,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function warrington(): self
     {
@@ -2841,7 +3243,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function warwick(): self
     {
@@ -2849,7 +3251,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function watford(): self
     {
@@ -2857,7 +3259,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function waverley(): self
     {
@@ -2865,7 +3267,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wealden(): self
     {
@@ -2873,7 +3275,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wellingborough(): self
     {
@@ -2881,7 +3283,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function welwynHatfield(): self
     {
@@ -2889,7 +3291,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westBerkshire(): self
     {
@@ -2897,7 +3299,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westDevon(): self
     {
@@ -2905,7 +3307,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westDunbartonshire(): self
     {
@@ -2913,7 +3315,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westLancashire(): self
     {
@@ -2921,7 +3323,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westLindsey(): self
     {
@@ -2929,7 +3331,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westLothian(): self
     {
@@ -2937,7 +3339,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westOxfordshire(): self
     {
@@ -2945,7 +3347,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westSuffolk(): self
     {
@@ -2953,7 +3355,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function westminster(): self
     {
@@ -2961,7 +3363,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wigan(): self
     {
@@ -2969,7 +3371,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wiltshire(): self
     {
@@ -2977,7 +3379,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function winchester(): self
     {
@@ -2985,7 +3387,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function windsorAndMaidenhead(): self
     {
@@ -2993,7 +3395,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wirral(): self
     {
@@ -3001,7 +3403,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function woking(): self
     {
@@ -3009,7 +3411,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wokingham(): self
     {
@@ -3017,7 +3419,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wolverhampton(): self
     {
@@ -3025,7 +3427,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function worcester(): self
     {
@@ -3033,7 +3435,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function worthing(): self
     {
@@ -3041,7 +3443,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wrexham(): self
     {
@@ -3049,7 +3451,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wychavon(): self
     {
@@ -3057,7 +3459,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wycombe(): self
     {
@@ -3065,7 +3467,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wyre(): self
     {
@@ -3073,7 +3475,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function wyreForest(): self
     {
@@ -3081,7 +3483,7 @@ final class Ltla
     }
 
     /**
-     * @return \PHECovid\Model\Ltla
+     * @return \PHECovid\Client\Model\Ltla
      */
     public static function york(): self
     {

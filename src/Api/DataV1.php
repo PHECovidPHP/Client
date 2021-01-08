@@ -11,15 +11,15 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Api;
+namespace PHECovid\Client\Api;
 
-use PHECovid\Client;
-use PHECovid\HttpClient\Util\JsonArray;
-use PHECovid\Model\Date;
-use PHECovid\Model\Ltla;
-use PHECovid\Model\Nation;
-use PHECovid\Model\Region;
-use PHECovid\Model\Utla;
+use PHECovid\Client\Client;
+use PHECovid\Client\HttpClient\Util\JsonArray;
+use PHECovid\Client\Model\Date;
+use PHECovid\Client\Model\Ltla;
+use PHECovid\Client\Model\Nation;
+use PHECovid\Client\Model\Region;
+use PHECovid\Client\Model\Utla;
 
 /**
  * The data V1 API class.
@@ -34,7 +34,7 @@ class DataV1 extends AbstractApi
     protected $structure;
 
     /**
-     * @var \PHECovid\Model\Date|null
+     * @var \PHECovid\Client\Model\Date|null
      */
     protected $date;
 
@@ -46,9 +46,9 @@ class DataV1 extends AbstractApi
     /**
      * Create a new data API instance.
      *
-     * @param \PHECovid\Client     $client
+     * @param \PHECovid\Client\Client     $client
      * @param array                $structure
-     * @param \PHECovid\Model\Date $date
+     * @param \PHECovid\Client\Model\Date $date
      * @param string|null          $latestBy
      *
      * @return void
@@ -82,7 +82,7 @@ class DataV1 extends AbstractApi
     }
 
     /**
-     * @param \PHECovid\Model\Nation $nation
+     * @param \PHECovid\Client\Model\Nation $nation
      *
      * @throws \Http\Client\Exception
      *
@@ -104,7 +104,7 @@ class DataV1 extends AbstractApi
     }
 
     /**
-     * @param \PHECovid\Model\Region $region
+     * @param \PHECovid\Client\Model\Region $region
      *
      * @throws \Http\Client\Exception
      *
@@ -126,7 +126,7 @@ class DataV1 extends AbstractApi
     }
 
     /**
-     * @param \PHECovid\Model\Utla $utla
+     * @param \PHECovid\Client\Model\Utla $utla
      *
      * @throws \Http\Client\Exception
      *

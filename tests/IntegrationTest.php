@@ -11,13 +11,14 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Tests;
+namespace PHECovid\Tests\Client;
 
 use DateInterval;
 use DateTimeImmutable;
-use PHECovid\Client;
-use PHECovid\Model\Date;
-use PHECovid\Model\Msoa;
+use PHECovid\Client\Client;
+use PHECovid\Client\Model\Date;
+use PHECovid\Client\Model\Msoa;
+use PHECovid\Client\Model\Postcode;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -28,7 +29,11 @@ final class IntegrationTest extends TestCase
     public function testDataV2(): void
     {
         $client = new Client();
-        $data = $client->dataV2(Date::createFromDateTime((new DateTimeImmutable())->sub(new DateInterval('P3M'))));
-        $this->assertIsArray($data->forMsoa(Msoa::northumberlandPonteland()));
+        $data = $client->dataV2(Date::fromDateTime((new DateTimeImmutable())->sub(new DateInterval('P3M'))));
+
+        $postcode = Postcode::create('YO318RT');
+
+        $this->assertIsArray($data->forMsoa($postcode->getMsoa()));
+        $this->assertIsArray($data->forLtla($postcode->getMsoa()->getLtla()));
     }
 }

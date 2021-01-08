@@ -11,11 +11,11 @@ declare(strict_types=1);
  * file that was distributed with this source code.
  */
 
-namespace PHECovid\Api;
+namespace PHECovid\Client\Api;
 
-use PHECovid\Client;
-use PHECovid\HttpClient\Message\ResponseMediator;
-use PHECovid\HttpClient\Util\QueryStringBuilder;
+use PHECovid\Client\Client;
+use PHECovid\Client\HttpClient\Message\ResponseMediator;
+use PHECovid\Client\HttpClient\Util\QueryStringBuilder;
 use Psr\Http\Message\ResponseInterface;
 
 /**
