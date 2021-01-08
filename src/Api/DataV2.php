@@ -19,6 +19,7 @@ use PHECovid\Client\Model\Cases;
 use PHECovid\Client\Model\Date;
 use PHECovid\Client\Model\Ltla;
 use PHECovid\Client\Model\Msoa;
+use PHECovid\Client\Model\Nation;
 use PHECovid\Client\Model\Region;
 use PHECovid\Client\Model\Utla;
 
