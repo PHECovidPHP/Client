@@ -136,7 +136,7 @@ final class Fetcher
             }
         }
 
-        return array_merge(self::LEGACY_LTLA_TO_UTLA_MAP, $map);
+        return \array_merge(self::LEGACY_LTLA_TO_UTLA_MAP, $map);
     }
 
     public function fetchMsoaData(): array
